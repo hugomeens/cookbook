@@ -11,7 +11,7 @@ import {
     Popover,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
-import useAuth from '../tools/useAuth';
+import { useAuth } from '../tools/auth-provider';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import GridView from '../../components/grid-view';
 import mockdata from './mockdata';
 import ItemGridViewIngredients from './item-grid-view';
+import ModalCreateIngredient from './create';
 
 const Ingredients = () => {
     const [showCreate, setShowCreate] = useState(false);
@@ -11,7 +12,7 @@ const Ingredients = () => {
         <>
             <NavbarIngredients handler={toggleModalCreate} />
             <GridView data={mockdata} item={ItemGridViewIngredients} />
-            {/* <ModalCreate open={showCreate} handler={toggleModalCreate} /> */}
+            <ModalCreateIngredient opened={showCreate} handler={toggleModalCreate} />
         </>
     );
 };

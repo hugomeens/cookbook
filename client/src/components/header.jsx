@@ -1,10 +1,8 @@
 import { createStyles, Header, Group, rem, UnstyledButton, Title, ActionIcon, Tooltip } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
-// import { useDisclosure } from '@mantine/hooks';
 import SwitchToggle from './toggle-colorscheme';
 import { IconUserCheck, IconUserEdit, IconUserOff } from '@tabler/icons-react';
-import useAuth from '../tools/useAuth';
-import { logout } from '../tools/auth-provider';
+import { logout, useAuth } from '../tools/auth-provider';
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -48,20 +46,18 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const links = [
-    { label: 'Home', link: '/' },
     { label: 'Recipes', link: '/recipes' },
     { label: 'Ingredients', link: '/ingredients' },
 ];
 
 const HeaderSearch = () => {
-    // const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
     const { role } = useAuth();
     const color = role === 'admin' ? 'red' : role === 'editor' ? 'green' : 'gray';
 
     const items = links.map((link) => (
         <UnstyledButton key={link.label} className={classes.link} component="a" href={link.link}>
-            {link.label}
+            <Title order={4}>{link.label}</Title>
         </UnstyledButton>
     ));
 
@@ -69,9 +65,10 @@ const HeaderSearch = () => {
         <Header height={56} className={classes.header}>
             <div className={classes.inner}>
                 <Group>
-                    {/* <Burger opened={opened} onClick={toggle} size="sm" /> */}
                     <MantineLogo size={30} type="mark" color="red" />
-                    <Title order={1}>uuCookBook</Title>
+                    <UnstyledButton component="a" href="/" className={classes.link}>
+                        <Title order={1}>uuCookBook</Title>
+                    </UnstyledButton>
                 </Group>
 
                 <Group>
@@ -79,7 +76,11 @@ const HeaderSearch = () => {
                         {items}
                     </Group>
                     <SwitchToggle />
-                    <Tooltip label="Change user" withArrow color={color}>
+                    <Tooltip
+                        label={role === 'admin' || role === 'editor' ? 'Logout' : 'Connect'}
+                        withArrow
+                        color={color}
+                    >
                         <ActionIcon variant="light" size="lg" onClick={logout} color={color}>
                             {role === 'admin' ? (
                                 <IconUserCheck size="1.2rem" stroke={1.5} />

@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useContext } from 'react';
 
 const AuthContext = createContext();
 
@@ -13,5 +13,7 @@ const logout = () => {
     window.location.href = '/auth';
 };
 
+const useAuth = () => useContext(AuthContext);
+
 export default AuthContext;
-export { AuthProvider, logout };
+export { AuthProvider, logout, useAuth };
