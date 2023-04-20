@@ -1,16 +1,16 @@
 import { Card, Divider, Text, Title, Image, Badge } from '@mantine/core';
 
-const ItemGridView = ({ recipe }) => {
+const ItemGridViewRecipe = ({ item }) => {
     return (
         <Card shadow="sm" padding="md" withBorder>
             <Card.Section>
-                <Image src={recipe.image} alt={recipe.title} withPlaceholder height={160} />
+                <Image src={item.image} alt={item.title} withPlaceholder height={160} />
             </Card.Section>
-            <Title order={3}>{recipe.title}</Title>
+            <Title order={3}>{item.title}</Title>
             <Divider my="sm" />
-            <Text>{recipe.time}</Text>
+            <Text>{item.time}</Text>
             <Divider my="sm" />
-            {recipe.tags.map((tag) => (
+            {item.tags.map((tag) => (
                 <Badge key={tag} color="red" mr="xs">
                     #{tag}
                 </Badge>
@@ -19,4 +19,4 @@ const ItemGridView = ({ recipe }) => {
     );
 };
 
-export default ItemGridView;
+export default ItemGridViewRecipe;

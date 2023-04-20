@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "Apple",
+        "image": "https://picsum.photos/200/300",
+        "unit": "kg",
+        "valid": true
+    },
+    {
+        "id": 2,
+        "name": "Banana",
+        "image": "https://picsum.photos/200/300",
+        "unit": "kg",
+        "valid": true
+    },
+    {
+        "id": 3,
+        "name": "Orange",
+        "image": "https://picsum.photos/200/300",
+        "unit": "kg",
+        "valid": true
+    },
+    {
+        "id": 4,
+        "name": "Pineapple",
+        "image": "https://picsum.photos/200/300",
+        "unit": "kg",
+        "valid": true
+    },
+    {
+        "id": 5,
+        "name": "Watermelon",
+        "image": "https://picsum.photos/200/300",
+        "unit": "kg",
+        "valid": false
+    },
+    {
+        "id": 6,
+        "name": "Mango",
+        "image": "https://picsum.photos/200/300",
+        "unit": "kg",
+        "valid": true
+    }
+]

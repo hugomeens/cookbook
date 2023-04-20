@@ -1,7 +1,9 @@
 import ModalCreate from './create';
-import GridView from './grid-view';
+import GridView from '../../components/grid-view';
 import NavbarRecipes from './navbar';
 import { useState } from 'react';
+import mockdata from './mockdata';
+import ItemGridViewRecipe from './item-grid-view';
 
 const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
@@ -9,7 +11,7 @@ const Recipes = () => {
     return (
         <>
             <NavbarRecipes handler={toggleModalCreate} />
-            <GridView />
+            <GridView data={mockdata} item={ItemGridViewRecipe} />
             <ModalCreate open={showCreate} handler={toggleModalCreate} />
         </>
     );

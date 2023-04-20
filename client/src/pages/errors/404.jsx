@@ -50,7 +50,7 @@ const NotFound = () => {
                 another URL.
             </Text>
             <Group position="center">
-                <Button variant="subtle" size="md">
+                <Button variant="subtle" size="md" component="a" href="/">
                     Take me back to home page
                 </Button>
             </Group>

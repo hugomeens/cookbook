@@ -1,8 +1,8 @@
-import { createStyles, Header, Autocomplete, Group, Burger, rem, UnstyledButton } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { IconSearch } from '@tabler/icons-react';
+import { createStyles, Header, Group, rem, UnstyledButton, Title, ActionIcon, Tooltip } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
+// import { useDisclosure } from '@mantine/hooks';
 import SwitchToggle from './toggle-colorscheme';
+import { IconUserShield } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -52,11 +52,11 @@ const links = [
 ];
 
 const HeaderSearch = () => {
-    const [opened, { toggle }] = useDisclosure(false);
+    // const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
 
     const items = links.map((link) => (
-        <UnstyledButton key={link.label} className={classes.link} onClick={() => (window.location.href = link.link)}>
+        <UnstyledButton key={link.label} className={classes.link} component="a" href={link.link}>
             {link.label}
         </UnstyledButton>
     ));
@@ -65,21 +65,21 @@ const HeaderSearch = () => {
         <Header height={56} className={classes.header}>
             <div className={classes.inner}>
                 <Group>
-                    <Burger opened={opened} onClick={toggle} size="sm" />
-                    <MantineLogo size={28} />
+                    {/* <Burger opened={opened} onClick={toggle} size="sm" /> */}
+                    <MantineLogo size={30} type="mark" color="red" />
+                    <Title order={1}>uuCookBook</Title>
                 </Group>
 
                 <Group>
                     <Group ml={50} spacing={5} className={classes.links}>
                         {items}
                     </Group>
-                    <Autocomplete
-                        className={classes.search}
-                        placeholder="Search"
-                        icon={<IconSearch size="1rem" stroke={1.5} />}
-                        data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
-                    />
                     <SwitchToggle />
+                    <Tooltip label="Users" withArrow color="red">
+                        <ActionIcon variant="light" color="red" size="lg" component="a" href="/auth">
+                            <IconUserShield size="1.2rem" stroke={1.5} />
+                        </ActionIcon>
+                    </Tooltip>
                 </Group>
             </div>
         </Header>
