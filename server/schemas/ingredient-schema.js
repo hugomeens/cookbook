@@ -9,6 +9,7 @@ const createIngredientSchema = {
         unit: { type: 'string' },
     },
     required: ['name', 'alternativeNames', 'imageId', 'unit'],
+    additionalProperties: false,
 };
 
 const validateIngredientSchema = {
@@ -17,22 +18,14 @@ const validateIngredientSchema = {
         id: { type: 'string' },
     },
     required: ['id'],
+    additionalProperties: false,
 };
 
 const listIngredientSchema = {
     type: 'object',
-    properties: {
-        id: { type: 'string' },
-    },
-    required: ['id'],
-};
-
-const searchIngredientSchema = {
-    type: 'object',
-    properties: {
-        id: { type: 'string' },
-    },
-    required: ['id'],
+    properties: {},
+    required: [],
+    additionalProperties: false,
 };
 
 const viewIngredientSchema = {
@@ -41,6 +34,7 @@ const viewIngredientSchema = {
         id: { type: 'string' },
     },
     required: ['id'],
+    additionalProperties: false,
 };
 
 const updateIngredientSchema = {
@@ -49,6 +43,7 @@ const updateIngredientSchema = {
         id: { type: 'string' },
     },
     required: ['id'],
+    additionalProperties: false,
 };
 
 const mergeIngredientSchema = {
@@ -57,13 +52,13 @@ const mergeIngredientSchema = {
         id: { type: 'string' },
     },
     required: ['id'],
+    additionalProperties: false,
 };
 
 module.exports = {
     createIngredientSchema,
     validateIngredientSchema,
     listIngredientSchema,
-    searchIngredientSchema,
     viewIngredientSchema,
     updateIngredientSchema,
     mergeIngredientSchema,

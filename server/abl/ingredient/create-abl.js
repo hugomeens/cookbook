@@ -8,7 +8,7 @@ async function CreateAbl(body, res) {
     const valid = ajv.validate(createIngredientSchema, body);
 
     if (!valid) {
-        return res.status(400).json({ error: ajv.errors });
+        return res.status(statusCodes.BAD_REQUEST).json({ error: ajv.errors });
     }
 
     const ingredient = {
@@ -21,6 +21,7 @@ async function CreateAbl(body, res) {
     try {
         await ingredientDao.create(ingredient);
     } catch (e) {
+        // todo err msg duplication
         if (e.id === 'DUPLICATE_ID') {
             res.status(statusCodes.BAD_REQUEST);
         } else {

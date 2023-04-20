@@ -1,17 +1,25 @@
-const path = require("path");
-const IngredientDao = require("../../dao/ingredient-dao");
-let dao = new IngredientDao();
+const path = require('path');
+const { ingredientDao } = require('../../dao/ingredient-dao');
+const { listIngredientSchema } = require('../../schemas/ingredient-schema');
+const Ajv = require('ajv').default;
+const { statusCodes } = require('../../utils/statusCodes');
 
-const Ajv = require("ajv").default;
-const { listIngredientSchema } = require("../../schemas/ingredient-schemas");
+async function ListAbl(body, res) {
+    const ajv = new Ajv();
+    const valid = ajv.validate(listIngredientSchema, body);
 
-async function ListAbl(req, res) {
-    try {
-      const ingredients = await dao.listIngredients();
-      res.json(ingredients);
-    } catch (e) {
-      res.status(500).send(e);
+    if (!valid) {
+        return res.status(statusCodes.BAD_REQUEST).json({ error: ajv.errors });
     }
-  }
-  
-  module.exports = ListAbl;
+
+    let ingredients;
+    try {
+        ingredients = await ingredientDao.list();
+    } catch (e) {
+        res.status(statusCodes.INTERNAL_SERVER_ERROR).send({ error: e });
+    }
+    console.log(ingredients)
+    res.status(statusCodes.OK).json(ingredients);
+}
+
+module.exports = ListAbl;

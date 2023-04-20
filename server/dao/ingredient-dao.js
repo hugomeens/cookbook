@@ -15,6 +15,10 @@ class IngredientDao {
         this.collection.insert(ingredient);
         return ingredient;
     }
+
+    list() {
+        return this.collection.find({}).toArray();
+    }
 }
 
 const ingredientDao = new IngredientDao('ingredients');
