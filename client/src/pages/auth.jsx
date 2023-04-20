@@ -11,8 +11,13 @@ import {
     Popover,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
+import useAuth from '../tools/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Authentication = () => {
+    const { setRole } = useAuth();
+    const navigate = useNavigate();
     const form = useForm({
         initialValues: {
             name: '',
@@ -25,9 +30,15 @@ const Authentication = () => {
         },
     });
 
+    useEffect(() => {
+        localStorage.setItem('role', form.values.name);
+    }, [form.values.name]);
+
     const handleLogin = (e) => {
         e.preventDefault();
         if (form.validate().hasErrors) return;
+        setRole(form.values.name);
+        navigate('/');
     };
 
     return (

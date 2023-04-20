@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Recipes from './recipes';
-import NotFound from './errors/404';
-import Ingredients from './ingredients';
-import Home from './home';
-import Authentication from '../components/auth';
+import Recipes from '../pages/recipes';
+import NotFound from '../pages/errors/404';
+import Ingredients from '../pages/ingredients';
+import Home from '../pages/home';
+import Authentication from '../pages/auth';
 
 const AppRouter = () => {
     return (

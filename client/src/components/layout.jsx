@@ -1,6 +1,6 @@
 import { AppShell } from '@mantine/core';
 import HeaderSearch from './header';
-import AppRouter from '../pages/app-router';
+import AppRouter from './app-router';
 
 const Layout = () => {
     return (

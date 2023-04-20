@@ -2,7 +2,9 @@ import { createStyles, Header, Group, rem, UnstyledButton, Title, ActionIcon, To
 import { MantineLogo } from '@mantine/ds';
 // import { useDisclosure } from '@mantine/hooks';
 import SwitchToggle from './toggle-colorscheme';
-import { IconUserShield } from '@tabler/icons-react';
+import { IconUserCheck, IconUserEdit, IconUserOff } from '@tabler/icons-react';
+import useAuth from '../tools/useAuth';
+import { logout } from '../tools/auth-provider';
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -54,6 +56,8 @@ const links = [
 const HeaderSearch = () => {
     // const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
+    const { role } = useAuth();
+    const color = role === 'admin' ? 'red' : role === 'editor' ? 'green' : 'gray';
 
     const items = links.map((link) => (
         <UnstyledButton key={link.label} className={classes.link} component="a" href={link.link}>
@@ -75,9 +79,15 @@ const HeaderSearch = () => {
                         {items}
                     </Group>
                     <SwitchToggle />
-                    <Tooltip label="Users" withArrow color="red">
-                        <ActionIcon variant="light" color="red" size="lg" component="a" href="/auth">
-                            <IconUserShield size="1.2rem" stroke={1.5} />
+                    <Tooltip label="Change user" withArrow color={color}>
+                        <ActionIcon variant="light" size="lg" onClick={logout} color={color}>
+                            {role === 'admin' ? (
+                                <IconUserCheck size="1.2rem" stroke={1.5} />
+                            ) : role === 'editor' ? (
+                                <IconUserEdit size="1.2rem" stroke={1.5} />
+                            ) : (
+                                <IconUserOff size="1.2rem" stroke={1.5} />
+                            )}
                         </ActionIcon>
                     </Tooltip>
                 </Group>
