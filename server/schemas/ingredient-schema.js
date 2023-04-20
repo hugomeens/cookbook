@@ -15,9 +15,9 @@ const createIngredientSchema = {
 const validateIngredientSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
     additionalProperties: false,
 };
 
@@ -31,36 +31,40 @@ const listIngredientSchema = {
 const deleteIngredientSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
     additionalProperties: false,
 };
 
 const viewIngredientSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
     additionalProperties: false,
 };
 
 const updateIngredientSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
+        name: { type: 'string' },
+        alternativeNames: { type: 'array' },
+        imageId: { type: 'string' },
+        unit: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
     additionalProperties: false,
 };
 
 const mergeIngredientSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
     additionalProperties: false,
 };
 

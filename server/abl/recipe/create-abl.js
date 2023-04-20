@@ -14,8 +14,8 @@ async function CreateAbl(body, res) {
     return res.status(400).json({error: ajv.errors});
   }
 
-  const recipe = {  //TODO
-    id: body.id,
+  const recipe = {
+    _id: body._id,
     name: body.name,
     surname: body.surname,
     class: body.class

@@ -1,4 +1,3 @@
-const path = require('path');
 const { ingredientDao } = require('../../dao/ingredient-dao');
 const { validateIngredientSchema } = require('../../schemas/ingredient-schema');
 const Ajv = require('ajv').default;
@@ -13,8 +12,8 @@ async function ValidateAbl(body, res) {
     }
 
     try {
-        const mongoRes = await ingredientDao.validate(body.id);
-        res.status(statusCodes.OK).json({_id: body.id});
+        await ingredientDao.validate(body._id);
+        res.status(statusCodes.OK).json({_id: body._id});
     } catch (e) {
         res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
     }

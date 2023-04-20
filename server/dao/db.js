@@ -9,7 +9,8 @@ class Database {
 
     async open() {
         this.client = await MongoClient.connect(this.url);
-        this.db = this.client.db("cookBook");
+        console.log('Mongodb connected');
+        this.db = this.client.db('cookBook');
         return this.db;
     }
 

@@ -12,7 +12,7 @@ class IngredientDao {
     }
 
     create(ingredient) {
-        this.collection.insert(ingredient);
+        this.collection.insertOne(ingredient);
         return ingredient;
     }
 
@@ -25,7 +25,12 @@ class IngredientDao {
     }
 
     async validate(id) {
-        return await this.collection.update({ _id: ObjectID(id) }, { $set: { valid: true } });
+        return await this.collection.updateOne({ _id: ObjectID(id) }, { $set: { valid: true } });
+    }
+
+    update(id, up) {
+        return this.collection.updateOne({ _id: ObjectID(id) }, { $set: up });
+
     }
 }
 

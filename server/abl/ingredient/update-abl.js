@@ -1,32 +1,26 @@
-const path = require("path");
-const IngredientDao = require("../../dao/ingredient-dao");
-let dao = new IngredientDao();
+const { ingredientDao } = require('../../dao/ingredient-dao');
+const { updateIngredientSchema } = require('../../schemas/ingredient-schema');
+const Ajv = require('ajv').default;
+const { statusCodes } = require('../../utils/statusCodes');
 
-const Ajv = require("ajv").default;
-const { updateIngredientSchema } = require("../../schemas/ingredient-schemas");
+async function UpdateAbl(body, res) {
+    const ajv = new Ajv();
+    const valid = ajv.validate(updateIngredientSchema, body);
 
-async function UpdateAbl(req, res) {
-    try {
-      const ajv = new Ajv();
-      let ingredient = req.body;
-      const valid = ajv.validate(schema, ingredient);
-      if (valid) {
-        ingredient = await dao.updateIngredientSchema(ingredient);
-        res.json(ingredient);
-      } else {
-        res.status(400).json({
-          errorMessage: "validation of input failed",
-          params: ingredient,
-          reason: ajv.errors,
-        });
-      }
-    } catch (e) {
-      if (e.message.startsWith("ingredient with given id")) {
-        res.status(400).json({ error: e.message });
-      }
-      res.status(500).json(e);
+    if (!valid) {
+        return res.status(statusCodes.BAD_REQUEST).json({ error: ajv.errors });
     }
-  }
-  
-  module.exports = UpdateAbl;
-  
+
+    try {
+        const id = body._id;
+        delete body._id;
+        const resMongo = await ingredientDao.update(id, body);
+        console.log(resMongo);
+        res.status(statusCodes.OK).json(body);
+    } catch (e) {
+        console.log(e);
+        res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
+    }
+}
+
+module.exports = UpdateAbl;
