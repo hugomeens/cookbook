@@ -4,14 +4,12 @@ const createIngredientSchema = {
     type: 'object',
     properties: {
         name: { type: 'string' },
-        altName: { type: 'array' },
-        description: { type: 'string' },
-        img: { type: 'string' },
+        alternativeNames: { type: 'array' },
+        imageId: { type: 'number' },
+        unit: { type: 'string' },
     },
-    required: ['name', 'altName', 'description'],
+    required: ['name', 'alternativeNames', 'imageId', 'unit'],
 };
-
-const validateCreateIngredient = ajv.compile(createIngredientSchema);
 
 const validateIngredientSchema = {
     type: 'object',
@@ -21,8 +19,6 @@ const validateIngredientSchema = {
     required: ['id'],
 };
 
-const validateValidateIngredient = ajv.compile(validateIngredientSchema);
-
 const listIngredientSchema = {
     type: 'object',
     properties: {
@@ -30,8 +26,6 @@ const listIngredientSchema = {
     },
     required: ['id'],
 };
-
-const validateListIngredient = ajv.compile(listIngredientSchema);
 
 const searchIngredientSchema = {
     type: 'object',
@@ -41,8 +35,6 @@ const searchIngredientSchema = {
     required: ['id'],
 };
 
-const validateSearch = ajv.compile(searchIngredientSchema);
-
 const viewIngredientSchema = {
     type: 'object',
     properties: {
@@ -50,8 +42,6 @@ const viewIngredientSchema = {
     },
     required: ['id'],
 };
-
-const validateViewIngredient = ajv.compile(viewIngredientSchema);
 
 const updateIngredientSchema = {
     type: 'object',
@@ -61,8 +51,6 @@ const updateIngredientSchema = {
     required: ['id'],
 };
 
-const validateUpdateIngredient = ajv.compile(updateIngredientSchema);
-
 const mergeIngredientSchema = {
     type: 'object',
     properties: {
@@ -71,14 +59,12 @@ const mergeIngredientSchema = {
     required: ['id'],
 };
 
-const validateMergeIngredient = ajv.compile(mergeIngredientSchema);
-
 module.exports = {
-    validateCreateIngredient,
-    validateValidateIngredient,
-    validateListIngredient,
-    validateSearch,
-    validateViewIngredient,
-    validateUpdateIngredient,
-    validateMergeIngredient,
+    createIngredientSchema,
+    validateIngredientSchema,
+    listIngredientSchema,
+    searchIngredientSchema,
+    viewIngredientSchema,
+    updateIngredientSchema,
+    mergeIngredientSchema,
 };

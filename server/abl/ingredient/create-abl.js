@@ -1,39 +1,35 @@
-const path = require("path");
-const IngredientDao = require("../../dao/ingredient-dao");
-let dao = new IngredientDao();
-
-const Ajv = require("ajv").default;
-const { createIngredientSchema } = require("../../schemas/ingredient-schemas");
+const { ingredientDao } = require('../../dao/ingredient-dao');
+const { createIngredientSchema } = require('../../schemas/ingredient-schema');
+const Ajv = require('ajv').default;
+const { statusCodes } = require('../../utils/statusCodes');
 
 async function CreateAbl(body, res) {
+    const ajv = new Ajv();
+    const valid = ajv.validate(createIngredientSchema, body);
 
-  const ajv = new Ajv();
-  const valid = ajv.validate(createIngredientSchema, body);
-  
-  if (!valid) {
-    return res.status(400).json({error: ajv.errors});
-  }
-
-  const ingredient = {  //TODO
-    id: body.id,
-    name: body.name,
-    surname: body.surname,
-    class: body.class
-  };
-
-  try {
-    await dao.addIngredient(ingredient);
-  } catch (e) {
-    if (e.id === "DUPLICATE_ID") {
-      res.status(400);
-    } else {
-      res.status(500);
+    if (!valid) {
+        return res.status(400).json({ error: ajv.errors });
     }
-    return res.json({error: e.message});
-  }
 
-  res.json(ingredient);
+    const ingredient = {
+        name: body.name,
+        alternativeNames: body.alternativeNames,
+        imageId: body.imageId,
+        unit: body.unit,
+    };
 
+    try {
+        await ingredientDao.create(ingredient);
+    } catch (e) {
+        if (e.id === 'DUPLICATE_ID') {
+            res.status(statusCodes.BAD_REQUEST);
+        } else {
+            res.status(statusCodes.INTERNAL_SERVER_ERROR);
+        }
+        return res.json({ error: e.message });
+    }
+
+    res.status(statusCodes.OK).json(ingredient);
 }
 
 module.exports = CreateAbl;

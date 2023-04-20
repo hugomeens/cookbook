@@ -19,6 +19,6 @@ class Database {
     }
 }
 
-const db = new Database('mongodb://127.22.0.3:27017');
+const db = new Database('***REMOVED***');
 
 module.exports = { db };
