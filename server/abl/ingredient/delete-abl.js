@@ -1,5 +1,4 @@
 const Ajv = require('ajv').default;
-const { Logger } = require('mongodb/lib/core');
 const { ingredientDao } = require('../../dao/ingredient-dao');
 const { deleteIngredientSchema } = require('../../schemas/ingredient-schema');
 const { statusCodes } = require('../../utils/statusCodes');

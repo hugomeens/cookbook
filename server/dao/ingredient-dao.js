@@ -23,8 +23,11 @@ class IngredientDao {
     async delete(id) {
         return await this.collection.deleteOne({ _id: ObjectID(id) });
     }
+
+    async validate(id) {
+        return await this.collection.update({ _id: ObjectID(id) }, { $set: { valid: true } });
+    }
 }
 
 const ingredientDao = new IngredientDao('ingredients');
-
 module.exports = { ingredientDao };
