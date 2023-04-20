@@ -16,21 +16,20 @@ async function CreateAbl(body, res) {
         alternativeNames: body.alternativeNames,
         imageId: body.imageId,
         unit: body.unit,
+        valid: false,
     };
 
     try {
         await ingredientDao.create(ingredient);
+        res.status(statusCodes.OK).json(ingredient);
     } catch (e) {
         // todo err msg duplication
         if (e.id === 'DUPLICATE_ID') {
-            res.status(statusCodes.BAD_REQUEST);
+            res.status(statusCodes.BAD_REQUEST).json({ error: e });
         } else {
-            res.status(statusCodes.INTERNAL_SERVER_ERROR);
+            res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
         }
-        return res.json({ error: e.message });
     }
-
-    res.status(statusCodes.OK).json(ingredient);
 }
 
 module.exports = CreateAbl;

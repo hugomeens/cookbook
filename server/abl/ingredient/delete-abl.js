@@ -1,27 +1,26 @@
-const path = require("path");
-const IngredientDao = require("../../dao/ingredient-dao");
+const Ajv = require('ajv').default;
+const { Logger } = require('mongodb/lib/core');
+const { ingredientDao } = require('../../dao/ingredient-dao');
+const { deleteIngredientSchema } = require('../../schemas/ingredient-schema');
+const { statusCodes } = require('../../utils/statusCodes');
 
-const Ajv = require("ajv").default;
-const { deleteIngredientSchema } = require("../../schemas/ingredient-schemas");
-
-async function DeleteAbl(req, res) {
+async function DeleteAbl(body, res) {
     const ajv = new Ajv();
-    const valid = ajv.validate(deleteIngredientSchema, req.body);
-    try {
-      if (valid) {
-        const ingredientId = req.body.id;
-        await dao.deleteIngredient(ingredientId);
-        res.json({});
-      } else {
-        res.status(400).send({
-          errorMessage: "validation of input failed",
-          params: req.body,
-          reason: ajv.errors,
-        });
-      }
-    } catch (e) {
-      res.status(500).send(e.message);
+    const valid = ajv.validate(deleteIngredientSchema, body);
+    if (!valid) {
+        return res.status(statusCodes.BAD_REQUEST).json({ error: ajv.errors });
     }
-  }
-  
-  module.exports = DeleteAbl;
+
+    try {
+        const mongoRes = await ingredientDao.delete(body.id);
+        if (mongoRes.deletedCount == 0) {
+            res.status(statusCodes.NOT_FOUND).json({ error: 'Ingredient not found.' });
+        } else {
+            res.status(statusCodes.OK).json({ _id: body.id });
+        }
+    } catch (e) {
+        res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
+    }
+}
+
+module.exports = DeleteAbl;

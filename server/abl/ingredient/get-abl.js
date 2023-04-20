@@ -16,18 +16,18 @@ async function GetAbl(req, res) {
         if (!ingredient) {
           res
             .status(400)
-            .send({ error: `Student with id '${ingredientId}' doesn't exist.` });
+            .json({ error: `Student with id '${ingredientId}' doesn't exist.` });
         }
         res.json(ingredient);
       } else {
-        res.status(400).send({
+        res.status(400).json({
           errorMessage: "validation of input failed",
           params: body,
           reason: ajv.errors,
         });
       }
     } catch (e) {
-      res.status(500).send(e);
+      res.status(500).json(e);
     }
   }
   

@@ -14,14 +14,14 @@ async function DeleteAbl(req, res) {
         await dao.deleteRecipe(recipeId);
         res.json({});
       } else {
-        res.status(400).send({
+        res.status(400).json({
           errorMessage: "validation of input failed",
           params: req.body,
           reason: ajv.errors,
         });
       }
     } catch (e) {
-      res.status(500).send(e.message);
+      res.status(500).json(e.message);
     }
   }
   

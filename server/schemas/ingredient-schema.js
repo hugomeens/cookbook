@@ -5,7 +5,7 @@ const createIngredientSchema = {
     properties: {
         name: { type: 'string' },
         alternativeNames: { type: 'array' },
-        imageId: { type: 'number' },
+        imageId: { type: 'string' },
         unit: { type: 'string' },
     },
     required: ['name', 'alternativeNames', 'imageId', 'unit'],
@@ -25,6 +25,15 @@ const listIngredientSchema = {
     type: 'object',
     properties: {},
     required: [],
+    additionalProperties: false,
+};
+
+const deleteIngredientSchema = {
+    type: 'object',
+    properties: {
+        id: { type: 'string' },
+    },
+    required: ['id'],
     additionalProperties: false,
 };
 
@@ -59,6 +68,7 @@ module.exports = {
     createIngredientSchema,
     validateIngredientSchema,
     listIngredientSchema,
+    deleteIngredientSchema,
     viewIngredientSchema,
     updateIngredientSchema,
     mergeIngredientSchema,

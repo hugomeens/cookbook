@@ -15,11 +15,11 @@ async function ListAbl(body, res) {
     let ingredients;
     try {
         ingredients = await ingredientDao.list();
+        res.status(statusCodes.OK).json(ingredients);
     } catch (e) {
-        res.status(statusCodes.INTERNAL_SERVER_ERROR).send({ error: e });
+        console.log("crash", e)
+        res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
     }
-    console.log(ingredients)
-    res.status(statusCodes.OK).json(ingredients);
 }
 
 module.exports = ListAbl;

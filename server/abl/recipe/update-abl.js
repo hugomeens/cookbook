@@ -14,7 +14,7 @@ async function UpdateAbl(req, res) {
         recipe = await dao.updateRecipeSchema(recipe);
         res.json(recipe);
       } else {
-        res.status(400).send({
+        res.status(400).json({
           errorMessage: "validation of input failed",
           params: recipe,
           reason: ajv.errors,
@@ -24,7 +24,7 @@ async function UpdateAbl(req, res) {
       if (e.message.startsWith("recipe with given id")) {
         res.status(400).json({ error: e.message });
       }
-      res.status(500).send(e);
+      res.status(500).json(e);
     }
   }
   

@@ -1,5 +1,5 @@
 const { db } = require('./db');
-
+const ObjectID = require('mongodb').ObjectID;
 class IngredientDao {
     constructor(collectionName) {
         this.collection;
@@ -18,6 +18,10 @@ class IngredientDao {
 
     list() {
         return this.collection.find({}).toArray();
+    }
+
+    async delete(id) {
+        return await this.collection.deleteOne({ _id: ObjectID(id) });
     }
 }
 
