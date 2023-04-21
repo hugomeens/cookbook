@@ -1,7 +1,7 @@
 import ModalCreate from './create';
 import GridView from '../../components/grid-view';
 import { useState } from 'react';
-import mockdata from './mockdata';
+import mockdata from '../mockdata';
 import ItemGridViewRecipe from './item-grid-view';
 import NavbarCookBook from '../../components/navbar';
 
