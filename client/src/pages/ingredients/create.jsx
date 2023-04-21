@@ -1,4 +1,4 @@
-import { Modal, Text, Select, TextInput, Button, FileInput, Group } from '@mantine/core';
+import { Modal, Text, Select, TextInput, Button, FileInput, Group, Image } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 
 const ModalCreateIngredient = ({ opened, handler }) => {
@@ -45,7 +45,21 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                             placeholder="Name"
                             withAsterisk
                             {...form.getInputProps('name')}
+                            mb="sm"
+                        />
+                        <FileInput
+                            label="Image"
+                            placeholder="Select image"
+                            withAsterisk
+                            {...form.getInputProps('image')}
                             mb="md"
+                        />
+                        <Image
+                            src={form.values.image}
+                            alt={form.values.name}
+                            withPlaceholder
+                            height={160}
+                            radius="sm"
                         />
                         <Select
                             label="Unit"
@@ -57,16 +71,10 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                                 { label: 'Grams', value: 'g' },
                                 { label: 'Centiliters', value: 'cl' },
                             ]}
-                            mb="md"
-                        />
-                        <FileInput
-                            label="Image"
-                            placeholder="Select image"
-                            withAsterisk
-                            {...form.getInputProps('image')}
+                            my="md"
                         />
                         <Group position="right" mt="md">
-                            <Button type="button" variant="light" color="red" onClick={handleClose}>
+                            <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel
                             </Button>
                             <Button type="submit" variant="light" color="green">
