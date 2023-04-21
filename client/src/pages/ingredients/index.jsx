@@ -3,7 +3,6 @@ import mockdata from './mockdata';
 import ModalCreateIngredient from './create';
 import ModalUpdateIngredient from './update';
 import NavbarCookBook from '../../components/navbar';
-import { useNavigate } from "react-router-dom";
 import GridViewIngredients from './grid-view-ingredients';
 
 const Ingredients = () => {
@@ -14,13 +13,11 @@ const Ingredients = () => {
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
 
-    const navigate = useNavigate();
-
     const navbar = {
         title: 'Ingredients',
         buttonMerge: {
             text: 'Merge Ingredients',
-            handler: () => navigate("/merge"),
+            href: '/merge',
         },
         buttonValidate: {
             text: 'Validate Ingredients',
@@ -40,11 +37,7 @@ const Ingredients = () => {
         <>
             <NavbarCookBook data={navbar} />
             {/* {view === 'grid' ? ( */}
-            <GridViewIngredients
-                data={mockdata}
-                updateItem={setItem}
-                updateHandler={toggleModalUpdate}
-            />
+            <GridViewIngredients data={mockdata} updateItem={setItem} updateHandler={toggleModalUpdate} />
             {/* ) : (
                 <div>List View</div>
             )} */}
