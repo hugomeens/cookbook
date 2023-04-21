@@ -1,17 +1,4 @@
-import {
-    Modal,
-    Button,
-    TextInput,
-    Select,
-    FileInput,
-    Text,
-    Image,
-    Group,
-    Grid,
-    Card,
-    Title,
-    Center,
-} from '@mantine/core';
+import { Modal, Button, Text, Image, Group, Grid, Card, Title, Center } from '@mantine/core';
 import mockdata from '../pages/ingredients/mockdata';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
@@ -26,8 +13,12 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
     };
 
     const handleSubmitLocal = (ingredient) => {
-        handleSubmit(ingredient);
-        handleClose();
+        if (props.multi) {
+            handleSubmit(ingredients);
+        } else {
+            handleSubmit(ingredient);
+            handleClose();
+        }
     };
 
     return (
@@ -65,7 +56,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                                         mt="sm"
                                         fullWidth
                                         variant="light"
-                                        onClick={() => clickHandler(ingredient.id)}
+                                        onClick={() => clickHandler(ingredient)}
                                     >
                                         Select
                                     </Button>
@@ -78,12 +69,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                             <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel
                             </Button>
-                            <Button
-                                type="submit"
-                                variant="light"
-                                color="green"
-                                onClick={() => handleSubmit(ingredientsIds)}
-                            >
+                            <Button type="submit" variant="light" color="green" onClick={() => handleSubmitLocal()}>
                                 Validate
                             </Button>
                         </Group>
