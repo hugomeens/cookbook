@@ -14,8 +14,7 @@ async function UpdateAbl(body, res) {
     try {
         const id = body._id;
         delete body._id;
-        const resMongo = await ingredientDao.update(id, body);
-        console.log(resMongo);
+        ingredientDao.update(id, body);
         res.status(statusCodes.OK).json(body);
     } catch (e) {
         console.log(e);

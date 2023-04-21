@@ -1,39 +1,28 @@
-const path = require("path");
-const RecipeDao = require("../../dao/recipe-dao");
-let dao = new RecipeDao();
-
-const Ajv = require("ajv").default;
-const { createRecipeSchema } = require("../../schemas/recipe-schemas");
+const { recipeDao } = require('../../dao/recipe-dao');
+const { createRecipeSchema } = require('../../schemas/recipe-schema');
+const Ajv = require('ajv').default;
+const { statusCodes } = require('../../utils/statusCodes');
 
 async function CreateAbl(body, res) {
+    const ajv = new Ajv();
+    const valid = ajv.validate(createRecipeSchema, body);
 
-  const ajv = new Ajv();
-  const valid = ajv.validate(createRecipeSchema, body);
-  
-  if (!valid) {
-    return res.status(400).json({error: ajv.errors});
-  }
-
-  const recipe = {
-    _id: body._id,
-    name: body.name,
-    surname: body.surname,
-    class: body.class
-  };
-
-  try {
-    await dao.addRecipe(recipe);
-  } catch (e) {
-    if (e.id === "DUPLICATE_ID") {
-      res.status(400);
-    } else {
-      res.status(500);
+    if (!valid) {
+        return res.status(statusCodes.BAD_REQUEST).json({ error: ajv.errors });
     }
-    return res.json({error: e.message});
-  }
 
-  res.json(recipe);
-
+    try {
+        body.valid = false;
+        await recipeDao.create(body);
+        res.status(statusCodes.OK).json(body);
+    } catch (e) {
+        // todo err msg duplication
+        if (e.id === 'DUPLICATE_ID') {
+            res.status(statusCodes.BAD_REQUEST).json({ error: e });
+        } else {
+            res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
+        }
+    }
 }
 
 module.exports = CreateAbl;

@@ -1,6 +1,7 @@
 const { db } = require('./db');
 const ObjectID = require('mongodb').ObjectID;
-class IngredientDao {
+
+class RecipeDao {
     constructor(collectionName) {
         this.collection;
 
@@ -13,6 +14,7 @@ class IngredientDao {
 
     create(ingredient) {
         this.collection.insertOne(ingredient);
+        return ingredient;
     }
 
     list() {
@@ -33,5 +35,5 @@ class IngredientDao {
     }
 }
 
-const ingredientDao = new IngredientDao('ingredients');
-module.exports = { ingredientDao };
+const recipeDao = new RecipeDao('recipe');
+module.exports = { recipeDao };
