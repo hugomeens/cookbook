@@ -3,6 +3,7 @@ const CreateAbl = require('../abl/recipe/create-abl');
 const DeleteAbl = require('../abl/recipe/delete-abl');
 const ListAbl = require('../abl/recipe/list-abl');
 //const GetAbl = require('../abl/recipe/get-abl');
+const ValidateAbl = require('../abl/recipe/validate-abl');
 const router = express.Router();
 
 router.post("/create", async (req, res) => {

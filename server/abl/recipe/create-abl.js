@@ -18,7 +18,8 @@ async function CreateAbl(body, res) {
     nbPerson: body.nbPerson,
     preparationTime: body.preparationTime,
     ingredients: body.ingredients,
-    instructions: body.instructions
+    instructions: body.instructions,
+    valid: false
   };
 
 
