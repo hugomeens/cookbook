@@ -27,6 +27,10 @@ class RecipeDao {
     async validate(id) {
         return await this.collection.update({ _id: ObjectID(id) }, { $set: { valid: true } });
     }
+
+    async update(id, up) {
+        return await this.collection.updateOne({_id: ObjectID(id)}, { $set: up});
+    }
 }
 
 const recipeDao = new RecipeDao('recipes');
