@@ -1,8 +1,9 @@
 import { Modal, Button, Text, Image, Group, Grid, Card, Title, Center } from '@mantine/core';
-import mockdata from '../pages/ingredients/mockdata';
+import { useEffect, useState } from 'react';
+import API from '../services/api';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
-    const ingredients = [];
+    const [ingredients, setIngredients] = useState([]);
 
     const clickHandler = (ingredient) => {
         if (props.multi) {
@@ -21,6 +22,21 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
         }
     };
 
+    useEffect(() => {
+        API.listIngredients()
+            .then((res) => {
+                if (res.status == 200) {
+                    setIngredients(res.data);
+                }
+            })
+            .catch((err) => {
+                // todo
+                console.log(err);
+            });
+
+        return () => {};
+    }, []);
+
     return (
         <Modal.Root opened={opened} onClose={handleClose} size="lg">
             <Modal.Overlay />
@@ -35,7 +51,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                 </Modal.Header>
                 <Modal.Body>
                     <Grid columns={3}>
-                        {mockdata.map((ingredient) => (
+                        {ingredients.map((ingredient) => (
                             <Grid.Col span={1} key={ingredient.id}>
                                 <Card shadow="sm">
                                     <Card.Section>
@@ -52,12 +68,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                                             {ingredient.name}
                                         </Title>
                                     </Center>
-                                    <Button
-                                        mt="sm"
-                                        fullWidth
-                                        variant="light"
-                                        onClick={() => clickHandler(ingredient)}
-                                    >
+                                    <Button mt="sm" fullWidth variant="light" onClick={() => clickHandler(ingredient)}>
                                         Select
                                     </Button>
                                 </Card>

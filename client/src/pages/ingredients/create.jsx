@@ -32,7 +32,6 @@ const ModalCreateIngredient = ({ opened, handler }) => {
             form.values.alternativeNames = []; //todo
             delete form.values.image;
             form.values.imageId = "";
-            console.log(form.values)
             await API.createIngredient(form.values);
             button.current.loading = false;
             handleClose();
