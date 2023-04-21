@@ -1,4 +1,4 @@
-import { Card, Divider, Title, Image, Badge, Button } from '@mantine/core';
+import { Card, Divider, Text, Title, Image, Badge, Button } from '@mantine/core';
 import GrantAccess from '../../tools/grant-access';
 
 const IngredientView = ({ item, button }) => {
@@ -11,6 +11,11 @@ const IngredientView = ({ item, button }) => {
                 {item?.name ?? 'Ingredient Name'}
             </Title>
             <Divider my="sm" />
+            <Text size="md" color="dimmed" mb="sm">
+                {item?.alternateNames?.map(
+                    (name, index) => `${name}${index === item?.alternateNames.length - 1 ? '' : ', '}`
+                ) ?? 'Alternate names'}
+            </Text>
             <Badge color="blue">{item?.unit ?? 'unit'}</Badge>
             <Divider my="sm" />
             <Badge color={item?.valid ? 'green' : 'red'}>{item?.valid ? 'Valid' : 'Invalid'}</Badge>
