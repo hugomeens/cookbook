@@ -19,7 +19,7 @@ const IngredientView = ({ item, button }) => {
                     variant="light"
                     fullWidth
                     mt="sm"
-                    onClick={() => button.clickHandler()}
+                    onClick={() => button.clickHandler(item)}
                 >
                     {button.text}
                 </Button>

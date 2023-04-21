@@ -3,15 +3,20 @@ import mockdata from '../pages/ingredients/mockdata';
 import GridViewIngredients from '../pages/ingredients/grid-view-ingredients';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
-    const ingredientsIds = [];
+    const ingredients = [];
 
-    const clickHandler = (ingredientId) => {
+    const clickHandler = (ingredient) => {
         if (props.multi) {
-            ingredientsIds.push(ingredientId);
+            ingredients.push(ingredient);
         } else {
-            handleSubmit(ingredientId);
+            handleSubmitLocal(ingredient);
         }
-    }
+    };
+
+    const handleSubmitLocal = (ingredient) => {
+        handleSubmit(ingredient);
+        handleClose();
+    };
 
     return (
         <Modal.Root opened={opened} onClose={handleClose} size="xs">
@@ -38,7 +43,12 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                         <Button variant="light" color="red" onClick={handleClose}>
                             Cancel
                         </Button>
-                        <Button type="submit" variant="light" color="green" onClick={() => handleSubmit(ingredientsIds)}>
+                        <Button
+                            type="submit"
+                            variant="light"
+                            color="green"
+                            onClick={() => handleSubmitLocal(ingredients)}
+                        >
                             Validate
                         </Button>
                     </Group>

@@ -10,10 +10,12 @@ const GridViewIngredients = (props) => {
                         <IngredientView
                             item={ingredient}
                             button={{
-                                clickHandler: () => {
-                                    props.updateItem(ingredient);
-                                    props.updateHandler();
-                                },
+                                clickHandler:
+                                    props?.button?.clickHandler ??
+                                    ((item) => {
+                                        props.updateItem(item);
+                                        props.updateHandler();
+                                    }),
                                 text: props?.button?.text ?? 'Update',
                             }}
                         />
