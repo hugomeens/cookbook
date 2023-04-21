@@ -14,7 +14,7 @@ const Merge = () => {
     const updateLoad = (ingredient) => {
         if (isLoadOne) {
             // eslint-disable-next-line eqeqeq
-            if (JSON.stringify(ingredientMerge) == JSON.stringify({})) {
+            if (JSON.stringify(ingredientMerge) === JSON.stringify({})) {
                 setIngredientMerge(ingredient);
             }
             setIngredient1(ingredient);

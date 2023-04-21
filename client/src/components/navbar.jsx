@@ -1,5 +1,5 @@
-import { Title, Button, Group, Autocomplete, ActionIcon, Paper } from '@mantine/core';
-import { IconLayoutGrid, IconLayoutList, IconSearch } from '@tabler/icons-react';
+import { Title, Button, Group, Autocomplete, Paper } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
 import GrantAccess from '../tools/grant-access';
 
 const NavbarCookBook = ({ data }) => {
