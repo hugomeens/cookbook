@@ -34,5 +34,5 @@ class RecipeDao {
     }
 }
 
-const recipeDao = new RecipeDao('recipe');
+const recipeDao = new RecipeDao('recipes');
 module.exports = { recipeDao };
