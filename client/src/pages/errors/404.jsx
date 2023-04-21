@@ -1,4 +1,5 @@
 import { createStyles, Title, Text, Button, Container, Group, rem } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -40,6 +41,7 @@ const useStyles = createStyles((theme) => ({
 
 const NotFound = () => {
     const { classes } = useStyles();
+    const navigate = useNavigate();
 
     return (
         <Container className={classes.root}>
@@ -50,7 +52,7 @@ const NotFound = () => {
                 another URL.
             </Text>
             <Group position="center">
-                <Button variant="subtle" size="md" component="a" href="/">
+                <Button variant="subtle" size="md" onClick={() => navigate('/')}>
                     Take me back to home page
                 </Button>
             </Group>

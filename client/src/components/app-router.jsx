@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Recipes from '../pages/recipes';
 import NotFound from '../pages/errors/404';
 import Ingredients from '../pages/ingredients';
@@ -9,17 +9,15 @@ import Merge from '../pages/merge';
 
 const AppRouter = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/recipes" element={<Recipes />} />
-                <Route path="/recipe/:id" element={<Recipe />} />
-                <Route path="/ingredients" element={<Ingredients />} />
-                <Route path="/merge" element={<Merge />} />
-                <Route path="/auth" element={<Authentication />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/recipes" element={<Recipes />} />
+            <Route path="/recipe/:id" element={<Recipe />} />
+            <Route path="/ingredients" element={<Ingredients />} />
+            <Route path="/merge" element={<Merge />} />
+            <Route path="/auth" element={<Authentication />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
     );
 };
 

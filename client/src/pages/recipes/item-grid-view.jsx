@@ -1,7 +1,9 @@
 import { Card, Divider, Text, Title, Image, Badge, Button } from '@mantine/core';
 import GrantAccess from '../../tools/grant-access';
+import { useNavigate } from 'react-router-dom';
 
 const ItemGridViewRecipe = ({ item }) => {
+    const navigate = useNavigate();
     return (
         <Card shadow="sm" padding="md" withBorder>
             <Card.Section>
@@ -22,13 +24,7 @@ const ItemGridViewRecipe = ({ item }) => {
                     Update
                 </Button>
             </GrantAccess>
-            <Button
-                variant="light"
-                color="green"
-                fullWidth
-                my="sm"
-                onClick={() => (window.location.href = `/recipe/${item.id}`)}
-            >
+            <Button variant="light" color="green" fullWidth my="sm" onClick={() => navigate(`/recipe/${item.id}`)}>
                 Open
             </Button>
         </Card>

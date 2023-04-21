@@ -3,6 +3,7 @@ import { MantineLogo } from '@mantine/ds';
 import SwitchToggle from './toggle-colorscheme';
 import { IconUserCheck, IconUserEdit, IconUserOff } from '@tabler/icons-react';
 import { logout, useAuth } from '../tools/auth-provider';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -54,9 +55,10 @@ const HeaderSearch = () => {
     const { classes } = useStyles();
     const { role } = useAuth();
     const color = role === 'admin' ? 'red' : role === 'editor' ? 'green' : 'gray';
+    const navigate = useNavigate();
 
     const items = links.map((link) => (
-        <UnstyledButton key={link.label} className={classes.link} component="a" href={link.link}>
+        <UnstyledButton key={link.label} className={classes.link} onClick={() => navigate(link.link)}>
             <Title order={4}>{link.label}</Title>
         </UnstyledButton>
     ));
@@ -66,7 +68,7 @@ const HeaderSearch = () => {
             <div className={classes.inner}>
                 <Group>
                     <MantineLogo size={30} type="mark" color="red" />
-                    <UnstyledButton component="a" href="/" className={classes.link}>
+                    <UnstyledButton onClick={() => navigate('/')} className={classes.link}>
                         <Title order={1}>uuCookBook</Title>
                     </UnstyledButton>
                 </Group>
