@@ -1,6 +1,6 @@
 const express = require("express");
 const CreateAbl = require('../abl/recipe/create-abl');
-//const DeleteAbl = require('../abl/recipe/delete-abl');
+const DeleteAbl = require('../abl/recipe/delete-abl');
 const ListAbl = require('../abl/recipe/list-abl');
 //const GetAbl = require('../abl/recipe/get-abl');
 const router = express.Router();

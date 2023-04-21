@@ -12,7 +12,6 @@ async function CreateAbl(body, res) {
   }
 
   const recipe = {
-    id: body.id,
     name: body.name,
     description: body.description,
     img: body.img,
