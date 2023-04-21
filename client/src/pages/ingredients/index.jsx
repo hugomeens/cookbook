@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import GridView from '../../components/grid-view';
 import mockdata from './mockdata';
-import ItemGridViewIngredients from './item-grid-view';
 import ModalCreateIngredient from './create';
 import ModalUpdateIngredient from './update';
 import NavbarCookBook from '../../components/navbar';
 import { useNavigate } from "react-router-dom";
+import GridViewIngredients from './grid-view-ingredients';
 
 const Ingredients = () => {
     const [showCreate, setShowCreate] = useState(false);
@@ -41,9 +40,8 @@ const Ingredients = () => {
         <>
             <NavbarCookBook data={navbar} />
             {/* {view === 'grid' ? ( */}
-            <GridView
+            <GridViewIngredients
                 data={mockdata}
-                item={ItemGridViewIngredients}
                 updateItem={setItem}
                 updateHandler={toggleModalUpdate}
             />

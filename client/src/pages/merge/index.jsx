@@ -1,19 +1,43 @@
-import { Center, TextInput } from '@mantine/core';
-import { MantineLogo } from '@mantine/ds';
-import { IconSearch } from '@tabler/icons-react';
+import { createStyles, Button } from '@mantine/core';
+import { useState } from 'react';
+import ModalIngredientsSelector from '../../components/ingredients-selector';
+import IngredientView from '../ingredients/ingredient-view';
+
+const useStyles = createStyles((theme) => ({
+    main: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        flexWrap: 'wrap',
+    },
+}));
 
 const Merge = () => {
+    const { classes } = useStyles();
+    const [showSelector, setShowSelector] = useState(false);
+
+
     return (
         <>
-            <Center my={150}>
-                <MantineLogo size={100} />
-            </Center>
-            <Center my={150}>
-                <TextInput
-                    placeholder="Search a Recipe, an Ingredient"
-                    icon={<IconSearch size="1rem" stroke={1.5} />}
+            <div className={classes.main}>
+                <span>
+                    <label></label>
+                    <IngredientView button={{ clickHandler: () => setShowSelector(true), text: 'Load' }} />
+                </span>
+                <span>
+                    <IngredientView button={{ clickHandler: () => setShowSelector(true), text: 'Load' }} />
+                </span>
+                <span>
+                    <IngredientView button={{ clickHandler: () => '', text: 'Merge' }} />
+                </span>
+            </div>
+            {showSelector && (
+                <ModalIngredientsSelector
+                    handleClose={() => setShowSelector(false)}
+                    opened={showSelector}
+                    handleSubmit={() => {}}
                 />
-            </Center>
+            )}
         </>
     );
 };
