@@ -1,5 +1,7 @@
 import { Modal, Text, Select, TextInput, Button, FileInput, Group, Image } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
+import { useRef } from 'react';
+import API from '../../services/api';
 
 const ModalCreateIngredient = ({ opened, handler }) => {
     const handleClose = () => {
@@ -7,23 +9,37 @@ const ModalCreateIngredient = ({ opened, handler }) => {
         handler();
     };
 
+    const button = useRef(null);
+
     const form = useForm({
         initialValues: {
             name: '',
-            type: '',
+            unit: '',
             image: '',
         },
         validate: {
             name: isNotEmpty('Name is required'),
-            type: isNotEmpty('Type is required'),
-            image: isNotEmpty('Image is required'),
+            unit: isNotEmpty('Unit is required'),
+            // image: isNotEmpty('Image is required'),
         },
     });
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (form.validate().hasErrors) return;
-        console.log(form.values, 'MUST BE SENT TO BACKEND');
+        try {
+            button.current.loading = true;
+            form.values.alternativeNames = []; //todo
+            delete form.values.image;
+            form.values.imageId = "";
+            console.log(form.values)
+            await API.createIngredient(form.values);
+            button.current.loading = false;
+            handleClose();
+        } catch (error) {
+            button.current.loading = false;
+            // todo
+        }
     };
 
     return (
@@ -66,7 +82,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                             placeholder="Select unit"
                             withAsterisk
                             dropdownPosition="bottom"
-                            {...form.getInputProps('type')}
+                            {...form.getInputProps('unit')}
                             data={[
                                 { label: 'Grams', value: 'g' },
                                 { label: 'Centiliters', value: 'cl' },
@@ -77,7 +93,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                             <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel
                             </Button>
-                            <Button type="submit" variant="light" color="green">
+                            <Button ref={button} type="submit" variant="light" color="green">
                                 Create
                             </Button>
                         </Group>
