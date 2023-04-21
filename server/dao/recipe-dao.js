@@ -1,6 +1,5 @@
 const { db } = require('./db');
 const ObjectID = require('mongodb').ObjectID;
-
 class RecipeDao {
     constructor(collectionName) {
         this.collection;
