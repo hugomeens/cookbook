@@ -1,12 +1,21 @@
-import { Switch, Group, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { Switch, Group, useMantineColorScheme, useMantineTheme, createStyles } from '@mantine/core';
 import { IconSun, IconMoonStars } from '@tabler/icons-react';
 
+const useStyles = createStyles((theme) => ({
+    group: {
+        [theme.fn.smallerThan('xs')]: {
+            display: 'none',
+        },
+    },
+}));
+
 const SwitchToggle = () => {
+    const { classes } = useStyles();
     const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     const theme = useMantineTheme();
 
     return (
-        <Group position="center" my={30}>
+        <Group position="center" my={30} className={classes.group}>
             <Switch
                 checked={colorScheme === 'dark'}
                 onChange={() => toggleColorScheme()}
