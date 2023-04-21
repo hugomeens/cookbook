@@ -12,7 +12,14 @@ const SelectorItem = ({ ingredient, clickHandler }) => {
         <Grid.Col span={1} key={ingredient.id}>
             <Card shadow="sm">
                 <Card.Section>
-                    <Image src={ingredient.image} alt={ingredient.name} height={100} fit="cover" radius="md" />
+                    <Image
+                        src={ingredient.image}
+                        alt={ingredient.name}
+                        height={100}
+                        fit="cover"
+                        radius="md"
+                        withPlaceholder
+                    />
                 </Card.Section>
                 <Center>
                     <Title order={4} mt="md">
