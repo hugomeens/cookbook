@@ -1,4 +1,3 @@
-import { Modal, Button, Text, Image, Group, Grid, Card, Title, Center } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import API from '../services/api';
 import { Modal, Button, Text, Group, Grid, TextInput } from '@mantine/core';
