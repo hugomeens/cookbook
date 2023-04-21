@@ -1,6 +1,9 @@
 import { Modal, Button, Text, Image, Group, Grid, Card, Title, Center } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import API from '../services/api';
+import { Modal, Button, Text, Group, Grid, TextInput } from '@mantine/core';
+import SelectorItem from './select-item';
+import { IconSearch } from '@tabler/icons-react';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
     const [ingredients, setIngredients] = useState([]);
@@ -53,29 +56,15 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
+                    <TextInput
+                        placeholder="Type to Search"
+                        mb="sm"
+                        radius="md"
+                        icon={<IconSearch size="1rem" stroke={1.5} />}
+                    />
                     <Grid columns={3}>
                         {ingredients.map((ingredient) => (
-                            <Grid.Col span={1} key={ingredient._id}>
-                                <Card shadow="sm">
-                                    <Card.Section>
-                                        <Image
-                                            src={ingredient.image}
-                                            alt={ingredient.name}
-                                            height={100}
-                                            fit="cover"
-                                            radius="md"
-                                        />
-                                    </Card.Section>
-                                    <Center>
-                                        <Title order={4} mt="md">
-                                            {ingredient.name}
-                                        </Title>
-                                    </Center>
-                                    <Button mt="sm" fullWidth variant="light" onClick={() => clickHandler(ingredient)}>
-                                        Select
-                                    </Button>
-                                </Card>
-                            </Grid.Col>
+                            <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
                         ))}
                     </Grid>
                     {props.multi && (

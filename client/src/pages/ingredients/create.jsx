@@ -16,6 +16,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
             name: '',
             unit: '',
             image: '',
+            alternateNames: '',
         },
         validate: {
             name: isNotEmpty('Name is required'),
@@ -60,6 +61,13 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                             placeholder="Name"
                             withAsterisk
                             {...form.getInputProps('name')}
+                            mb="sm"
+                        />
+                        <TextInput
+                            label="Alternate names"
+                            placeholder="Alternate names"
+                            description="Semicolon separated"
+                            {...form.getInputProps('alternateNames')}
                             mb="sm"
                         />
                         <FileInput
