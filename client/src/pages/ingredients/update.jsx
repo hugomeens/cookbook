@@ -28,15 +28,15 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
         event.preventDefault();
         if (form.validate().hasErrors) return;
         try {
-            console.log(form.values)
+            console.log(form.values);
             button.current.loading = true;
             form.values.alternativeNames = []; //todo
             delete form.values.image;
             form.values.imageId = '';
             form.values._id = item._id;
             await API.updateIngredient(form.values);
-            button.current.loading = false;
-            handleClose();
+            // button.current.loading = false;
+            // handleClose();
         } catch (error) {
             button.current.loading = false;
             // todo

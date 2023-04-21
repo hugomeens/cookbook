@@ -29,7 +29,6 @@ class IngredientDao {
 
     update(id, up) {
         return this.collection.updateOne({ _id: ObjectID(id) }, { $set: up });
-
     }
 }
 

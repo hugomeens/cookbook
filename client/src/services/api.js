@@ -16,6 +16,9 @@ const API = {
     listIngredients() {
         return caller().get('/ingredient/list');
     },
+    validateIngredient(data) {
+        return caller().post('/ingredient/validate', data);
+    },
     createRecipe(data) {
         return caller().post('/recipe/create', data);
     },
