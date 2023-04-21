@@ -7,7 +7,10 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
 
     const clickHandler = (ingredient) => {
         if (props.multi) {
-            ingredients.push(ingredient);
+            if (ingredients.includes(ingredient)) {
+                const index = ingredients.indexOf(ingredient);
+                ingredients.splice(index, 1);
+            } else ingredients.push(ingredient);
         } else {
             handleSubmitLocal(ingredient);
         }
@@ -25,7 +28,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
     useEffect(() => {
         API.listIngredients()
             .then((res) => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     setIngredients(res.data);
                 }
             })
@@ -52,7 +55,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                 <Modal.Body>
                     <Grid columns={3}>
                         {ingredients.map((ingredient) => (
-                            <Grid.Col span={1} key={ingredient.id}>
+                            <Grid.Col span={1} key={ingredient._id}>
                                 <Card shadow="sm">
                                     <Card.Section>
                                         <Image

@@ -21,7 +21,7 @@ const Ingredients = () => {
     useEffect(() => {
         API.listIngredients()
             .then((res) => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     setIngredients(res.data);
                 }
             })
@@ -41,7 +41,7 @@ const Ingredients = () => {
         },
         buttonValidate: {
             text: 'Validate Ingredients',
-            handler: () => alert('not implemented'),
+            handler: () => navigate("/validate"),
         },
         buttonCreate: {
             text: 'New Ingredients',

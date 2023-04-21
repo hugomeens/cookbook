@@ -1,28 +1,20 @@
-import { createStyles, Button } from '@mantine/core';
+import { SimpleGrid, Card, Image, TextInput, Select, Button } from '@mantine/core';
 import { useState } from 'react';
 import ModalIngredientsSelector from '../../components/ingredients-selector';
 import IngredientView from '../ingredients/ingredient-view';
-
-const useStyles = createStyles((theme) => ({
-    main: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        flexWrap: 'wrap',
-    },
-}));
+import cnf from '../../config';
 
 const Merge = () => {
-    const { classes } = useStyles();
     const [showSelector, setShowSelector] = useState(false);
-    const [ingredient1, setIngredient1] = useState({});
-    const [ingredient2, setIngredient2] = useState({});
+    const [ingredient1, setIngredient1] = useState(null);
+    const [ingredient2, setIngredient2] = useState(null);
     const [ingredientMerge, setIngredientMerge] = useState({});
 
     const [isLoadOne, setIsLoadOne] = useState({});
     const updateLoad = (ingredient) => {
         if (isLoadOne) {
-            if (JSON.stringify(ingredientMerge) == JSON.stringify({})) {
+            // eslint-disable-next-line eqeqeq
+            if (JSON.stringify(ingredientMerge) === JSON.stringify({})) {
                 setIngredientMerge(ingredient);
             }
             setIngredient1(ingredient);
@@ -33,7 +25,7 @@ const Merge = () => {
 
     return (
         <>
-            <div className={classes.main}>
+            <SimpleGrid cols={3}>
                 <IngredientView
                     item={ingredient1}
                     button={{
@@ -54,17 +46,24 @@ const Merge = () => {
                         text: 'Load',
                     }}
                 />
-                <IngredientView
-                    item={ingredientMerge}
-                    button={{
-                        clickHandler: () => {
-                            // delete ingredient2
-                            // update ingredient1
-                        },
-                        text: 'Merge',
-                    }}
-                />
-            </div>
+                <Card shadow="sm" withBorder>
+                    <Card.Section>
+                        <Image
+                            src={ingredientMerge.image}
+                            alt={ingredientMerge.name}
+                            height={160}
+                            fit="cover"
+                            radius="md"
+                            withPlaceholder
+                        />
+                    </Card.Section>
+                    <TextInput my="xs" label="Name" defaultValue={ingredientMerge.name} />
+                    <Select label="Unit" placeholder="Select unit" data={cnf.units} />
+                    <Button mt="sm" color="blue" fullWidth variant="light" disabled={!(ingredient1 && ingredient2)}>
+                        Merge
+                    </Button>
+                </Card>
+            </SimpleGrid>
             {showSelector && (
                 <ModalIngredientsSelector
                     handleClose={() => setShowSelector(false)}
