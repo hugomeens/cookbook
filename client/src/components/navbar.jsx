@@ -9,6 +9,15 @@ const NavbarCookBook = ({ data }) => {
             <Group position="apart">
                 <Title order={1}>{data.title}</Title>
                 <Group>
+                    {data.buttonMerge ? (
+                        <GrantAccess roles={['admin']}>
+                            <Button onClick={data.buttonMerge.handler} color="yellow">
+                                {data.buttonMerge.text}
+                            </Button>
+                        </GrantAccess>
+                    ) : (
+                        <></>
+                    )}
                     <GrantAccess roles={['admin']}>
                         <Button onClick={data.buttonValidate.handler} color="red">
                             {data.buttonValidate.text}

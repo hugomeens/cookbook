@@ -5,6 +5,7 @@ import ItemGridViewIngredients from './item-grid-view';
 import ModalCreateIngredient from './create';
 import ModalUpdateIngredient from './update';
 import NavbarCookBook from '../../components/navbar';
+import { useNavigate } from "react-router-dom";
 
 const Ingredients = () => {
     const [showCreate, setShowCreate] = useState(false);
@@ -14,8 +15,14 @@ const Ingredients = () => {
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
 
+    const navigate = useNavigate();
+
     const navbar = {
         title: 'Ingredients',
+        buttonMerge: {
+            text: 'Merge Ingredients',
+            handler: () => navigate("/merge"),
+        },
         buttonValidate: {
             text: 'Validate Ingredients',
             handler: () => alert('not implemented'),
