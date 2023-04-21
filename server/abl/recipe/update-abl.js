@@ -19,7 +19,8 @@ async function UpdateAbl(body, res) {
     if (mongoRes.matchedCount == 0) {
       res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
     } else {
-      res.status(statusCodes.OK).json({ _id: id });
+      body._id = id;
+      res.status(statusCodes.OK).json(body);
     }
   } catch (e) {
     console.log(e);
