@@ -20,6 +20,7 @@ const IngredientView = ({ item, button }) => {
                     fullWidth
                     mt="sm"
                     onClick={() => button.clickHandler(item)}
+                    disabled={button.disabled}
                 >
                     {button.text}
                 </Button>

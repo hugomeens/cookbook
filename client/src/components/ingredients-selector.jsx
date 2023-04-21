@@ -35,7 +35,6 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                         data={mockdata}
                         updateItem={() => {}}
                         button={{ text: props.multi ? 'Add' : 'Select', clickHandler: clickHandler }}
-                        updateHandler={() => {}}
                     />
                 </Modal.Body>
                 {props.multi && (
