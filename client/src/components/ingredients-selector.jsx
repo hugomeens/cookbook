@@ -1,12 +1,16 @@
-import { Modal, Button, Text, Image, Group, Grid, Card, Title, Center } from '@mantine/core';
+import { Modal, Button, Text, Group, Grid } from '@mantine/core';
 import mockdata from '../pages/ingredients/mockdata';
+import SelectorItem from './select-item';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
     const ingredients = [];
 
     const clickHandler = (ingredient) => {
         if (props.multi) {
-            ingredients.push(ingredient);
+            if (ingredients.includes(ingredient)) {
+                const index = ingredients.indexOf(ingredient);
+                ingredients.splice(index, 1);
+            } else ingredients.push(ingredient);
         } else {
             handleSubmitLocal(ingredient);
         }
@@ -36,32 +40,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                 <Modal.Body>
                     <Grid columns={3}>
                         {mockdata.map((ingredient) => (
-                            <Grid.Col span={1} key={ingredient.id}>
-                                <Card shadow="sm">
-                                    <Card.Section>
-                                        <Image
-                                            src={ingredient.image}
-                                            alt={ingredient.name}
-                                            height={100}
-                                            fit="cover"
-                                            radius="md"
-                                        />
-                                    </Card.Section>
-                                    <Center>
-                                        <Title order={4} mt="md">
-                                            {ingredient.name}
-                                        </Title>
-                                    </Center>
-                                    <Button
-                                        mt="sm"
-                                        fullWidth
-                                        variant="light"
-                                        onClick={() => clickHandler(ingredient)}
-                                    >
-                                        Select
-                                    </Button>
-                                </Card>
-                            </Grid.Col>
+                            <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
                         ))}
                     </Grid>
                     {props.multi && (

@@ -1,0 +1,6 @@
+{
+    "units": [
+        { "label": "Grams", "value": "g" },
+        { "label": "Centiliters", "value": "cL" }
+    ]
+}
