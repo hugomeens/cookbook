@@ -38,7 +38,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const QuantityInput = ({ min = 1, max = 10, initialValue }) => {
+const QuantityInput = ({ min = 1, initialValue }) => {
     const { classes } = useStyles();
     const handlers = useRef(null);
     const [value, setValue] = useState(initialValue);
@@ -59,7 +59,6 @@ const QuantityInput = ({ min = 1, max = 10, initialValue }) => {
             <NumberInput
                 variant="unstyled"
                 min={min}
-                max={max}
                 handlersRef={handlers}
                 value={value}
                 onChange={setValue}
@@ -70,7 +69,6 @@ const QuantityInput = ({ min = 1, max = 10, initialValue }) => {
                 size={28}
                 variant="transparent"
                 onClick={() => handlers.current?.increment()}
-                disabled={value === max}
                 className={classes.control}
                 onMouseDown={(event) => event.preventDefault()}
             >

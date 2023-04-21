@@ -11,7 +11,7 @@ const Recipe = () => {
     return (
         <>
             <Image src={data.image} alt={data.title} radius="md" withPlaceholder />
-            <Title m="md" color="white" order={2}>
+            <Title m="md" order={2}>
                 {data.title}
             </Title>
             <Text>
