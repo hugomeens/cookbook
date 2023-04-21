@@ -1,7 +1,7 @@
-import { Modal, Text, Select, TextInput, Button, FileInput, Group, Image } from '@mantine/core';
-import { isNotEmpty, useForm } from '@mantine/form';
+import { Modal, Button, TextInput, Select, FileInput, Text, Image, Group } from '@mantine/core';
+import { useForm, isNotEmpty } from '@mantine/form';
 
-const ModalCreateIngredient = ({ opened, handler }) => {
+const ModalUpdateIngredient = ({ item, opened, handler }) => {
     const handleClose = () => {
         form.reset();
         handler();
@@ -9,9 +9,9 @@ const ModalCreateIngredient = ({ opened, handler }) => {
 
     const form = useForm({
         initialValues: {
-            name: '',
-            type: '',
-            image: '',
+            name: item.name,
+            type: item.type,
+            image: item.image,
         },
         validate: {
             name: isNotEmpty('Name is required'),
@@ -33,7 +33,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                 <Modal.Header>
                     <Modal.Title>
                         <Text fw={700} fz="lg">
-                            Create Ingredient
+                            Update Ingredient
                         </Text>
                     </Modal.Title>
                     <Modal.CloseButton />
@@ -78,7 +78,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                                 Cancel
                             </Button>
                             <Button type="submit" variant="light" color="green">
-                                Create
+                                Update
                             </Button>
                         </Group>
                     </form>
@@ -88,4 +88,4 @@ const ModalCreateIngredient = ({ opened, handler }) => {
     );
 };
 
-export default ModalCreateIngredient;
+export default ModalUpdateIngredient;

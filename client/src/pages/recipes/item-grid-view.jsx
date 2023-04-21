@@ -1,4 +1,5 @@
-import { Card, Divider, Text, Title, Image, Badge } from '@mantine/core';
+import { Card, Divider, Text, Title, Image, Badge, Button } from '@mantine/core';
+import GrantAccess from '../../tools/grant-access';
 
 const ItemGridViewRecipe = ({ item }) => {
     return (
@@ -15,6 +16,21 @@ const ItemGridViewRecipe = ({ item }) => {
                     #{tag}
                 </Badge>
             ))}
+            <Divider my="sm" />
+            <GrantAccess roles={['admin']}>
+                <Button variant="light" color="blue" fullWidth>
+                    Update
+                </Button>
+            </GrantAccess>
+            <Button
+                variant="light"
+                color="green"
+                fullWidth
+                my="sm"
+                onClick={() => (window.location.href = `/recipe/${item.id}`)}
+            >
+                Open
+            </Button>
         </Card>
     );
 };
