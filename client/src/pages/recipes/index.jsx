@@ -1,14 +1,17 @@
 import ModalCreate from './create';
 import GridView from '../../components/grid-view';
 import { useState } from 'react';
-import mockdata from '../mockdata';
 import ItemGridViewRecipe from './item-grid-view';
 import NavbarCookBook from '../../components/navbar';
+import API from '../../services/api';
+import { useEffect } from 'react';
 
 const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [view, setView] = useState('grid');
     const toggleModalCreate = () => setShowCreate(!showCreate);
+    const [search, setSearch] = useState('');
+    const [recipes, setRecipes] = useState([]);
 
     const navbar = {
         title: 'Recipes',
@@ -26,10 +29,26 @@ const Recipes = () => {
         },
     };
 
+    useEffect(() => {
+        API.listRecipes()
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log(res.data)
+                    setRecipes(res.data);
+                }
+            })
+            .catch((err) => {
+                // todo
+                console.log(err);
+            });
+
+        return () => {};
+    }, []);
+
     return (
         <>
             <NavbarCookBook data={navbar} />
-            <GridView data={mockdata} item={ItemGridViewRecipe} />
+            <GridView data={recipes} item={ItemGridViewRecipe} />
             <ModalCreate open={showCreate} handler={toggleModalCreate} />
         </>
     );
