@@ -28,8 +28,12 @@ const Home = () => {
             <Center my={150}>
                 <MantineLogo size={100} />
             </Center>
-            <Center my={150}>
-                <InputWithButton />
+            <Center my={50}>
+                <InputWithButton
+                    style={{
+                        width: '50%',
+                    }}
+                />
             </Center>
         </>
     );
