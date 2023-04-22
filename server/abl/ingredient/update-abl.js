@@ -15,6 +15,7 @@ async function UpdateAbl(body, res) {
         const id = body._id;
         delete body._id;
         ingredientDao.update(id, body);
+        body._id = id;
         res.status(statusCodes.OK).json(body);
     } catch (e) {
         console.log(e);

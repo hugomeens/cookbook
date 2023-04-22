@@ -78,6 +78,10 @@ const Ingredients = () => {
         // },
     };
 
+    function upIngredient(ingredient) {
+        setIngredients(ingredients.map((item) => (item._id === ingredient._id ? ingredient : item)));
+    }
+
     return (
         <>
             <NavbarCookBook data={navbar} />
@@ -88,10 +92,17 @@ const Ingredients = () => {
             )} */}
             <ModalCreateIngredient
                 opened={showCreate}
-                addIngredient={(ingredient) => setIngredients([...ingredients, ingredient])}
+                addIngredient={(ingredient) => setIngredients((prev) => [...prev, ingredient])}
                 handler={toggleModalCreate}
             />
-            {showUpdate && <ModalUpdateIngredient opened={showUpdate} handler={toggleModalUpdate} item={item} />}
+            {showUpdate && (
+                <ModalUpdateIngredient
+                    opened={showUpdate}
+                    updateIngredient={(ingredient) => upIngredient(ingredient)}
+                    handler={toggleModalUpdate}
+                    item={item}
+                />
+            )}
         </>
     );
 };
