@@ -3,12 +3,18 @@ import { useState } from 'react';
 import ModalIngredientsSelector from '../../components/ingredients-selector';
 import IngredientView from '../ingredients/ingredient-view';
 import cnf from '../../config';
+import API from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const Merge = () => {
     const [showSelector, setShowSelector] = useState(false);
     const [ingredient1, setIngredient1] = useState(null);
     const [ingredient2, setIngredient2] = useState(null);
     const [ingredientMerge, setIngredientMerge] = useState({});
+
+    const [isMergeLoading, setIsMergeLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const [isLoadOne, setIsLoadOne] = useState({});
     const updateLoad = (ingredient) => {
@@ -20,6 +26,19 @@ const Merge = () => {
             setIngredient1(ingredient);
         } else {
             setIngredient2(ingredient);
+        }
+    };
+
+    const mergeHanlder = async () => {
+        try {
+            setIsMergeLoading(true);
+            await API.updateIngredient(ingredientMerge);
+            await API.deleteIngredient(ingredient2._id);
+            navigate("/ingredients");
+            setIsMergeLoading(false);
+        } catch (error) {
+            console.log(error);
+            setIsMergeLoading(false);
         }
     };
 
@@ -66,7 +85,15 @@ const Merge = () => {
                         mb="sm"
                     />
                     <Select label="Unit" placeholder="Select unit" data={cnf.units} />
-                    <Button mt="sm" color="blue" fullWidth variant="light" disabled={!(ingredient1 && ingredient2)}>
+                    <Button
+                        mt="sm"
+                        color="blue"
+                        fullWidth
+                        variant="light"
+                        disabled={!(ingredient1 && ingredient2)}
+                        onClick={mergeHanlder}
+                        loading={isMergeLoading}
+                    >
                         Merge
                     </Button>
                 </Card>
