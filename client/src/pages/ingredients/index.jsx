@@ -37,7 +37,7 @@ const Ingredients = () => {
         title: 'Ingredients',
         buttonMerge: {
             text: 'Merge Ingredients',
-            href: '/merge',
+            handler: () => navigate('/merge'),
         },
         buttonValidate: {
             text: 'Validate Ingredients',

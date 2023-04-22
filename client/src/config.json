@@ -1,6 +1,7 @@
 {
     "units": [
         { "label": "Grams", "value": "g" },
-        { "label": "Centiliters", "value": "cL" }
+        { "label": "Centiliters", "value": "cL" },
+        { "label": "Pieces", "value": "pcs" }
     ]
 }

@@ -63,7 +63,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                     />
                     <Grid columns={3}>
                         {ingredients.map((ingredient) => (
-                            <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
+                            <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient._id} />
                         ))}
                     </Grid>
                     {props.multi && (
