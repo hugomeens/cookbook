@@ -12,7 +12,7 @@ const IngredientView = ({ item, button }) => {
             </Title>
             <Divider my="sm" />
             <Text size="md" color="dimmed" mb="sm">
-                {item?.alternativeNames?.length ?? 0 > 0
+                {(item?.alternativeNames?.length ?? 0) > 0
                     ? item.alternativeNames.map(
                           (name, index) => `${name}${index === item?.alternativeNames.length - 1 ? '' : ', '}`
                       )
