@@ -14,7 +14,12 @@ async function ValidateAbl(body, res) {
 
     try {
         const mongoRes = await recipeDao.validate(body.id);
-        res.status(statusCodes.OK).json({_id: body.id});
+        console.log(mongoRes);
+        if (mongoRes.matchedCount == 0) {
+            res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
+        } else {
+            res.status(statusCodes.OK).json({ _id: body.id });
+        }
     } catch (e) {
         res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
     }

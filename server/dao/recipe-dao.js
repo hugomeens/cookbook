@@ -33,7 +33,7 @@ class RecipeDao {
     }
 
     view(id) {
-        return this.collection.find({_id: ObjectID(id)}).toArray();
+        return this.collection.findOne({ _id: ObjectID(id) });
     }
 }
 
