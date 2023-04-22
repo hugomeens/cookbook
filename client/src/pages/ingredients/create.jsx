@@ -67,7 +67,7 @@ const ModalCreateIngredient = ({ opened, handler, addIngredient }) => {
                         <TextInput
                             label="Alternative names"
                             placeholder="Alternative names"
-                            description="Semicolon separated"
+                            description="Comma separated"
                             {...form.getInputProps('alternativeNames')}
                             mb="sm"
                         />

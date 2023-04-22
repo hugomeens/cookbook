@@ -16,7 +16,7 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
             name: item.name,
             unit: item.type,
             image: item.image,
-            alternativeNames: item.alternativeNames.join(),
+            alternativeNames: item.alternativeNames.join(';'),
         },
         validate: {
             name: isNotEmpty('Name is required'),
