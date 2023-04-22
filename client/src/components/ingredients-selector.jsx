@@ -1,5 +1,4 @@
 import { Modal, Button, Text, Group, Grid, TextInput, ScrollArea } from '@mantine/core';
-import mockdata from '../pages/ingredients/mockdata';
 import SelectorItem from './select-item';
 import { IconSearch } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
@@ -7,21 +6,24 @@ import API from '../services/api';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
     const [ingredients, setIngredients] = useState([]);
+    let resIngredients = [];
 
     const clickHandler = (ingredient) => {
-        const { id, name, unit } = ingredient;
         if (props.multi) {
-            if (ingredients.includes({ id, name, unit, quantity: 0 })) {
-                const index = ingredients.indexOf({ id, name, unit, quantity: 0 });
-                ingredients.splice(index, 1);
-            } else ingredients.push({ id, name, unit, quantity: 0 });
+            const indexIngredient = resIngredients.findIndex((item) => item._id == ingredient._id);
+            console.log(indexIngredient, ingredient.name);
+            if (indexIngredient === -1) {
+                resIngredients.push(ingredient);
+            } else {
+                resIngredients.splice(indexIngredient, 1);
+            }
         } else {
-            handleSubmitLocal({ id, name, unit, quantity: 0 });
+            handleSubmitLocal(ingredient);
         }
     };
 
     const handleSubmitLocal = (ingredient) => {
-        handleSubmit(props.multi ? ingredients : ingredient);
+        handleSubmit(props.multi ? resIngredients : ingredient);
         handleClose();
     };
 
@@ -61,8 +63,12 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                     />
                     <ScrollArea h={430} offsetScrollbars>
                         <Grid columns={3}>
-                            {mockdata.map((ingredient) => (
-                                <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
+                            {ingredients.map((ingredient) => (
+                                <SelectorItem
+                                    ingredient={ingredient}
+                                    clickHandler={clickHandler}
+                                    key={ingredient._id}
+                                />
                             ))}
                         </Grid>
                     </ScrollArea>

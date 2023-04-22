@@ -25,6 +25,9 @@ const API = {
     createRecipe(data) {
         return caller().post('/recipe/create', data);
     },
+    listRecipes() {
+        return caller().get('/recipe/list');
+    },
 };
 
 export default API;

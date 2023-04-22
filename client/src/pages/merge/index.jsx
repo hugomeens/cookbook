@@ -78,10 +78,10 @@ const Merge = () => {
                     </Card.Section>
                     <TextInput my="xs" label="Name" defaultValue={ingredientMerge.name} />
                     <TextInput
-                        label="Alternate names"
-                        placeholder="Alternate names"
+                        label="Alternative names"
+                        placeholder="Alternative names"
                         description="Semicolon separated"
-                        defaultValue={ingredientMerge.alternateNames}
+                        defaultValue={ingredientMerge?.alternativeNames?.join(';')}
                         mb="sm"
                     />
                     <Select label="Unit" placeholder="Select unit" data={cnf.units} />

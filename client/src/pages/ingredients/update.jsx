@@ -1,51 +1,16 @@
-import { Modal, Button, TextInput, Select, FileInput, Text, Image, Group } from '@mantine/core';
-import { useForm, isNotEmpty } from '@mantine/form';
-import { useRef } from 'react';
+import { Modal, Text } from '@mantine/core';
 import API from '../../services/api';
+import IngredientViewUpdate from './ingredient-view-update';
 
-const ModalUpdateIngredient = ({ item, opened, handler }) => {
-    const handleClose = () => {
-        form.reset();
+const ModalUpdateIngredient = ({ item, opened, handler, updateIngredient }) => {
+    const validated = (ingredient) => {
+        console.log(ingredient);
+        updateIngredient(ingredient);
         handler();
     };
 
-    const button = useRef(null);
-
-    const form = useForm({
-        initialValues: {
-            name: item.name,
-            unit: item.type,
-            image: item.image,
-            alternateNames: item.alternateNames,
-        },
-        validate: {
-            name: isNotEmpty('Name is required'),
-            unit: isNotEmpty('Unit is required'),
-            // image: isNotEmpty('Image is required'),
-        },
-    });
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (form.validate().hasErrors) return;
-        try {
-            console.log(form.values);
-            button.current.loading = true;
-            form.values.alternativeNames = []; //todo
-            delete form.values.image;
-            form.values.imageId = '';
-            form.values._id = item._id;
-            await API.updateIngredient(form.values);
-            // button.current.loading = false;
-            // handleClose();
-        } catch (error) {
-            button.current.loading = false;
-            // todo
-        }
-    };
-
     return (
-        <Modal.Root opened={opened} onClose={handleClose}>
+        <Modal.Root opened={opened} onClose={handler} size="xs">
             <Modal.Overlay />
             <Modal.Content>
                 <Modal.Header>
@@ -57,57 +22,12 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <form onSubmit={handleSubmit}>
-                        <TextInput
-                            label="Name"
-                            placeholder="Name"
-                            withAsterisk
-                            {...form.getInputProps('name')}
-                            mb="sm"
-                        />
-                        <TextInput
-                            label="Alternate names"
-                            placeholder="Alternate names"
-                            description="Semicolon separated"
-                            {...form.getInputProps('alternateNames')}
-                            mb="sm"
-                        />
-                        <Select
-                            label="Unit"
-                            placeholder="Select unit"
-                            withAsterisk
-                            dropdownPosition="bottom"
-                            {...form.getInputProps('unit')}
-                            data={[
-                                { label: 'Grams', value: 'g' },
-                                { label: 'Centiliters', value: 'cl' },
-                            ]}
-                            my="md"
-                        />
-                        <FileInput
-                            label="Image"
-                            placeholder="Select image"
-                            withAsterisk
-                            {...form.getInputProps('image')}
-                            mb="md"
-                        />
-                        <Image
-                            src={form.values.image}
-                            alt={form.values.name}
-                            withPlaceholder
-                            height={160}
-                            radius="sm"
-                        />
-
-                        <Group position="right" mt="md">
-                            <Button variant="light" color="red" onClick={handleClose}>
-                                Cancel
-                            </Button>
-                            <Button ref={button} type="submit" variant="light" color="green">
-                                Update
-                            </Button>
-                        </Group>
-                    </form>
+                    <IngredientViewUpdate
+                        item={item}
+                        buttonText="Update"
+                        APICall={API.updateIngredient}
+                        handler={(ingredient) => validated(ingredient)}
+                    />
                 </Modal.Body>
             </Modal.Content>
         </Modal.Root>
