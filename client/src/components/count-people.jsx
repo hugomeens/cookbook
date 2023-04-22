@@ -38,7 +38,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const QuantityInput = ({ min = 1, initialValue }) => {
+const QuantityInput = ({ min = 1, initialValue, ...props }) => {
     const { classes } = useStyles();
     const handlers = useRef(null);
     const [value, setValue] = useState(initialValue);
@@ -63,6 +63,7 @@ const QuantityInput = ({ min = 1, initialValue }) => {
                 value={value}
                 onChange={setValue}
                 classNames={{ input: classes.input }}
+                {...props}
             />
 
             <ActionIcon
