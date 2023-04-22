@@ -18,12 +18,8 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
     };
 
     const handleSubmitLocal = (ingredient) => {
-        if (props.multi) {
-            handleSubmit(ingredients);
-        } else {
-            handleSubmit(ingredient);
-            handleClose();
-        }
+        handleSubmit(props.multi ? ingredients : ingredient);
+        handleClose();
     };
 
     return (
