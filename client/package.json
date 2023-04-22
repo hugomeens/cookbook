@@ -8,6 +8,7 @@
     "@mantine/ds": "^6.0.8",
     "@mantine/form": "^6.0.6",
     "@mantine/hooks": "^6.0.6",
+    "@mantine/notifications": "^6.0.8",
     "@tabler/icons-react": "^2.16.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -44,5 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5500" 
+  "proxy": "http://localhost:5500"
 }
