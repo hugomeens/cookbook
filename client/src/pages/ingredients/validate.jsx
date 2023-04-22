@@ -2,6 +2,7 @@ import IngredientView from './ingredient-view';
 import API from '../../services/api';
 import { useEffect, useState } from 'react';
 import { Modal, Text, Paper, Grid, ScrollArea, Button, Center } from '@mantine/core';
+import setNotification from '../errors/error-notification';
 
 const ModalValidateIngredients = ({ opened, handler }) => {
     const [ingredients, setIngredients] = useState([]);
@@ -15,7 +16,7 @@ const ModalValidateIngredients = ({ opened, handler }) => {
                 }
             })
             .catch((err) => {
-                // todo
+                setNotification(true, err);
                 console.log(err);
             });
 
