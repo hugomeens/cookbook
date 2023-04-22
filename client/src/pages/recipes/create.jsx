@@ -16,6 +16,7 @@ import QuantityInput from '../../components/count-people';
 import ModalIngredientsSelector from '../../components/ingredients-selector';
 import { useState } from 'react';
 import { IconTrash } from '@tabler/icons-react';
+import './create.css';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
     return (
@@ -47,9 +48,10 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
 const LineStep = ({ step, removeHandler }) => {
     return (
         <Paper p="xs" radius="sm" shadow="sm" withBorder my="md">
-            <List.Item>
+            <List.Item style={{marginRight: "15px"}}>
                 <TextInput
                     placeholder="Enter step"
+                    style={{width: "100%"}}
                     onBlur={() => removeHandler((prev) => prev.filter((s) => s.id !== step.id))}
                 />
             </List.Item>
