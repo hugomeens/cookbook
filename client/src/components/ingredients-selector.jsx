@@ -1,30 +1,28 @@
-import { useEffect, useState } from 'react';
-import API from '../services/api';
-import { Modal, Button, Text, Group, Grid, TextInput } from '@mantine/core';
+import { Modal, Button, Text, Group, Grid, TextInput, ScrollArea } from '@mantine/core';
+import mockdata from '../pages/ingredients/mockdata';
 import SelectorItem from './select-item';
 import { IconSearch } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import API from '../services/api';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
     const [ingredients, setIngredients] = useState([]);
 
     const clickHandler = (ingredient) => {
+        const { id, name, unit } = ingredient;
         if (props.multi) {
-            if (ingredients.includes(ingredient)) {
-                const index = ingredients.indexOf(ingredient);
+            if (ingredients.includes({ id, name, unit, quantity: 0 })) {
+                const index = ingredients.indexOf({ id, name, unit, quantity: 0 });
                 ingredients.splice(index, 1);
-            } else ingredients.push(ingredient);
+            } else ingredients.push({ id, name, unit, quantity: 0 });
         } else {
-            handleSubmitLocal(ingredient);
+            handleSubmitLocal({ id, name, unit, quantity: 0 });
         }
     };
 
     const handleSubmitLocal = (ingredient) => {
-        if (props.multi) {
-            handleSubmit(ingredients);
-        } else {
-            handleSubmit(ingredient);
-            handleClose();
-        }
+        handleSubmit(props.multi ? ingredients : ingredient);
+        handleClose();
     };
 
     useEffect(() => {
@@ -61,11 +59,13 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                         radius="md"
                         icon={<IconSearch size="1rem" stroke={1.5} />}
                     />
-                    <Grid columns={3}>
-                        {ingredients.map((ingredient) => (
-                            <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient._id} />
-                        ))}
-                    </Grid>
+                    <ScrollArea h={430} offsetScrollbars>
+                        <Grid columns={3}>
+                            {mockdata.map((ingredient) => (
+                                <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
+                            ))}
+                        </Grid>
+                    </ScrollArea>
                     {props.multi && (
                         <Group position="right" mt="md">
                             <Button variant="light" color="red" onClick={handleClose}>

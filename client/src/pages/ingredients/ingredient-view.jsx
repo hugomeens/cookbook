@@ -12,9 +12,11 @@ const IngredientView = ({ item, button }) => {
             </Title>
             <Divider my="sm" />
             <Text size="md" color="dimmed" mb="sm">
-                {item?.alternateNames?.map(
-                    (name, index) => `${name}${index === item?.alternateNames.length - 1 ? '' : ', '}`
-                ) ?? 'Alternate names'}
+                {(item?.alternativeNames?.length ?? 0) > 0
+                    ? item.alternativeNames.map(
+                          (name, index) => `${name}${index === item?.alternativeNames.length - 1 ? '' : ', '}`
+                      )
+                    : 'No alternative names'}
             </Text>
             <Badge color="blue">{item?.unit ?? 'unit'}</Badge>
             <Divider my="sm" />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import ModalCreateIngredient from './create';
 import ModalUpdateIngredient from './update';
+import ModalCreateIngredient from './create';
 import NavbarCookBook from '../../components/navbar';
 import { useNavigate } from 'react-router-dom';
 import GridViewIngredients from './grid-view-ingredients';
@@ -40,6 +40,7 @@ const Ingredients = () => {
         let aCount = a.name.toLowerCase().indexOf(s);
         for (const name of a.alternativeNames) {
             let nCount = name.toLowerCase().indexOf(s);
+            // eslint-disable-next-line eqeqeq
             if (nCount != -1 && (nCount < aCount || aCount == -1)) aCount = nCount;
         }
         return aCount;
@@ -54,6 +55,7 @@ const Ingredients = () => {
         });
 
         return () => {};
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
 
     const navbar = {

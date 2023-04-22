@@ -45,7 +45,7 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
     };
 
     return (
-        <Modal.Root opened={opened} onClose={handleClose} size="xs">
+        <Modal.Root opened={opened} onClose={handleClose}>
             <Modal.Overlay />
             <Modal.Content>
                 <Modal.Header>
@@ -72,6 +72,18 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
                             {...form.getInputProps('alternateNames')}
                             mb="sm"
                         />
+                        <Select
+                            label="Unit"
+                            placeholder="Select unit"
+                            withAsterisk
+                            dropdownPosition="bottom"
+                            {...form.getInputProps('unit')}
+                            data={[
+                                { label: 'Grams', value: 'g' },
+                                { label: 'Centiliters', value: 'cl' },
+                            ]}
+                            my="md"
+                        />
                         <FileInput
                             label="Image"
                             placeholder="Select image"
@@ -86,18 +98,7 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
                             height={160}
                             radius="sm"
                         />
-                        <Select
-                            label="Unit"
-                            placeholder="Select unit"
-                            withAsterisk
-                            dropdownPosition="bottom"
-                            {...form.getInputProps('unit')}
-                            data={[
-                                { label: 'Grams', value: 'g' },
-                                { label: 'Centiliters', value: 'cl' },
-                            ]}
-                            my="md"
-                        />
+
                         <Group position="right" mt="md">
                             <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel

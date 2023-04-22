@@ -34,8 +34,8 @@ const Merge = () => {
             setIsMergeLoading(true);
             await API.updateIngredient(ingredientMerge);
             await API.deleteIngredient(ingredient2._id);
-            navigate("/ingredients");
             setIsMergeLoading(false);
+            navigate("/ingredients");
         } catch (error) {
             console.log(error);
             setIsMergeLoading(false);
