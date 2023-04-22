@@ -7,13 +7,14 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
     const ingredients = [];
 
     const clickHandler = (ingredient) => {
+        const { id, name, unit } = ingredient;
         if (props.multi) {
-            if (ingredients.includes(ingredient)) {
-                const index = ingredients.indexOf(ingredient);
+            if (ingredients.includes({ id, name, unit, quantity: 0 })) {
+                const index = ingredients.indexOf({ id, name, unit, quantity: 0 });
                 ingredients.splice(index, 1);
-            } else ingredients.push(ingredient);
+            } else ingredients.push({ id, name, unit, quantity: 0 });
         } else {
-            handleSubmitLocal(ingredient);
+            handleSubmitLocal({ id, name, unit, quantity: 0 });
         }
     };
 

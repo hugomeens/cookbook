@@ -13,6 +13,7 @@ import {
     Text,
     TextInput,
 } from '@mantine/core';
+import { isNotEmpty, useForm } from '@mantine/form';
 import QuantityInput from '../../components/count-people';
 import ModalIngredientsSelector from '../../components/ingredients-selector';
 import { useState } from 'react';
@@ -26,7 +27,14 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
                     <Text>{ingredient.name}</Text>
                 </Grid.Col>
                 <Grid.Col span={4}>
-                    <NumberInput placeholder="Enter quantity" />
+                    <NumberInput
+                        placeholder="Enter quantity"
+                        onChange={(e) =>
+                            removeHandler((prev) =>
+                                prev.map((i) => (i.id === ingredient.id ? { ...i, quantity: e } : i))
+                            )
+                        }
+                    />
                 </Grid.Col>
                 <Grid.Col span={2}>
                     <Text size="lg">{ingredient.unit}</Text>
@@ -77,6 +85,19 @@ const ModalCreate = ({ open, handler }) => {
     const [steps, setSteps] = useState([{ id: 0, text: '' }]);
     const [countSteps, setCountSteps] = useState(1);
 
+    const form = useForm({
+        initialValues: {
+            title: '',
+            time: '',
+            people: 4,
+        },
+
+        validate: {
+            title: isNotEmpty('Title is required'),
+            time: isNotEmpty('Time is required'),
+        },
+    });
+
     const handleSelector = (data) => {
         // eslint-disable-next-line array-callback-return
         data.map((ingredient) => {
@@ -92,6 +113,9 @@ const ModalCreate = ({ open, handler }) => {
     };
 
     const handleCreate = () => {
+        if (form.validate().hasErrors) return;
+        console.log(form.values);
+        console.log(ingredients);
         console.log(steps);
     };
 
@@ -118,13 +142,19 @@ const ModalCreate = ({ open, handler }) => {
                             <Accordion.Panel>
                                 <Grid columns={24}>
                                     <Grid.Col span={10}>
-                                        <TextInput label="Title of the Recipe" placeholder="Enter Title" withAsterisk />
+                                        <TextInput
+                                            label="Title of the Recipe"
+                                            placeholder="Enter Title"
+                                            withAsterisk
+                                            {...form.getInputProps('title')}
+                                        />
                                     </Grid.Col>
                                     <Grid.Col span={9}>
                                         <NumberInput
                                             label="Time to Prepare"
                                             placeholder="Time in minutes"
                                             withAsterisk
+                                            {...form.getInputProps('time')}
                                         />
                                     </Grid.Col>
                                     <Grid.Col span={5}>
@@ -135,7 +165,7 @@ const ModalCreate = ({ open, handler }) => {
                                                 *
                                             </Text>
                                         </Text>
-                                        <QuantityInput label="Number of people" initialValue={4} />
+                                        <QuantityInput initialValue={4} {...form.getInputProps('people')} />
                                     </Grid.Col>
                                 </Grid>
                             </Accordion.Panel>
@@ -147,7 +177,7 @@ const ModalCreate = ({ open, handler }) => {
                                         Ingredients
                                     </Text>
                                     <Text fz="sm" fw={500}>
-                                        For {4} people
+                                        For {form.values.people} people
                                     </Text>
                                 </Group>
                             </Accordion.Control>
