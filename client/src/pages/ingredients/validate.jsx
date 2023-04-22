@@ -17,7 +17,6 @@ const ModalValidateIngredients = ({ opened, handler }) => {
             })
             .catch((err) => {
                 setNotification(true, err);
-                console.log(err);
             });
 
         return () => {};
@@ -28,7 +27,7 @@ const ModalValidateIngredients = ({ opened, handler }) => {
             await API.validateIngredient({ _id: item._id });
             item.valid = true;
         } catch (error) {
-            console.log(error);
+            setNotification(true, error);
         }
     };
 

@@ -5,6 +5,7 @@ import IngredientView from './ingredient-view';
 import cnf from '../../config';
 import API from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import setNotification from '../errors/error-notification';
 
 const ModalMergeIngredients = ({ opened, handler }) => {
     const [showSelector, setShowSelector] = useState(false);
@@ -37,7 +38,7 @@ const ModalMergeIngredients = ({ opened, handler }) => {
             setIsMergeLoading(false);
             navigate('/ingredients');
         } catch (error) {
-            console.log(error);
+            setNotification(true, 'Failed to merge ingredients');
             setIsMergeLoading(false);
         }
     };

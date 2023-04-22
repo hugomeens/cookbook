@@ -4,6 +4,7 @@ import SelectorItem from './select-item';
 import { IconSearch } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import API from '../services/api';
+import setNotification from '../pages/errors/error-notification';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
     const [ingredients, setIngredients] = useState([]);
@@ -33,8 +34,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                 }
             })
             .catch((err) => {
-                // todo
-                console.log(err);
+                setNotification(true, err);
             });
 
         return () => {};

@@ -6,6 +6,7 @@ import GridViewIngredients from './grid-view-ingredients';
 import API from '../../services/api';
 import ModalMergeIngredients from './merge';
 import ModalValidateIngredients from './validate';
+import setNotification from '../errors/error-notification';
 
 const Ingredients = () => {
     const [showCreate, setShowCreate] = useState(false);
@@ -30,8 +31,7 @@ const Ingredients = () => {
                 }
             })
             .catch((err) => {
-                // todo
-                console.log(err);
+                setNotification(true, err);
             });
 
         return () => {};
