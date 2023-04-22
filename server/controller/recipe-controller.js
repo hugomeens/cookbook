@@ -2,7 +2,7 @@ const express = require("express");
 const CreateAbl = require('../abl/recipe/create-abl');
 const DeleteAbl = require('../abl/recipe/delete-abl');
 const ListAbl = require('../abl/recipe/list-abl');
-//const GetAbl = require('../abl/recipe/get-abl');
+const GetAbl = require('../abl/recipe/get-abl');
 const ValidateAbl = require('../abl/recipe/validate-abl');
 const UpdateAbl = require('../abl/recipe/update-abl');
 const router = express.Router();
@@ -24,7 +24,7 @@ router.get("/search", async (req, res) => {
 });
 
 router.get("/view", async (req, res) => {
-    
+    await GetAbl(req.params, res);
 });
 
 router.put("/update", async (req, res) => {

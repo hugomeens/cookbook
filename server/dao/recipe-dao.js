@@ -32,6 +32,10 @@ class RecipeDao {
         return this.collection.updateOne({ _id: ObjectID(id) }, { $set: up });
 
     }
+
+    get(id) {
+        return this.collection.find({ _id: ObjectID(id) }).toArray();
+    }
 }
 
 const recipeDao = new RecipeDao('recipes');
