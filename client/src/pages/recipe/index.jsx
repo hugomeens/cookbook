@@ -1,12 +1,12 @@
 import { Paper, Grid, Text, Title, Group, List, Image } from '@mantine/core';
 import mockdata from '../mockdata';
 import IngredientsCard from './ingredient';
-import QuantityInput from './count-people';
+import QuantityInput from '../../components/count-people';
 
 const Recipe = () => {
     const id = window.location.href.split('/').slice(-1)[0];
     // eslint-disable-next-line eqeqeq
-    const data = mockdata.find((item) => item.id === id);
+    const data = mockdata.find((item) => item.id == id);
 
     return (
         <>

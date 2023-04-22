@@ -11,7 +11,7 @@
         "id": 2,
         "name": "Banana",
         "image": "https://picsum.photos/200/300",
-        "unit": "g",
+        "unit": "QTY",
         "valid": true
     },
     {
