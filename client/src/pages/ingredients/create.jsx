@@ -32,7 +32,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
             button.current.loading = true;
             form.values.alternativeNames = []; //todo
             delete form.values.image;
-            form.values.imageId = "";
+            form.values.imageId = '';
             await API.createIngredient(form.values);
             button.current.loading = false;
             handleClose();
@@ -43,7 +43,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
     };
 
     return (
-        <Modal.Root opened={opened} onClose={handleClose} size="xs">
+        <Modal.Root opened={opened} onClose={handleClose}>
             <Modal.Overlay />
             <Modal.Content>
                 <Modal.Header>
@@ -70,6 +70,18 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                             {...form.getInputProps('alternateNames')}
                             mb="sm"
                         />
+                        <Select
+                            label="Unit"
+                            placeholder="Select unit"
+                            withAsterisk
+                            dropdownPosition="bottom"
+                            {...form.getInputProps('unit')}
+                            data={[
+                                { label: 'Grams', value: 'g' },
+                                { label: 'Centiliters', value: 'cl' },
+                            ]}
+                            my="md"
+                        />
                         <FileInput
                             label="Image"
                             placeholder="Select image"
@@ -83,18 +95,6 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                             withPlaceholder
                             height={160}
                             radius="sm"
-                        />
-                        <Select
-                            label="Unit"
-                            placeholder="Select unit"
-                            withAsterisk
-                            dropdownPosition="bottom"
-                            {...form.getInputProps('unit')}
-                            data={[
-                                { label: 'Grams', value: 'g' },
-                                { label: 'Centiliters', value: 'cl' },
-                            ]}
-                            my="md"
                         />
                         <Group position="right" mt="md">
                             <Button variant="light" color="red" onClick={handleClose}>

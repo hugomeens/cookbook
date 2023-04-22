@@ -5,7 +5,6 @@ import {
     Center,
     Grid,
     Group,
-    List,
     Modal,
     NumberInput,
     Paper,
@@ -54,27 +53,27 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
     );
 };
 
-const LineStep = ({ step, handler }) => {
+const LineStep = ({ id, step, handler }) => {
     return (
         <Paper p="xs" radius="sm" withBorder my="md">
-            <List.Item>
-                <Group position="apart">
-                    <TextInput
-                        placeholder="Enter step"
-                        onChange={(e) =>
-                            handler((prev) => prev.map((s) => (s.id === step.id ? { ...s, text: e.target.value } : s)))
-                        }
-                    />
-                    <ActionIcon
-                        color="red"
-                        variant="light"
-                        size="lg"
-                        onClick={() => handler((prev) => prev.filter((s) => s.id !== step.id))}
-                    >
-                        <IconTrash size="1rem" />
-                    </ActionIcon>
-                </Group>
-            </List.Item>
+            <Group position="apart">
+                <Text> Step {id + 1}:</Text>
+                <TextInput
+                    style={{ width: '82%' }}
+                    placeholder="Enter step"
+                    onChange={(e) =>
+                        handler((prev) => prev.map((s) => (s.id === step.id ? { ...s, text: e.target.value } : s)))
+                    }
+                />
+                <ActionIcon
+                    color="red"
+                    variant="light"
+                    size="lg"
+                    onClick={() => handler((prev) => prev.filter((s) => s.id !== step.id))}
+                >
+                    <IconTrash size="1rem" />
+                </ActionIcon>
+            </Group>
         </Paper>
     );
 };
@@ -206,11 +205,9 @@ const ModalCreate = ({ open, handler }) => {
                             </Accordion.Control>
                             <Accordion.Panel>
                                 <ScrollArea h={200} offsetScrollbars>
-                                    <List type="ordered">
-                                        {steps.map((step) => (
-                                            <LineStep step={step} handler={setSteps} key={step.id} />
-                                        ))}
-                                    </List>
+                                    {steps.map((step, id) => (
+                                        <LineStep id={id} step={step} handler={setSteps} key={id} />
+                                    ))}
                                 </ScrollArea>
                                 <Center>
                                     <Button mt="sm" onClick={addStep}>
