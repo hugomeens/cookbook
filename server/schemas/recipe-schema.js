@@ -37,9 +37,9 @@ const searchRecipeSchema = {
 const viewRecipeSchema = {
     type: 'object',
     properties: {
-        _id: { type: 'string' },
+        id: { type: 'string' },
     },
-    required: ['_id'],
+    required: ['id'],
 };
 
 const updateRecipeSchema = {
