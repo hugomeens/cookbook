@@ -17,17 +17,15 @@ const ItemGridViewRecipe = ({ item }) => {
             <Card.Section>
                 <Image src={item.image} alt={item.name} withPlaceholder height={160} />
             </Card.Section>
-            <Title order={3}>{item.title}</Title>
+            <Title mt="sm" order={3}>
+                {item.name}
+            </Title>
             <Divider my="sm" />
             <Text>{parseTime(item.preparationTime)}</Text>
             <Divider my="sm" />
-            <GrantAccess roles={['admin']}>
-                <Button variant="light" color="blue" fullWidth>
-                    Update
-                </Button>
-            </GrantAccess>
-            <Button variant="light" color="green" fullWidth my="sm" onClick={() => navigate(`/recipe/${item.id}`)} />
-
+            <Button variant="light" color="green" fullWidth my="sm" onClick={() => navigate(`/recipe/${item.id}`)}>
+                Open
+            </Button>
             <GrantAccess roles={['admin']}>
                 <Button variant="light" color="blue" fullWidth>
                     Update

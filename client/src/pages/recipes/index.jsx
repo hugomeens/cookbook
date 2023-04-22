@@ -5,12 +5,13 @@ import ItemGridViewRecipe from './item-grid-view';
 import NavbarCookBook from '../../components/navbar';
 import API from '../../services/api';
 import { useEffect } from 'react';
+import setNotification from '../errors/error-notification';
 
 const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [view, setView] = useState('grid');
     const toggleModalCreate = () => setShowCreate(!showCreate);
-    const [search, setSearch] = useState('');
+    // const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
 
     const navbar = {
@@ -33,13 +34,12 @@ const Recipes = () => {
         API.listRecipes()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data)
+                    console.log(res.data);
                     setRecipes(res.data);
                 }
             })
             .catch((err) => {
-                // todo
-                console.log(err);
+                setNotification(true, err);
             });
 
         return () => {};

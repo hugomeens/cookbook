@@ -54,8 +54,6 @@ const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
                 {...form.getInputProps('alternativeNames')}
                 mb="sm"
             />
-            <FileInput label="Image" placeholder="Select image" {...form.getInputProps('image')} mb="md" />
-            <Image src={form.values.image} alt={form.values.name} withPlaceholder height={160} radius="sm" />
             <Select
                 label="Unit"
                 placeholder="Select unit"
@@ -68,6 +66,8 @@ const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
                 ]}
                 my="md"
             />
+            <FileInput label="Image" placeholder="Select image" {...form.getInputProps('image')} mb="md" />
+            <Image src={form.values.image} alt={form.values.name} withPlaceholder height={160} radius="sm" />
             <Group position="right" mt="md">
                 <Button variant="light" color="red" onClick={handleClose}>
                     Cancel

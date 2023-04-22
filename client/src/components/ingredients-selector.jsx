@@ -11,6 +11,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
 
     const clickHandler = (ingredient) => {
         if (props.multi) {
+            // eslint-disable-next-line eqeqeq
             const indexIngredient = resIngredients.findIndex((item) => item._id == ingredient._id);
             console.log(indexIngredient, ingredient.name);
             if (indexIngredient === -1) {

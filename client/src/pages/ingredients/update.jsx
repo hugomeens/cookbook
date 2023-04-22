@@ -10,7 +10,7 @@ const ModalUpdateIngredient = ({ item, opened, handler, updateIngredient }) => {
     };
 
     return (
-        <Modal.Root opened={opened} onClose={handler} size="xs">
+        <Modal.Root opened={opened} onClose={handler}>
             <Modal.Overlay />
             <Modal.Content>
                 <Modal.Header>

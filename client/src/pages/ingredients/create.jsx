@@ -9,7 +9,7 @@ const ModalCreateIngredient = ({ opened, handler, addIngredient }) => {
     };
 
     return (
-        <Modal.Root opened={opened} onClose={handler} size="xs">
+        <Modal.Root opened={opened} onClose={handler}>
             <Modal.Overlay />
             <Modal.Content>
                 <Modal.Header>
@@ -21,7 +21,11 @@ const ModalCreateIngredient = ({ opened, handler, addIngredient }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <IngredientViewUpdate buttonText="Create" APICall={API.createIngredient} handler={(item) => validated(item)} />
+                    <IngredientViewUpdate
+                        buttonText="Create"
+                        APICall={API.createIngredient}
+                        handler={(item) => validated(item)}
+                    />
                 </Modal.Body>
             </Modal.Content>
         </Modal.Root>

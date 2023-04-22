@@ -1,7 +1,7 @@
 import IngredientView from './ingredient-view';
 import API from '../../services/api';
 import { useEffect, useState } from 'react';
-import { Modal, Text, Paper, Grid, ScrollArea, Button, Center } from '@mantine/core';
+import { Modal, Text, Grid, ScrollArea, Button, Center } from '@mantine/core';
 import setNotification from '../errors/error-notification';
 
 const ModalValidateIngredients = ({ opened, handler }) => {
@@ -44,26 +44,24 @@ const ModalValidateIngredients = ({ opened, handler }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <Paper shadow="sm" p="md" withBorder mb="md">
-                        <ScrollArea h={500} offsetScrollbars>
-                            <Grid columns={12}>
-                                {ingredients.map((ingredient) => (
-                                    <Grid.Col span={6} key={ingredient._id}>
-                                        <IngredientView
-                                            item={ingredient}
-                                            button={{
-                                                clickHandler,
-                                                text: 'Validate',
-                                            }}
-                                        />
-                                    </Grid.Col>
-                                ))}
-                            </Grid>
-                        </ScrollArea>
-                        <Center mt="md">
-                            <Button onClick={handler}>Close</Button>
-                        </Center>
-                    </Paper>
+                    <ScrollArea h={500} offsetScrollbars>
+                        <Grid columns={12}>
+                            {ingredients.map((ingredient) => (
+                                <Grid.Col span={6} key={ingredient._id}>
+                                    <IngredientView
+                                        item={ingredient}
+                                        button={{
+                                            clickHandler,
+                                            text: 'Validate',
+                                        }}
+                                    />
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    </ScrollArea>
+                    <Center mt="md">
+                        <Button onClick={handler}>Close</Button>
+                    </Center>
                 </Modal.Body>
             </Modal.Content>
         </Modal.Root>
