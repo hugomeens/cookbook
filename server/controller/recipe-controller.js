@@ -24,7 +24,7 @@ router.get("/search", async (req, res) => {
 });
 
 router.get("/view", async (req, res) => {
-    await GetAbl(req.params, res);
+    await GetAbl(req.body, res);
 });
 
 router.put("/update", async (req, res) => {
