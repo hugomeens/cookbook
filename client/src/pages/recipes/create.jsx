@@ -17,6 +17,7 @@ import QuantityInput from '../../components/count-people';
 import ModalIngredientsSelector from '../../components/ingredients-selector';
 import { useState } from 'react';
 import { IconTrash } from '@tabler/icons-react';
+import API from '../../services/api';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
     return (
@@ -83,6 +84,7 @@ const ModalCreate = ({ open, handler }) => {
     const [ingredients, setIngredients] = useState([]);
     const [steps, setSteps] = useState([{ id: 0, text: '' }]);
     const [countSteps, setCountSteps] = useState(1);
+    const [isLoading, setIsLoading] = useState(false)
 
     const form = useForm({
         initialValues: {
@@ -111,11 +113,26 @@ const ModalCreate = ({ open, handler }) => {
         setSteps((prev) => [...prev, { id: countSteps, text: '' }]);
     };
 
-    const handleCreate = () => {
+    const handleCreate = async () => {
         if (form.validate().hasErrors) return;
-        console.log(form.values);
-        console.log(ingredients);
-        console.log(steps);
+        try {
+            setIsLoading(true);
+            let data = {
+                name: form.values.title,
+                description: "",
+                img: "",
+                nbPerson: form.values.people,
+                preparationTime: form.values.time,
+                ingredients: ingredients.map((item) => item._id),
+                instructions: steps
+            };
+            await API.createRecipe(data);
+            setIsLoading(false);
+            handler();
+        } catch (error) {
+            setIsLoading(false);
+            console.log(error);
+        }
     };
 
     return (
@@ -218,7 +235,7 @@ const ModalCreate = ({ open, handler }) => {
                         </Accordion.Item>
                     </Accordion>
                     <Center>
-                        <Button onClick={handleCreate} mt="md">
+                        <Button onClick={handleCreate} mt="md" loading={isLoading}>
                             Create Recipe
                         </Button>
                     </Center>

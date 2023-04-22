@@ -1,5 +1,4 @@
 import { Modal, Button, Text, Group, Grid, TextInput, ScrollArea } from '@mantine/core';
-import mockdata from '../pages/ingredients/mockdata';
 import SelectorItem from './select-item';
 import { IconSearch } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
@@ -61,8 +60,8 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                     />
                     <ScrollArea h={430} offsetScrollbars>
                         <Grid columns={3}>
-                            {mockdata.map((ingredient) => (
-                                <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
+                            {ingredients.map((ingredient) => (
+                                <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient._id} />
                             ))}
                         </Grid>
                     </ScrollArea>
