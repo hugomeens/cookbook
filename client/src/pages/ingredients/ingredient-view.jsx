@@ -19,8 +19,6 @@ const IngredientView = ({ item, button }) => {
                     : 'No alternative names'}
             </Text>
             <Badge color="blue">{item?.unit ?? 'unit'}</Badge>
-            <Divider my="sm" />
-            <Badge color={item?.valid ? 'green' : 'red'}>{item?.valid ? 'Valid' : 'Invalid'}</Badge>
             <GrantAccess roles={['admin']}>
                 <Button
                     variant="light"
