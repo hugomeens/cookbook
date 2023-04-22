@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import ModalCreateIngredient from './create';
 import ModalUpdateIngredient from './update';
+import ModalCreateIngredient from './create';
 import NavbarCookBook from '../../components/navbar';
 import { useNavigate } from 'react-router-dom';
 import GridViewIngredients from './grid-view-ingredients';
 import API from '../../services/api';
-import { useNavigate } from 'react-router-dom';
 
 const Ingredients = () => {
     const [showCreate, setShowCreate] = useState(false);
