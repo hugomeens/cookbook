@@ -3,6 +3,12 @@ import API from '../../services/api';
 import IngredientViewUpdate from './ingredient-view-update';
 
 const ModalUpdateIngredient = ({ item, opened, handler }) => {
+
+    const validated = (ingredient) => {
+        item = ingredient;
+        handler();
+    }
+
     return (
         <Modal.Root opened={opened} onClose={handler} size="xs">
             <Modal.Overlay />
@@ -16,7 +22,7 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <IngredientViewUpdate item={item} buttonText="Update" APICall={API.updateIngredient} />
+                    <IngredientViewUpdate item={item} buttonText="Update" APICall={API.updateIngredient}  handler={(ingredient) => validated(ingredient)}/>
                 </Modal.Body>
             </Modal.Content>
         </Modal.Root>

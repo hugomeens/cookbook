@@ -3,19 +3,19 @@ import { useForm, isNotEmpty } from '@mantine/form';
 import { useState } from 'react';
 
 const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
-    const handleClose = () => {
+    const handleClose = (ingredient) => {
         form.reset();
-        handler(item);
+        handler(ingredient);
     };
 
     const [isLoading, setIsLoading] = useState(false);
 
     const form = useForm({
         initialValues: {
-            name: item?.name,
-            unit: item?.type,
-            image: item?.image,
-            alternativeNames: item?.alternativeNames?.join(';'),
+            name: item?.name ?? '',
+            unit: item?.type ?? '',
+            image: item?.image ?? '',
+            alternativeNames: item?.alternativeNames?.join(';') ?? '',
         },
         validate: {
             name: isNotEmpty('Name is required'),
@@ -29,15 +29,15 @@ const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
         try {
             setIsLoading(true);
             form.values.alternativeNames =
-                form.values.alternativeNames.length > 0 ? form.values.alternativeNames.split(';') : [];
+                (form.values?.alternativeNames?.length ?? 0) > 0 ? form.values.alternativeNames.split(';') : [];
             delete form.values.image;
             form.values.imageId = '';
             if (item) {
                 form.values._id = item?._id;
             }
-            await APICall(form.values);
+            const res = await APICall(form.values);
             setIsLoading(false);
-            handleClose();
+            handleClose(res.data);
         } catch (error) {
             setIsLoading(false);
             // todo

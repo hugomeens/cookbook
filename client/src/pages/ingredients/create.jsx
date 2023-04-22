@@ -3,12 +3,10 @@ import IngredientViewUpdate from './ingredient-view-update';
 import API from '../../services/api';
 
 const ModalCreateIngredient = ({ opened, handler, addIngredient }) => {
-
     const validated = (item) => {
-        console.log("validated")
         addIngredient(item);
         handler();
-    }
+    };
 
     return (
         <Modal.Root opened={opened} onClose={handler} size="xs">
@@ -23,7 +21,7 @@ const ModalCreateIngredient = ({ opened, handler, addIngredient }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <IngredientViewUpdate buttonText="Create" APICall={API.createIngredient} hanlder={validated}/>
+                    <IngredientViewUpdate buttonText="Create" APICall={API.createIngredient} handler={(item) => validated(item)} />
                 </Modal.Body>
             </Modal.Content>
         </Modal.Root>
