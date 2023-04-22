@@ -2,20 +2,23 @@ import { useEffect, useState } from 'react';
 import ModalUpdateIngredient from './update';
 import ModalCreateIngredient from './create';
 import NavbarCookBook from '../../components/navbar';
-import { useNavigate } from 'react-router-dom';
 import GridViewIngredients from './grid-view-ingredients';
 import API from '../../services/api';
+import ModalMergeIngredients from './merge';
+import ModalValidateIngredients from './validate';
 
 const Ingredients = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
+    const [showMerge, setShowMerge] = useState(false);
+    const [showValidate, setShowValidate] = useState(false);
+    const [item, setItem] = useState({});
     // const [view, setView] = useState('grid');
 
-    const [item, setItem] = useState({});
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
-
-    const navigate = useNavigate();
+    const toggleModalMerge = () => setShowMerge(!showMerge);
+    const toggleModalValidate = () => setShowValidate(!showValidate);
 
     const [ingredients, setIngredients] = useState([]);
 
@@ -64,11 +67,11 @@ const Ingredients = () => {
         handlerChange: (e) => setSearch(e.target.value),
         buttonMerge: {
             text: 'Merge Ingredients',
-            handler: () => navigate('/merge'),
+            handler: toggleModalMerge,
         },
         buttonValidate: {
             text: 'Validate Ingredients',
-            handler: () => navigate('/validate'),
+            handler: toggleModalValidate,
         },
         buttonCreate: {
             text: 'New Ingredients',
@@ -90,6 +93,8 @@ const Ingredients = () => {
             )} */}
             <ModalCreateIngredient opened={showCreate} handler={toggleModalCreate} />
             {showUpdate && <ModalUpdateIngredient opened={showUpdate} handler={toggleModalUpdate} item={item} />}
+            {showMerge && <ModalMergeIngredients opened={showMerge} handler={toggleModalMerge} />}
+            {showValidate && <ModalValidateIngredients opened={showValidate} handler={toggleModalValidate} />}
         </>
     );
 };

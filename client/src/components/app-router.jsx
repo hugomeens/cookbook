@@ -5,8 +5,6 @@ import Ingredients from '../pages/ingredients';
 import Home from '../pages/home';
 import Authentication from '../pages/auth';
 import Recipe from '../pages/recipe';
-import Merge from '../pages/merge';
-import Validate from '../pages/validate';
 
 const AppRouter = () => {
     return (
@@ -16,8 +14,6 @@ const AppRouter = () => {
                 <Route path="/recipes" element={<Recipes />} />
                 <Route path="/recipe/:id" element={<Recipe />} />
                 <Route path="/ingredients" element={<Ingredients />} />
-                <Route path="/validate" element={<Validate />} />
-                <Route path="/merge" element={<Merge />} />
                 <Route path="/auth" element={<Authentication />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>

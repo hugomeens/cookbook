@@ -1,4 +1,4 @@
-import { Title, Button, Group, Input, Paper, Anchor } from '@mantine/core';
+import { Title, Button, Group, Input, Paper } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import GrantAccess from '../tools/grant-access';
 
@@ -11,22 +11,22 @@ const NavbarCookBook = ({ data }) => {
                 <Group>
                     {data?.buttonMerge && (
                         <GrantAccess roles={['admin']}>
-                            <Anchor onClick={data.buttonMerge.handler} color="yellow">
+                            <Button onClick={data.buttonMerge.handler} color="yellow">
                                 {data.buttonMerge.text}
-                            </Anchor>
+                            </Button>
                         </GrantAccess>
                     )}
                     {data?.buttonValidate && (
                         <GrantAccess roles={['admin']}>
-                            <Anchor onClick={data.buttonValidate.handler} color="red">
+                            <Button onClick={data.buttonValidate.handler} color="red">
                                 {data.buttonValidate.text}
-                            </Anchor>
+                            </Button>
                         </GrantAccess>
                     )}
                     <Input
                         placeholder="Search"
                         value={data.search}
-                        onChange={event => data.handlerChange(event)}
+                        onChange={(event) => data.handlerChange(event)}
                         icon={<IconSearch size="1rem" stroke={1.5} />}
                     />
                     {/* <ActionIcon onClick={data.view.handler} variant="outline" size="lg" color="blue">
