@@ -86,7 +86,11 @@ const Ingredients = () => {
             {/* ) : (
                 <div>List View</div>
             )} */}
-            <ModalCreateIngredient opened={showCreate} handler={toggleModalCreate} />
+            <ModalCreateIngredient
+                opened={showCreate}
+                addIngredient={(ingredient) => setIngredients([...ingredients, ingredient])}
+                handler={toggleModalCreate}
+            />
             {showUpdate && <ModalUpdateIngredient opened={showUpdate} handler={toggleModalUpdate} item={item} />}
         </>
     );

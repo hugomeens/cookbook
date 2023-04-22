@@ -2,6 +2,7 @@ import { Card, Divider, Text, Title, Image, Badge, Button } from '@mantine/core'
 import GrantAccess from '../../tools/grant-access';
 
 const IngredientView = ({ item, button }) => {
+    console.log(item)
     return (
         <Card shadow="sm" padding="md" withBorder>
             <Card.Section>

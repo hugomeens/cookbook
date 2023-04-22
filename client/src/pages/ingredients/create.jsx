@@ -3,7 +3,7 @@ import { isNotEmpty, useForm } from '@mantine/form';
 import { useRef } from 'react';
 import API from '../../services/api';
 
-const ModalCreateIngredient = ({ opened, handler }) => {
+const ModalCreateIngredient = ({ opened, handler, addIngredient }) => {
     const handleClose = () => {
         form.reset();
         handler();
@@ -21,7 +21,6 @@ const ModalCreateIngredient = ({ opened, handler }) => {
         validate: {
             name: isNotEmpty('Name is required'),
             unit: isNotEmpty('Unit is required'),
-            // image: isNotEmpty('Image is required'),
         },
     });
 
@@ -30,10 +29,12 @@ const ModalCreateIngredient = ({ opened, handler }) => {
         if (form.validate().hasErrors) return;
         try {
             button.current.loading = true;
-            form.values.alternativeNames = form.values.alternativeNames.split(';');
+            form.values.alternativeNames =
+                form.values.alternativeNames.length > 0 ? form.values.alternativeNames.split(';') : [];
             delete form.values.image;
             form.values.imageId = '';
-            await API.createIngredient(form.values);
+            const res = await API.createIngredient(form.values);
+            addIngredient(res.data);
             button.current.loading = false;
             handleClose();
         } catch (error) {
@@ -70,12 +71,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                             {...form.getInputProps('alternativeNames')}
                             mb="sm"
                         />
-                        <FileInput
-                            label="Image"
-                            placeholder="Select image"
-                            {...form.getInputProps('image')}
-                            mb="md"
-                        />
+                        <FileInput label="Image" placeholder="Select image" {...form.getInputProps('image')} mb="md" />
                         <Image
                             src={form.values.image}
                             alt={form.values.name}
