@@ -203,7 +203,7 @@ const ModalCreate = ({ open, handler }) => {
                                         <LineIngredient
                                             ingredient={ingredient}
                                             removeHandler={setIngredients}
-                                            key={ingredient.id}
+                                            key={ingredient._id}
                                         />
                                     ))}
                                 </ScrollArea>
