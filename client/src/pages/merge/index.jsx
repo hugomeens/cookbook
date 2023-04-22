@@ -81,7 +81,7 @@ const Merge = () => {
                         label="Alternate names"
                         placeholder="Alternate names"
                         description="Semicolon separated"
-                        defaultValue={ingredientMerge.alternateNames}
+                        defaultValue={ingredientMerge.alternativeNames}
                         mb="sm"
                     />
                     <Select label="Unit" placeholder="Select unit" data={cnf.units} />

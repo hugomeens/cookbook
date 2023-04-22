@@ -16,7 +16,7 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
             name: item.name,
             unit: item.type,
             image: item.image,
-            alternateNames: item.alternateNames,
+            alternativeNames: item.alternativeNames.join(),
         },
         validate: {
             name: isNotEmpty('Name is required'),
@@ -29,7 +29,6 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
         event.preventDefault();
         if (form.validate().hasErrors) return;
         try {
-            console.log(form.values);
             button.current.loading = true;
             form.values.alternativeNames = []; //todo
             delete form.values.image;
@@ -69,7 +68,7 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
                             label="Alternate names"
                             placeholder="Alternate names"
                             description="Semicolon separated"
-                            {...form.getInputProps('alternateNames')}
+                            {...form.getInputProps('alternativeNames')}
                             mb="sm"
                         />
                         <FileInput
