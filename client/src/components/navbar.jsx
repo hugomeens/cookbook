@@ -1,5 +1,5 @@
-import { Title, Button, Group, Autocomplete, ActionIcon, Paper } from '@mantine/core';
-import { IconLayoutGrid, IconLayoutList, IconSearch } from '@tabler/icons-react';
+import { Title, Button, Group, Input, Paper, Anchor } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
 import GrantAccess from '../tools/grant-access';
 
 const NavbarCookBook = ({ data }) => {
@@ -9,29 +9,34 @@ const NavbarCookBook = ({ data }) => {
             <Group position="apart">
                 <Title order={1}>{data.title}</Title>
                 <Group>
-                    {data.buttonMerge && (
+                    {data?.buttonMerge && (
                         <GrantAccess roles={['admin']}>
-                            <Button onClick={data.buttonMerge.handler} color="yellow">
+                            <Anchor onClick={data.buttonMerge.handler} color="yellow">
                                 {data.buttonMerge.text}
-                            </Button>
+                            </Anchor>
                         </GrantAccess>
                     )}
-                    <GrantAccess roles={['admin']}>
-                        <Button onClick={data.buttonValidate.handler} color="red">
-                            {data.buttonValidate.text}
-                        </Button>
-                    </GrantAccess>
-                    <Autocomplete
+                    {data?.buttonValidate && (
+                        <GrantAccess roles={['admin']}>
+                            <Anchor onClick={data.buttonValidate.handler} color="red">
+                                {data.buttonValidate.text}
+                            </Anchor>
+                        </GrantAccess>
+                    )}
+                    <Input
                         placeholder="Search"
-                        data={['one', 'two', 'three']}
+                        value={data.search}
+                        onChange={event => data.handlerChange(event)}
                         icon={<IconSearch size="1rem" stroke={1.5} />}
                     />
                     {/* <ActionIcon onClick={data.view.handler} variant="outline" size="lg" color="blue">
                         <Icon size="1.5rem" stroke={1.5} />
                     </ActionIcon> */}
-                    <GrantAccess roles={['admin', 'editor']}>
-                        <Button onClick={data.buttonCreate.handler}>{data.buttonCreate.text}</Button>
-                    </GrantAccess>
+                    {data?.buttonCreate && (
+                        <GrantAccess roles={['admin', 'editor']}>
+                            <Button onClick={data.buttonCreate.handler}>{data.buttonCreate.text}</Button>
+                        </GrantAccess>
+                    )}
                 </Group>
             </Group>
         </Paper>

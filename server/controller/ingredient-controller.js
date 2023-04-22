@@ -22,8 +22,8 @@ router.post('/update', async (req, res) => {
     await UpdateAbl(req.body, res);
 });
 
-router.delete(`/delete`, async (req, res) => {
-    await DeleteAbl(req.body, res);
+router.delete(`/delete/:_id`, async (req, res) => {
+    await DeleteAbl(req.params, res);
 });
 
 router.post('/merge', async (req, res) => {});

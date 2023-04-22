@@ -54,6 +54,7 @@ const updateIngredientSchema = {
         alternativeNames: { type: 'array' },
         imageId: { type: 'string' },
         unit: { type: 'string' },
+        valid: { type: 'boolean' },
     },
     required: ['_id'],
     additionalProperties: false,

@@ -6,6 +6,7 @@ import Home from '../pages/home';
 import Authentication from '../pages/auth';
 import Recipe from '../pages/recipe';
 import Merge from '../pages/merge';
+import Validate from '../pages/validate';
 
 const AppRouter = () => {
     return (

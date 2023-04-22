@@ -1,9 +1,11 @@
-import { Modal, Button, Text, Group, Grid } from '@mantine/core';
-import mockdata from '../pages/ingredients/mockdata';
+import { useEffect, useState } from 'react';
+import API from '../services/api';
+import { Modal, Button, Text, Group, Grid, TextInput } from '@mantine/core';
 import SelectorItem from './select-item';
+import { IconSearch } from '@tabler/icons-react';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
-    const ingredients = [];
+    const [ingredients, setIngredients] = useState([]);
 
     const clickHandler = (ingredient) => {
         if (props.multi) {
@@ -25,6 +27,21 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
         }
     };
 
+    useEffect(() => {
+        API.listIngredients()
+            .then((res) => {
+                if (res.status === 200) {
+                    setIngredients(res.data);
+                }
+            })
+            .catch((err) => {
+                // todo
+                console.log(err);
+            });
+
+        return () => {};
+    }, []);
+
     return (
         <Modal.Root opened={opened} onClose={handleClose} size="lg">
             <Modal.Overlay />
@@ -38,9 +55,15 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
+                    <TextInput
+                        placeholder="Type to Search"
+                        mb="sm"
+                        radius="md"
+                        icon={<IconSearch size="1rem" stroke={1.5} />}
+                    />
                     <Grid columns={3}>
-                        {mockdata.map((ingredient) => (
-                            <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
+                        {ingredients.map((ingredient) => (
+                            <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient._id} />
                         ))}
                     </Grid>
                     {props.multi && (
