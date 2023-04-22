@@ -16,7 +16,7 @@ const ModalCreateIngredient = ({ opened, handler }) => {
             name: '',
             unit: '',
             image: '',
-            alternateNames: '',
+            alternativeNames: '',
         },
         validate: {
             name: isNotEmpty('Name is required'),
@@ -30,9 +30,9 @@ const ModalCreateIngredient = ({ opened, handler }) => {
         if (form.validate().hasErrors) return;
         try {
             button.current.loading = true;
-            form.values.alternativeNames = []; //todo
+            form.values.alternativeNames = form.values.alternativeNames.split(';');
             delete form.values.image;
-            form.values.imageId = "";
+            form.values.imageId = '';
             await API.createIngredient(form.values);
             button.current.loading = false;
             handleClose();
@@ -64,16 +64,15 @@ const ModalCreateIngredient = ({ opened, handler }) => {
                             mb="sm"
                         />
                         <TextInput
-                            label="Alternate names"
-                            placeholder="Alternate names"
+                            label="Alternative names"
+                            placeholder="Alternative names"
                             description="Semicolon separated"
-                            {...form.getInputProps('alternateNames')}
+                            {...form.getInputProps('alternativeNames')}
                             mb="sm"
                         />
                         <FileInput
                             label="Image"
                             placeholder="Select image"
-                            withAsterisk
                             {...form.getInputProps('image')}
                             mb="md"
                         />
