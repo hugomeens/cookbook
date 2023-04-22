@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import mockdata from './mockdata';
+import { useEffect, useState } from 'react';
 import ModalCreateIngredient from './create';
 import ModalUpdateIngredient from './update';
 import NavbarCookBook from '../../components/navbar';
 import GridViewIngredients from './grid-view-ingredients';
+import API from '../../services/api';
 
 const Ingredients = () => {
     const [showCreate, setShowCreate] = useState(false);
@@ -13,6 +13,25 @@ const Ingredients = () => {
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
 
+    const navigate = useNavigate();
+
+    const [ingredients, setIngredients] = useState([]);
+
+    useEffect(() => {
+        API.listIngredients()
+            .then((res) => {
+                if (res.status === 200) {
+                    setIngredients(res.data);
+                }
+            })
+            .catch((err) => {
+                // todo
+                console.log(err);
+            });
+
+        return () => {};
+    }, []);
+
     const navbar = {
         title: 'Ingredients',
         buttonMerge: {
@@ -21,7 +40,7 @@ const Ingredients = () => {
         },
         buttonValidate: {
             text: 'Validate Ingredients',
-            handler: () => alert('not implemented'),
+            handler: () => navigate("/validate"),
         },
         buttonCreate: {
             text: 'New Ingredients',
@@ -37,7 +56,11 @@ const Ingredients = () => {
         <>
             <NavbarCookBook data={navbar} />
             {/* {view === 'grid' ? ( */}
-            <GridViewIngredients data={mockdata} updateItem={setItem} updateHandler={toggleModalUpdate} />
+            <GridViewIngredients
+                data={ingredients}
+                updateItem={setItem}
+                updateHandler={toggleModalUpdate}
+            />
             {/* ) : (
                 <div>List View</div>
             )} */}

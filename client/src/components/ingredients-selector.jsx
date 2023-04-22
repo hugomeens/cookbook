@@ -1,10 +1,11 @@
 import { Modal, Button, Text, Group, Grid, TextInput } from '@mantine/core';
-import mockdata from '../pages/ingredients/mockdata';
 import SelectorItem from './select-item';
 import { IconSearch } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import API from '../services/api';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
-    const ingredients = [];
+    const [ingredients, setIngredients] = useState([]);
 
     const clickHandler = (ingredient) => {
         if (props.multi) {
@@ -26,6 +27,21 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
         }
     };
 
+    useEffect(() => {
+        API.listIngredients()
+            .then((res) => {
+                if (res.status === 200) {
+                    setIngredients(res.data);
+                }
+            })
+            .catch((err) => {
+                // todo
+                console.log(err);
+            });
+
+        return () => {};
+    }, []);
+
     return (
         <Modal.Root opened={opened} onClose={handleClose} size="lg">
             <Modal.Overlay />
@@ -46,7 +62,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                         icon={<IconSearch size="1rem" stroke={1.5} />}
                     />
                     <Grid columns={3}>
-                        {mockdata.map((ingredient) => (
+                        {ingredients.map((ingredient) => (
                             <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
                         ))}
                     </Grid>

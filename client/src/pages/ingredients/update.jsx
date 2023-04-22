@@ -1,5 +1,7 @@
 import { Modal, Button, TextInput, Select, FileInput, Text, Image, Group } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
+import { useRef } from 'react';
+import API from '../../services/api';
 
 const ModalUpdateIngredient = ({ item, opened, handler }) => {
     const handleClose = () => {
@@ -7,24 +9,39 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
         handler();
     };
 
+    const button = useRef(null);
+
     const form = useForm({
         initialValues: {
             name: item.name,
-            type: item.type,
+            unit: item.type,
             image: item.image,
             alternateNames: item.alternateNames,
         },
         validate: {
             name: isNotEmpty('Name is required'),
-            type: isNotEmpty('Type is required'),
-            image: isNotEmpty('Image is required'),
+            unit: isNotEmpty('Unit is required'),
+            // image: isNotEmpty('Image is required'),
         },
     });
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (form.validate().hasErrors) return;
-        console.log(form.values, 'MUST BE SENT TO BACKEND');
+        try {
+            console.log(form.values);
+            button.current.loading = true;
+            form.values.alternativeNames = []; //todo
+            delete form.values.image;
+            form.values.imageId = '';
+            form.values._id = item._id;
+            await API.updateIngredient(form.values);
+            // button.current.loading = false;
+            // handleClose();
+        } catch (error) {
+            button.current.loading = false;
+            // todo
+        }
     };
 
     return (
@@ -74,7 +91,7 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
                             placeholder="Select unit"
                             withAsterisk
                             dropdownPosition="bottom"
-                            {...form.getInputProps('type')}
+                            {...form.getInputProps('unit')}
                             data={[
                                 { label: 'Grams', value: 'g' },
                                 { label: 'Centiliters', value: 'cl' },
@@ -85,7 +102,7 @@ const ModalUpdateIngredient = ({ item, opened, handler }) => {
                             <Button variant="light" color="red" onClick={handleClose}>
                                 Cancel
                             </Button>
-                            <Button type="submit" variant="light" color="green">
+                            <Button ref={button} type="submit" variant="light" color="green">
                                 Update
                             </Button>
                         </Group>
