@@ -1,4 +1,4 @@
-import { Title, Button, Group, Autocomplete, Paper, Anchor } from '@mantine/core';
+import { Title, Button, Group, Input, Paper, Anchor } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import GrantAccess from '../tools/grant-access';
 
@@ -23,9 +23,10 @@ const NavbarCookBook = ({ data }) => {
                             </Anchor>
                         </GrantAccess>
                     )}
-                    <Autocomplete
+                    <Input
                         placeholder="Search"
-                        data={['one', 'two', 'three']}
+                        value={data.search}
+                        onChange={event => data.handlerChange(event)}
                         icon={<IconSearch size="1rem" stroke={1.5} />}
                     />
                     {/* <ActionIcon onClick={data.view.handler} variant="outline" size="lg" color="blue">

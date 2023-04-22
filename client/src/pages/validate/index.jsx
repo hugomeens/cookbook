@@ -29,6 +29,7 @@ const Validate = () => {
     const clickHandler = async (item) => {
         try {
             await API.validateIngredient({ _id: item._id });
+            item.valid = true;
         } catch (error) {
             console.log(error);
         }

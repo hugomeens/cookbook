@@ -16,6 +16,9 @@ const API = {
     listIngredients() {
         return caller().get('/ingredient/list');
     },
+    deleteIngredient(id) {
+        return caller().delete(`/ingredient/delete/${id}`);
+    },
     validateIngredient(data) {
         return caller().post('/ingredient/validate', data);
     },
