@@ -1,22 +1,22 @@
 import {
-    Modal,
-    Text,
-    TextInput,
-    NumberInput,
+    Accordion,
+    ActionIcon,
+    Button,
+    Center,
     Grid,
     Group,
-    Paper,
-    Center,
-    Button,
-    ActionIcon,
-    Accordion,
     List,
+    Modal,
+    NumberInput,
+    Paper,
+    ScrollArea,
+    Text,
+    TextInput,
 } from '@mantine/core';
 import QuantityInput from '../../components/count-people';
 import ModalIngredientsSelector from '../../components/ingredients-selector';
 import { useState } from 'react';
 import { IconTrash } from '@tabler/icons-react';
-import './create.css';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
     return (
@@ -29,12 +29,13 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
                     <NumberInput placeholder="Enter quantity" />
                 </Grid.Col>
                 <Grid.Col span={2}>
-                    <Text>{ingredient.unit}</Text>
+                    <Text size="lg">{ingredient.unit}</Text>
                 </Grid.Col>
                 <Grid.Col span={2}>
                     <ActionIcon
                         color="red"
                         variant="light"
+                        size="lg"
                         onClick={() => removeHandler((prev) => prev.filter((i) => i.id !== ingredient.id))}
                     >
                         <IconTrash size="1rem" />
@@ -45,15 +46,26 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
     );
 };
 
-const LineStep = ({ step, removeHandler }) => {
+const LineStep = ({ step, handler }) => {
     return (
-        <Paper p="xs" radius="sm" shadow="sm" withBorder my="md">
-            <List.Item style={{marginRight: "15px"}}>
-                <TextInput
-                    placeholder="Enter step"
-                    style={{width: "100%"}}
-                    onBlur={() => removeHandler((prev) => prev.filter((s) => s.id !== step.id))}
-                />
+        <Paper p="xs" radius="sm" withBorder my="md">
+            <List.Item>
+                <Group position="apart">
+                    <TextInput
+                        placeholder="Enter step"
+                        onChange={(e) =>
+                            handler((prev) => prev.map((s) => (s.id === step.id ? { ...s, text: e.target.value } : s)))
+                        }
+                    />
+                    <ActionIcon
+                        color="red"
+                        variant="light"
+                        size="lg"
+                        onClick={() => handler((prev) => prev.filter((s) => s.id !== step.id))}
+                    >
+                        <IconTrash size="1rem" />
+                    </ActionIcon>
+                </Group>
             </List.Item>
         </Paper>
     );
@@ -62,7 +74,8 @@ const LineStep = ({ step, removeHandler }) => {
 const ModalCreate = ({ open, handler }) => {
     const [showSelector, setShowSelector] = useState(false);
     const [ingredients, setIngredients] = useState([]);
-    const [steps, setSteps] = useState([]);
+    const [steps, setSteps] = useState([{ id: 0, text: '' }]);
+    const [countSteps, setCountSteps] = useState(1);
 
     const handleSelector = (data) => {
         // eslint-disable-next-line array-callback-return
@@ -71,6 +84,15 @@ const ModalCreate = ({ open, handler }) => {
                 setIngredients((prev) => [...prev, ingredient]);
             }
         });
+    };
+
+    const addStep = () => {
+        setCountSteps((prev) => prev + 1);
+        setSteps((prev) => [...prev, { id: countSteps, text: '' }]);
+    };
+
+    const handleCreate = () => {
+        console.log(steps);
     };
 
     return (
@@ -130,15 +152,19 @@ const ModalCreate = ({ open, handler }) => {
                                 </Group>
                             </Accordion.Control>
                             <Accordion.Panel>
-                                {ingredients.map((ingredient) => (
-                                    <LineIngredient
-                                        ingredient={ingredient}
-                                        removeHandler={setIngredients}
-                                        key={ingredient.id}
-                                    />
-                                ))}
+                                <ScrollArea h={200} offsetScrollbars>
+                                    {ingredients.map((ingredient) => (
+                                        <LineIngredient
+                                            ingredient={ingredient}
+                                            removeHandler={setIngredients}
+                                            key={ingredient.id}
+                                        />
+                                    ))}
+                                </ScrollArea>
                                 <Center>
-                                    <Button onClick={() => setShowSelector(true)}>Add Ingredients</Button>
+                                    <Button mt="sm" onClick={() => setShowSelector(true)}>
+                                        Add Ingredients
+                                    </Button>
                                 </Center>
                             </Accordion.Panel>
                         </Accordion.Item>
@@ -149,17 +175,23 @@ const ModalCreate = ({ open, handler }) => {
                                 </Text>
                             </Accordion.Control>
                             <Accordion.Panel>
-                                <List type="ordered">
-                                    {steps.map((step) => (
-                                        <LineStep step={step} removeHandler={setSteps} key={step} />
-                                    ))}
-                                    <LineStep step="Step 1" removeHandler={setSteps} />
-                                </List>
+                                <ScrollArea h={200} offsetScrollbars>
+                                    <List type="ordered">
+                                        {steps.map((step) => (
+                                            <LineStep step={step} handler={setSteps} key={step.id} />
+                                        ))}
+                                    </List>
+                                </ScrollArea>
+                                <Center>
+                                    <Button mt="sm" onClick={addStep}>
+                                        Add Step
+                                    </Button>
+                                </Center>
                             </Accordion.Panel>
                         </Accordion.Item>
                     </Accordion>
                     <Center>
-                        <Button onClick={handler} mt="md">
+                        <Button onClick={handleCreate} mt="md">
                             Create Recipe
                         </Button>
                     </Center>

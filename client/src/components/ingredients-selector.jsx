@@ -1,4 +1,5 @@
-import { Modal, Button, Text, Group, Grid, TextInput } from '@mantine/core';
+import { Modal, Button, Text, Group, Grid, TextInput, ScrollArea } from '@mantine/core';
+import mockdata from '../pages/ingredients/mockdata';
 import SelectorItem from './select-item';
 import { IconSearch } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
@@ -57,11 +58,13 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                         radius="md"
                         icon={<IconSearch size="1rem" stroke={1.5} />}
                     />
-                    <Grid columns={3}>
-                        {ingredients.map((ingredient) => (
-                            <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient._id} />
-                        ))}
-                    </Grid>
+                    <ScrollArea h={430} offsetScrollbars>
+                        <Grid columns={3}>
+                            {mockdata.map((ingredient) => (
+                                <SelectorItem ingredient={ingredient} clickHandler={clickHandler} key={ingredient.id} />
+                            ))}
+                        </Grid>
+                    </ScrollArea>
                     {props.multi && (
                         <Group position="right" mt="md">
                             <Button variant="light" color="red" onClick={handleClose}>
