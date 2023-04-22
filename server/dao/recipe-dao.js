@@ -1,6 +1,5 @@
 const { db } = require('./db');
 const ObjectID = require('mongodb').ObjectID;
-
 class RecipeDao {
     constructor(collectionName) {
         this.collection;
@@ -31,9 +30,12 @@ class RecipeDao {
 
     update(id, up) {
         return this.collection.updateOne({ _id: ObjectID(id) }, { $set: up });
+    }
 
+    view(id) {
+        return this.collection.find({_id: ObjectID(id)}).toArray();
     }
 }
 
-const recipeDao = new RecipeDao('recipe');
+const recipeDao = new RecipeDao('recipes');
 module.exports = { recipeDao };
