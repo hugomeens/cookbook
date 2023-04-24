@@ -4,9 +4,11 @@ import { IconSearch } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import API from '../services/api';
 import setNotification from '../pages/errors/error-notification';
+import ModalCreateIngredient from '../pages/ingredients/create';
 
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
     const [ingredients, setIngredients] = useState([]);
+    const [showCreate, setShowCreate] = useState(false);
     let resIngredients = [];
 
     const clickHandler = (ingredient) => {
@@ -73,15 +75,32 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                             ))}
                         </Grid>
                     </ScrollArea>
-                    {props.multi && (
-                        <Group position="right" mt="md">
-                            <Button variant="light" color="red" onClick={handleClose}>
-                                Cancel
-                            </Button>
-                            <Button type="submit" variant="light" color="green" onClick={() => handleSubmitLocal()}>
-                                Validate
-                            </Button>
-                        </Group>
+                    <Group position="right" mt="md">
+                        {props.multi && (
+                            <>
+                                <Button
+                                    position="left"
+                                    variant="light"
+                                    color="gray"
+                                    onClick={() => setShowCreate(true)}
+                                >
+                                    Create Ingredient
+                                </Button>
+                                <Button variant="light" color="red" onClick={handleClose}>
+                                    Cancel
+                                </Button>
+                                <Button type="submit" variant="light" color="green" onClick={() => handleSubmitLocal()}>
+                                    Validate
+                                </Button>
+                            </>
+                        )}
+                    </Group>
+                    {showCreate && (
+                        <ModalCreateIngredient
+                            opened={showCreate}
+                            handler={() => setShowCreate(false)}
+                            addIngredient={(ingredient) => setIngredients((prev) => [...prev, ingredient])}
+                        />
                     )}
                 </Modal.Body>
             </Modal.Content>
