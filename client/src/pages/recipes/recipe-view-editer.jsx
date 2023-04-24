@@ -120,7 +120,7 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipeVal }) => {
         setSteps((prev) => [...prev, { id: countSteps, text: '' }]);
     };
 
-    const handleCreate = async () => {
+    const handleValidate = async () => {
         if (form.validate().hasErrors) return;
         try {
             setIsLoading(true);
@@ -237,7 +237,7 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipeVal }) => {
                 multi
             />
             <Center>
-                <Button onClick={handleCreate} mt="md" loading={isLoading}>
+                <Button onClick={handleValidate} mt="md" loading={isLoading}>
                     {buttonText}
                 </Button>
             </Center>

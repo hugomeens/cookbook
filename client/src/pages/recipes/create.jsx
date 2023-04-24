@@ -4,7 +4,8 @@ import RecipeViewEditer from './recipe-view-editer';
 
 const ModalCreate = ({ open, handler }) => {
     const createRecipe = (recipe) => {
-        handler();
+        console.log('hanlder', recipe);
+        handler(recipe);
     };
 
     return (
@@ -20,7 +21,11 @@ const ModalCreate = ({ open, handler }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <RecipeViewEditer buttonText={'Create recipe'} handler={createRecipe} APICall={API.createRecipe}/>
+                    <RecipeViewEditer
+                        buttonText={'Create recipe'}
+                        handler={(recipe) => createRecipe(recipe)}
+                        APICall={API.createRecipe}
+                    />
                 </Modal.Body>
             </Modal.Content>
         </Modal.Root>

@@ -23,6 +23,13 @@ const Recipes = () => {
         toggleModalUpdate();
     };
 
+    const createRecipe = (recipe) => {
+        if (recipe) {
+            setRecipes((prev) => [...prev, recipe]);
+        }
+        toggleModalCreate();
+    };
+
     const navbar = {
         title: 'Recipes',
         buttonValidate: {
@@ -62,7 +69,7 @@ const Recipes = () => {
                 openUpdate={(id) => openUpdate(id)}
                 onDelete={(id) => setRecipes(recipes.filter((recipe) => recipe._id !== id))}
             />
-            <ModalCreate open={showCreate} handler={toggleModalCreate} />
+            <ModalCreate open={showCreate} handler={(recipe) => createRecipe(recipe)} />
             <ModalUpdate open={showUpdate} handler={toggleModalUpdate} id={idUpdate} />
         </>
     );
