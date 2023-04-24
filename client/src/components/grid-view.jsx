@@ -11,6 +11,7 @@ const GridView = (props) => {
                             updateItem={props.updateItem}
                             updateHandler={props.updateHandler}
                             openUpdate={(id) => props?.openUpdate(id)}
+                            onDelete={(id) => props?.onDelete(id)}
                         />
                     </Grid.Col>
                 ))}

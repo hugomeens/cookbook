@@ -53,9 +53,9 @@ const updateRecipeSchema = {
 const deleteRecipeSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
 };
 
 module.exports = {

@@ -2,9 +2,24 @@ import { Card, Divider, Text, Title, Image, Button } from '@mantine/core';
 import GrantAccess from '../../tools/grant-access';
 import { useNavigate } from 'react-router-dom';
 import { parseTime } from '../../tools/timeUtil';
+import { useState } from 'react';
+import API from '../../services/api';
 
-const ItemGridViewRecipe = ({ item, openUpdate }) => {
+const ItemGridViewRecipe = ({ item, openUpdate, onDelete }) => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
+    const deleteHandler = async () => {
+        try {
+            setLoading(true);
+            await API.deleteRecipe(item._id);
+            setLoading(false);
+            onDelete(item._id);
+        } catch (error) {
+            setLoading(false);
+            console.log(error)
+        }
+    }
 
     return (
         <Card shadow="sm" padding="md" withBorder>
@@ -24,7 +39,7 @@ const ItemGridViewRecipe = ({ item, openUpdate }) => {
                 <Button variant="light" color="blue" fullWidth onClick={() => openUpdate(item._id)}>
                     Update
                 </Button>
-                <Button my="sm" variant="light" color="red" fullWidth>
+                <Button my="sm" variant="light" color="red" fullWidth onClick={() => deleteHandler()} loading={loading}>
                     Delete
                 </Button>
             </GrantAccess>

@@ -56,7 +56,12 @@ const Recipes = () => {
     return (
         <>
             <NavbarCookBook data={navbar} />
-            <GridView data={recipes} item={ItemGridViewRecipe} openUpdate={(id) => openUpdate(id)} />
+            <GridView
+                data={recipes}
+                item={ItemGridViewRecipe}
+                openUpdate={(id) => openUpdate(id)}
+                onDelete={(id) => setRecipes(recipes.filter((recipe) => recipe._id !== id))}
+            />
             <ModalCreate open={showCreate} handler={toggleModalCreate} />
             <ModalUpdate open={showUpdate} handler={toggleModalUpdate} id={idUpdate} />
         </>
