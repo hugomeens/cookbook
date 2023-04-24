@@ -14,7 +14,7 @@ const ModalUpdate = ({ open, handler, id }) => {
         if (!id) return;
         API.getRecipe(id)
             .then((res) => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     console.log(res.data);
                     setRecipe(res.data);
                 }

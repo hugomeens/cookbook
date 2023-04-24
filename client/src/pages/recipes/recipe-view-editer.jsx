@@ -110,7 +110,7 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
             setIngredients(recipe.ingredients);
         }
         return () => {};
-    }, [recipe]);
+    }, [recipe, form]);
 
     const handleSelector = (data) => {
         // eslint-disable-next-line array-callback-return

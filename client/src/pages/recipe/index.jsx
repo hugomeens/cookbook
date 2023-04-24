@@ -19,7 +19,7 @@ const Recipe = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    }, [id]);
 
     return (
         <>
