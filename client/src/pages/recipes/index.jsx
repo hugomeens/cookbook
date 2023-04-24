@@ -6,13 +6,22 @@ import NavbarCookBook from '../../components/navbar';
 import API from '../../services/api';
 import { useEffect } from 'react';
 import setNotification from '../errors/error-notification';
+import ModalUpdate from './update';
 
 const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
+    const [showUpdate, setShowUpdate] = useState(false);
     const [view, setView] = useState('grid');
     const toggleModalCreate = () => setShowCreate(!showCreate);
+    const toggleModalUpdate = () => setShowUpdate(!showUpdate);
     // const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
+    const [idUpdate, setIdUpdate] = useState('');
+
+    const openUpdate = (id) => {
+        setIdUpdate(id);
+        toggleModalUpdate();
+    };
 
     const navbar = {
         title: 'Recipes',
@@ -34,7 +43,6 @@ const Recipes = () => {
         API.listRecipes()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data);
                     setRecipes(res.data);
                 }
             })
@@ -48,8 +56,9 @@ const Recipes = () => {
     return (
         <>
             <NavbarCookBook data={navbar} />
-            <GridView data={recipes} item={ItemGridViewRecipe} />
+            <GridView data={recipes} item={ItemGridViewRecipe} openUpdate={(id) => openUpdate(id)} />
             <ModalCreate open={showCreate} handler={toggleModalCreate} />
+            <ModalUpdate open={showUpdate} handler={toggleModalUpdate} id={idUpdate} />
         </>
     );
 };

@@ -3,7 +3,7 @@ import GrantAccess from '../../tools/grant-access';
 import { useNavigate } from 'react-router-dom';
 import { parseTime } from '../../tools/timeUtil';
 
-const ItemGridViewRecipe = ({ item }) => {
+const ItemGridViewRecipe = ({ item, openUpdate }) => {
     const navigate = useNavigate();
 
     return (
@@ -21,7 +21,7 @@ const ItemGridViewRecipe = ({ item }) => {
                 Open
             </Button>
             <GrantAccess roles={['admin']}>
-                <Button variant="light" color="blue" fullWidth>
+                <Button variant="light" color="blue" fullWidth onClick={() => openUpdate(item._id)}>
                     Update
                 </Button>
                 <Button my="sm" variant="light" color="red" fullWidth>
