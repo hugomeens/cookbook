@@ -1,16 +1,10 @@
 import { Card, Divider, Text, Title, Image, Button } from '@mantine/core';
 import GrantAccess from '../../tools/grant-access';
 import { useNavigate } from 'react-router-dom';
+import { parseTime } from '../../tools/timeUtil';
 
 const ItemGridViewRecipe = ({ item }) => {
     const navigate = useNavigate();
-    const parseTime = (preparationTime) => {
-        let res = '';
-        let hours = Math.floor(preparationTime / 60);
-        res += hours > 0 ? `${hours} hours` : '';
-        res += Math.floor(preparationTime % 60) + ' min';
-        return res;
-    };
 
     return (
         <Card shadow="sm" padding="md" withBorder>
@@ -23,7 +17,7 @@ const ItemGridViewRecipe = ({ item }) => {
             <Divider my="sm" />
             <Text>{parseTime(item.preparationTime)}</Text>
             <Divider my="sm" />
-            <Button variant="light" color="green" fullWidth my="sm" onClick={() => navigate(`/recipe/${item.id}`)}>
+            <Button variant="light" color="green" fullWidth my="sm" onClick={() => navigate(`/recipe/${item._id}`)}>
                 Open
             </Button>
             <GrantAccess roles={['admin']}>

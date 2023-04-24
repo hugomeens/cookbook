@@ -28,6 +28,9 @@ const API = {
     listRecipes() {
         return caller().get('/recipe/list');
     },
+    getRecipe(id) {
+        return caller().get(`/recipe/view/${id}`);
+    },
 };
 
 export default API;
