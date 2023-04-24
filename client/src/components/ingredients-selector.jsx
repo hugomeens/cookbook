@@ -78,12 +78,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                     <Group position="right" mt="md">
                         {props.multi && (
                             <>
-                                <Button
-                                    position="left"
-                                    variant="light"
-                                    color="gray"
-                                    onClick={() => setShowCreate(true)}
-                                >
+                                <Button variant="light" color="gray" onClick={() => setShowCreate(true)}>
                                     Create Ingredient
                                 </Button>
                                 <Button variant="light" color="red" onClick={handleClose}>

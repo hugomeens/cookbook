@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { IconTrash } from '@tabler/icons-react';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
+    console.log(ingredient)
     return (
         <Paper p="xs" radius="sm" shadow="sm" withBorder my="md">
             <Grid columns={12}>
@@ -27,6 +28,7 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
                 <Grid.Col span={4}>
                     <NumberInput
                         placeholder="Enter quantity"
+                        // value={ingredient.va} todo
                         onChange={(e) =>
                             removeHandler((prev) =>
                                 prev.map((i) => (i.id === ingredient.id ? { ...i, quantity: e } : i))
@@ -53,6 +55,7 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
 };
 
 const LineStep = ({ id, step, handler }) => {
+    console.log(step);
     return (
         <Paper p="xs" radius="sm" withBorder my="md">
             <Group position="apart">
@@ -60,6 +63,7 @@ const LineStep = ({ id, step, handler }) => {
                 <TextInput
                     style={{ width: '82%' }}
                     placeholder="Enter step"
+                    value={step.text}
                     onChange={(e) =>
                         handler((prev) => prev.map((s) => (s.id === step.id ? { ...s, text: e.target.value } : s)))
                     }
@@ -77,29 +81,18 @@ const LineStep = ({ id, step, handler }) => {
     );
 };
 
-const RecipeViewEditer = ({ handler, buttonText, APICall, recipeVal }) => {
+const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
     const [showSelector, setShowSelector] = useState(false);
     const [ingredients, setIngredients] = useState([]);
     const [steps, setSteps] = useState([{ id: 0, text: '' }]);
     const [countSteps, setCountSteps] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-    const [recipe, setRecipe] = useState(recipeVal);
-
-    useEffect(() => {
-        console.log(recipeVal)
-        setRecipe(recipeVal);
-        if (recipeVal?.steps) {
-            setSteps(recipeVal.instructions);
-            setIngredients(recipeVal.ingredients);
-        }
-        return () => {};
-    }, [recipeVal]);
 
     const form = useForm({
         initialValues: {
-            title: recipe?.name ?? '',
-            time: recipe?.preparationTime ?? '',
-            people: recipe?.nbPerson ?? 4,
+            title: '',
+            time: '',
+            people: '',
         },
 
         validate: {
@@ -107,6 +100,17 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipeVal }) => {
             time: isNotEmpty('Time is required'),
         },
     });
+
+    useEffect(() => {
+        form.setFieldValue('title', recipe.name);
+        form.setFieldValue('time', recipe.preparationTime);
+        form.setFieldValue('people', recipe.nbPerson);
+        if (recipe?.instructions) {
+            setSteps(recipe.instructions);
+            setIngredients(recipe.ingredients);
+        }
+        return () => {};
+    }, [recipe]);
 
     const handleSelector = (data) => {
         // eslint-disable-next-line array-callback-return

@@ -42,7 +42,7 @@ const ModalUpdate = ({ open, handler, id }) => {
                         buttonText={'Update recipe'}
                         handler={updateRecipe}
                         APICall={API.updateRecipe}
-                        recipeVal={recipe}
+                        recipe={recipe}
                     />
                 </Modal.Body>
             </Modal.Content>

@@ -23,7 +23,7 @@ router.get("/search", async (req, res) => {
     await GetAbl(req.params, res);
 });
 
-router.get("/view/:id", async (req, res) => {
+router.get("/view/:_id", async (req, res) => {
     await GetAbl(req.params, res);
 });
 
