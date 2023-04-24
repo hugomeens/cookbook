@@ -13,13 +13,13 @@ async function UpdateAbl(body, res) {
   }
 
   try {
-    const id = body.id;
-    delete body.id;
-    const mongoRes = await recipeDao.update(id, body);
+    const _id = body._id;
+    delete body._id;
+    const mongoRes = await recipeDao.update(_id, body);
     if (mongoRes.matchedCount == 0) {
       res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
     } else {
-      body._id = id;
+      body._id = _id;
       res.status(statusCodes.OK).json(body);
     }
   } catch (e) {

@@ -17,9 +17,9 @@ const createRecipeSchema = {
 const validateRecipeSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
 };
 
 const listRecipeSchema = {
@@ -29,25 +29,25 @@ const listRecipeSchema = {
 const searchRecipeSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
 };
 
 const viewRecipeSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
 };
 
 const updateRecipeSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        _id: { type: 'string' },
     },
-    required: ['id'],
+    required: ['_id'],
 };
 
 const deleteRecipeSchema = {
