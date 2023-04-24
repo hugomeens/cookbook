@@ -13,12 +13,12 @@ async function GetAbl(body, res) {
   }
 
   try {
-    const mongoRes = await recipeDao.view(body.id);
+    const mongoRes = await recipeDao.view(body._id);
     if (!mongoRes) {
       res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
     } else {
       res.status(statusCodes.OK).json({
-        _id: mongoRes.id,
+        _id: mongoRes._id,
         name: mongoRes.name,
         description: mongoRes.description,
         img: mongoRes.img,
@@ -28,7 +28,6 @@ async function GetAbl(body, res) {
         instructions: mongoRes.instructions,
         valid: mongoRes.valid
       });
-      console.log(mongoRes);
     }
   } catch (e) {
     res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });

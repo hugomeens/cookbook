@@ -11,11 +11,11 @@ async function DeleteAbl(body, res) {
   }
 
   try {
-    const mongoRes = await recipeDao.delete(body.id);
+    const mongoRes = await recipeDao.delete(body._id);
     if (mongoRes.deletedCount == 0) {
       res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
     } else {
-      res.status(statusCodes.OK).json({ _id: body.id });
+      res.status(statusCodes.OK).json({ _id: body._id });
     }
   } catch (e) {
     res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
