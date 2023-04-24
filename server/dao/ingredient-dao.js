@@ -30,6 +30,17 @@ class IngredientDao {
     update(id, up) {
         return this.collection.updateOne({ _id: ObjectID(id) }, { $set: up });
     }
+
+    async view(id) {
+        let ingredients = [];
+        id.forEach(element => {
+            this.collection.findOne({ _id: ObjectID(element) }).then(async (res) => {
+                console.log(res);
+                await éingredients.push(res);
+            });
+        });
+        return ingredients;
+    }
 }
 
 const ingredientDao = new IngredientDao('ingredients');

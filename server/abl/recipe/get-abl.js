@@ -1,5 +1,6 @@
 const path = require('path');
 const { recipeDao } = require('../../dao/recipe-dao');
+const { ingredientDao } = require('../../dao/ingredient-dao');
 const { viewRecipeSchema } = require('../../schemas/recipe-schema');
 const Ajv = require('ajv').default;
 const { statusCodes } = require('../../utils/statusCodes');
@@ -17,14 +18,15 @@ async function GetAbl(body, res) {
     if (!mongoRes) {
       res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
     } else {
-      res.status(statusCodes.OK).json({
+      const ingredientsInfo = ingredientDao.view(mongoRes.ingredients);
+      await res.status(statusCodes.OK).json({
         _id: mongoRes._id,
         name: mongoRes.name,
         description: mongoRes.description,
         img: mongoRes.img,
         nbPerson: mongoRes.nbPerson,
         preparationTime: mongoRes.preparationTime,
-        ingredients: mongoRes.ingredients,
+        ingredients: ingredientsInfo,
         instructions: mongoRes.instructions,
         valid: mongoRes.valid
       });
