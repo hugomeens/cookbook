@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react';
 import { IconTrash } from '@tabler/icons-react';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
-    console.log(ingredient)
+    console.log(ingredient);
     return (
         <Paper p="xs" radius="sm" shadow="sm" withBorder my="md">
             <Grid columns={12}>
@@ -110,7 +110,8 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
             setIngredients(recipe.ingredients);
         }
         return () => {};
-    }, [recipe, form]);
+    // eslint-disable-next-line
+    }, [recipe]);
 
     const handleSelector = (data) => {
         // eslint-disable-next-line array-callback-return
