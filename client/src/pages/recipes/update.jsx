@@ -15,13 +15,14 @@ const ModalUpdate = ({ open, handler, id }) => {
         API.getRecipe(id)
             .then((res) => {
                 if (res.status == 200) {
-                    console.log(res.data)
+                    console.log(res.data);
                     setRecipe(res.data);
                 }
             })
             .catch((error) => {
                 console.log(error);
             });
+        return () => {};
     }, [id]);
 
     return (

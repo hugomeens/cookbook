@@ -86,11 +86,13 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipeVal }) => {
     const [recipe, setRecipe] = useState(recipeVal);
 
     useEffect(() => {
+        console.log(recipeVal)
         setRecipe(recipeVal);
         if (recipeVal?.steps) {
             setSteps(recipeVal.instructions);
-            setIngredients(recipeVal.ingredients)
+            setIngredients(recipeVal.ingredients);
         }
+        return () => {};
     }, [recipeVal]);
 
     const form = useForm({
