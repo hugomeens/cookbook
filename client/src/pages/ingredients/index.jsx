@@ -22,6 +22,7 @@ const Ingredients = () => {
     const toggleModalValidate = () => setShowValidate(!showValidate);
 
     const [ingredients, setIngredients] = useState([]);
+    const [ingredientsShown, setIngredientsShown] = useState([]);
 
     useEffect(() => {
         API.listIngredients()
@@ -51,7 +52,8 @@ const Ingredients = () => {
 
     useEffect(() => {
         let s = search.toLowerCase();
-        ingredients.sort((a, b) => {
+        setIngredientsShown(ingredients.filter((ingredient) => getMinIndex(ingredient, s) >= 0));
+        ingredientsShown.sort((a, b) => {
             let aCount = getMinIndex(a, s);
             let bCount = getMinIndex(b, s);
             return bCount - aCount;
@@ -59,7 +61,7 @@ const Ingredients = () => {
 
         return () => {};
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search]);
+    }, [search, ingredients]);
 
     const navbar = {
         title: 'Ingredients',
@@ -84,14 +86,14 @@ const Ingredients = () => {
     };
 
     function upIngredient(ingredient) {
-        setIngredients(ingredients.map((item) => (item._id === ingredient._id ? ingredient : item)));
+            setIngredients(ingredients.map((item) => (item._id === ingredient._id ? ingredient : item)));
     }
 
     return (
         <>
             <NavbarCookBook data={navbar} />
             {/* {view === 'grid' ? ( */}
-            <GridViewIngredients data={ingredients} updateItem={setItem} updateHandler={toggleModalUpdate} />
+            <GridViewIngredients data={ingredientsShown} updateItem={setItem} updateHandler={toggleModalUpdate} />
             {/* ) : (
                 <div>List View</div>
             )} */}
