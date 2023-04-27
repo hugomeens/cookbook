@@ -18,7 +18,7 @@ async function GetAbl(body, res) {
     if (!mongoRes) {
       res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
     } else {
-      const ingredientsInfo = ingredientDao.view(mongoRes.ingredients);
+      const ingredientsInfo = await ingredientDao.view(mongoRes.ingredients);
       await res.status(statusCodes.OK).json({
         _id: mongoRes._id,
         name: mongoRes.name,
