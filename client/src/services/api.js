@@ -28,6 +28,9 @@ const API = {
     listRecipes() {
         return caller().get('/recipe/list');
     },
+    validateRecipe(data) {
+        return caller().post('/recipe/validate', data);
+    },
 };
 
 export default API;

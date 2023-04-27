@@ -1,4 +1,5 @@
 import ModalCreate from './create';
+import ModalValidateRecipes from './validate';
 import GridView from '../../components/grid-view';
 import { useState } from 'react';
 import ItemGridViewRecipe from './item-grid-view';
@@ -9,8 +10,10 @@ import setNotification from '../errors/error-notification';
 
 const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
+    const [showValidate, setShowValidate] = useState(false);
     const [view, setView] = useState('grid');
     const toggleModalCreate = () => setShowCreate(!showCreate);
+    const toggleModalValidateRecipes = () => setShowValidate(!showValidate);
     // const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
 
@@ -18,7 +21,7 @@ const Recipes = () => {
         title: 'Recipes',
         buttonValidate: {
             text: 'Validate Recipes',
-            handler: () => alert('not implemented'),
+            handler: toggleModalValidateRecipes,
         },
         buttonCreate: {
             text: 'New Recipe',
@@ -50,6 +53,7 @@ const Recipes = () => {
             <NavbarCookBook data={navbar} />
             <GridView data={recipes} item={ItemGridViewRecipe} />
             <ModalCreate open={showCreate} handler={toggleModalCreate} />
+            <ModalValidateRecipes open={showValidate} handler={toggleModalValidateRecipes} />
         </>
     );
 };
