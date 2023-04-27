@@ -1,16 +1,25 @@
 import { Card, Divider, Text, Title, Image, Button } from '@mantine/core';
 import GrantAccess from '../../tools/grant-access';
 import { useNavigate } from 'react-router-dom';
+import { parseTime } from '../../tools/timeUtil';
+import { useState } from 'react';
+import API from '../../services/api';
 
-const ItemGridViewRecipe = ({ item }) => {
+const ItemGridViewRecipe = ({ item, openUpdate, onDelete }) => {
     const navigate = useNavigate();
-    const parseTime = (preparationTime) => {
-        let res = '';
-        let hours = Math.floor(preparationTime / 60);
-        res += hours > 0 ? `${hours} hours` : '';
-        res += Math.floor(preparationTime % 60) + ' min';
-        return res;
-    };
+    const [loading, setLoading] = useState(false);
+
+    const deleteHandler = async () => {
+        try {
+            setLoading(true);
+            await API.deleteRecipe(item._id);
+            setLoading(false);
+            onDelete(item._id);
+        } catch (error) {
+            setLoading(false);
+            console.log(error)
+        }
+    }
 
     return (
         <Card shadow="sm" padding="md" withBorder>
@@ -23,14 +32,14 @@ const ItemGridViewRecipe = ({ item }) => {
             <Divider my="sm" />
             <Text>{parseTime(item.preparationTime)}</Text>
             <Divider my="sm" />
-            <Button variant="light" color="green" fullWidth my="sm" onClick={() => navigate(`/recipe/${item.id}`)}>
+            <Button variant="light" color="green" fullWidth my="sm" onClick={() => navigate(`/recipe/${item._id}`)}>
                 Open
             </Button>
             <GrantAccess roles={['admin']}>
-                <Button variant="light" color="blue" fullWidth>
+                <Button variant="light" color="blue" fullWidth onClick={() => openUpdate(item._id)}>
                     Update
                 </Button>
-                <Button my="sm" variant="light" color="red" fullWidth>
+                <Button my="sm" variant="light" color="red" fullWidth onClick={() => deleteHandler()} loading={loading}>
                     Delete
                 </Button>
             </GrantAccess>

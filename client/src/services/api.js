@@ -28,6 +28,12 @@ const API = {
     listRecipes() {
         return caller().get('/recipe/list');
     },
+    getRecipe(id) {
+        return caller().get(`/recipe/view/${id}`);
+    },
+    deleteRecipe(id) {
+        return caller().delete(`/recipe/delete/${id}`);
+    },
 };
 
 export default API;
