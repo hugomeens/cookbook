@@ -18,7 +18,7 @@ const NavbarCookBook = ({ data }) => {
                     )}
                     {data?.buttonValidate && (
                         <GrantAccess roles={['admin']}>
-                            <Button onClick={data.buttonValidate.handler} color="red">
+                            <Button onClick={data.buttonValidate.handler} color="green">
                                 {data.buttonValidate.text}
                             </Button>
                         </GrantAccess>

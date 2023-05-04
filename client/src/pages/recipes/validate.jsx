@@ -1,18 +1,18 @@
-import IngredientView from './ingredient-view';
+import Recipe from '../recipe/index';
 import API from '../../services/api';
 import { useEffect, useState } from 'react';
 import { Modal, Text, Grid, ScrollArea, Button, Center } from '@mantine/core';
 import setNotification from '../errors/error-notification';
 
-const ModalValidateIngredients = ({ opened, handler }) => {
-    const [ingredients, setIngredients] = useState([]);
+const ModalValidateRecipes = ({ opened, handler }) => {
+    const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
-        API.listIngredients()
+        API.listRecipes()
             .then((res) => {
                 if (res.status === 200) {
-                    res.data = res.data.filter((ingredient) => ingredient.valid === false);
-                    setIngredients(res.data);
+                    res.data = res.data.filter((recipe) => recipe.valid === false);
+                    setRecipes(res.data);
                 }
             })
             .catch((err) => {
@@ -24,9 +24,8 @@ const ModalValidateIngredients = ({ opened, handler }) => {
 
     const clickHandler = async (item) => {
         try {
-            await API.validateIngredient({ _id: item._id });
+            await API.validateRecipe({ _id: item._id });
             item.valid = true;
-            console.log(1);
         } catch (error) {
             setNotification(true, error);
         }
@@ -39,7 +38,7 @@ const ModalValidateIngredients = ({ opened, handler }) => {
                 <Modal.Header>
                     <Modal.Title>
                         <Text fz="lg" fw={700}>
-                            Validate ingredients
+                            Validate recipes
                         </Text>
                     </Modal.Title>
                     <Modal.CloseButton />
@@ -47,10 +46,10 @@ const ModalValidateIngredients = ({ opened, handler }) => {
                 <Modal.Body>
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
-                            {ingredients.map((ingredient) => (
-                                <Grid.Col span={6} key={ingredient._id}>
-                                    <IngredientView
-                                        item={ingredient}
+                            {recipes.map((recipe) => (
+                                <Grid.Col span={6} key={recipe._id}>
+                                    <Recipe
+                                        item={recipe}
                                         button={{
                                             clickHandler,
                                             text: 'Validate',
@@ -69,4 +68,4 @@ const ModalValidateIngredients = ({ opened, handler }) => {
     );
 };
 
-export default ModalValidateIngredients;
+export default ModalValidateRecipes;
