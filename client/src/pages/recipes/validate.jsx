@@ -3,10 +3,10 @@ import API from '../../services/api';
 import { useEffect, useState } from 'react';
 import { Modal, Text, Grid, ScrollArea, Button, Center } from '@mantine/core';
 import setNotification from '../errors/error-notification';
+import ItemGridViewRecipe from './item-grid-view';
 
-const ModalValidateRecipes = ({ opened, handler }) => {
+const ModalValidateRecipes = ({ open, handler }) => {
     const [recipes, setRecipes] = useState([]);
-
     useEffect(() => {
         API.listRecipes()
             .then((res) => {
@@ -32,7 +32,7 @@ const ModalValidateRecipes = ({ opened, handler }) => {
     };
 
     return (
-        <Modal.Root opened={opened} onClose={handler} size="lg">
+        <Modal.Root opened={open} onClose={handler} size="lg">
             <Modal.Overlay />
             <Modal.Content>
                 <Modal.Header>
@@ -47,8 +47,8 @@ const ModalValidateRecipes = ({ opened, handler }) => {
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
                             {recipes.map((recipe) => (
-                                <Grid.Col span={6} key={recipe._id}>
-                                    <Recipe
+                                <Grid.Col span={6} key={recipes._id}>
+                                    <ItemGridViewRecipe
                                         item={recipe}
                                         button={{
                                             clickHandler,

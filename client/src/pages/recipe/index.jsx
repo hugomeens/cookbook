@@ -6,21 +6,23 @@ import API from '../../services/api';
 import { parseTime } from '../../tools/timeUtil';
 import setNotification from '../errors/error-notification';
 
-const Recipe = () => {
+const Recipe = (item) => {
     const id = window.location.href.split('/').slice(-1)[0];
     const [recipe, setRecipe] = useState(null);
     useEffect(() => {
-        API.getRecipe(id)
-            .then((res) => {
-                if (res.status === 200) {
-                    console.log(res.data);
-                    setRecipe(res.data);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                setNotification(true, err);
-            });
+        if (item) {
+            setRecipe(item);
+        } else {
+            API.getRecipe(id)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setRecipe(res.data);
+                    }
+                })
+                .catch((err) => {
+                    setNotification(true, err);
+                });
+        }
     }, [id]);
 
     return (

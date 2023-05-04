@@ -16,8 +16,8 @@ class RecipeDao {
         return ingredient;
     }
 
-    list() {
-        return this.collection.find({}).toArray();
+    async list() {
+        return await this.collection.find({}).toArray();
     }
 
     async delete(id) {

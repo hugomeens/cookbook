@@ -7,13 +7,16 @@ import API from '../../services/api';
 import { useEffect } from 'react';
 import setNotification from '../errors/error-notification';
 import ModalUpdate from './update';
+import ModalValidateRecipes from './validate';
 
 const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
+    const [showValidate, setShowValidate] = useState(false);
     const [view, setView] = useState('grid');
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
+    const toggleModalValidate = () => setShowValidate(!showValidate);
     // const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
     const [idUpdate, setIdUpdate] = useState('');
@@ -34,7 +37,7 @@ const Recipes = () => {
         title: 'Recipes',
         buttonValidate: {
             text: 'Validate Recipes',
-            handler: () => alert('not implemented'),
+            handler: toggleModalValidate,
         },
         buttonCreate: {
             text: 'New Recipe',
@@ -71,6 +74,7 @@ const Recipes = () => {
             />
             <ModalCreate open={showCreate} handler={(recipe) => createRecipe(recipe)} />
             <ModalUpdate open={showUpdate} handler={toggleModalUpdate} id={idUpdate} />
+            <ModalValidateRecipes open={showValidate} handler={toggleModalValidate} />
         </>
     );
 };
