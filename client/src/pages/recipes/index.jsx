@@ -1,5 +1,4 @@
 import ModalCreate from './create';
-import ModalValidateRecipes from './validate';
 import GridView from '../../components/grid-view';
 import { useState } from 'react';
 import ItemGridViewRecipe from './item-grid-view';
@@ -11,10 +10,10 @@ import ModalUpdate from './update';
 
 const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
-    const [showValidate, setShowValidate] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
     const [view, setView] = useState('grid');
     const toggleModalCreate = () => setShowCreate(!showCreate);
+    const toggleModalUpdate = () => setShowUpdate(!showUpdate);
     // const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
     const [idUpdate, setIdUpdate] = useState('');
@@ -35,7 +34,7 @@ const Recipes = () => {
         title: 'Recipes',
         buttonValidate: {
             text: 'Validate Recipes',
-            handler: toggleModalValidateRecipes,
+            handler: () => alert('not implemented'),
         },
         buttonCreate: {
             text: 'New Recipe',
@@ -64,8 +63,14 @@ const Recipes = () => {
     return (
         <>
             <NavbarCookBook data={navbar} />
-            <GridView data={recipes} item={ItemGridViewRecipe} />
-            <ModalCreate open={showCreate} handler={toggleModalCreate} />
+            <GridView
+                data={recipes}
+                item={ItemGridViewRecipe}
+                openUpdate={(id) => openUpdate(id)}
+                onDelete={(id) => setRecipes(recipes.filter((recipe) => recipe._id !== id))}
+            />
+            <ModalCreate open={showCreate} handler={(recipe) => createRecipe(recipe)} />
+            <ModalUpdate open={showUpdate} handler={toggleModalUpdate} id={idUpdate} />
         </>
     );
 };
