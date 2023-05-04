@@ -16,6 +16,7 @@ import QuantityInput from '../../components/count-people';
 import ModalIngredientsSelector from '../../components/ingredients-selector';
 import { useEffect, useState } from 'react';
 import { IconTrash } from '@tabler/icons-react';
+import setNotification from '../errors/error-notification';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
     console.log(ingredient);
@@ -92,7 +93,7 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
         initialValues: {
             title: '',
             time: '',
-            people: '',
+            people: 4,
         },
 
         validate: {
@@ -102,15 +103,15 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
     });
 
     useEffect(() => {
-        form.setFieldValue('title', recipe.name);
-        form.setFieldValue('time', recipe.preparationTime);
-        form.setFieldValue('people', recipe.nbPerson);
+        form.setFieldValue('title', recipe?.name);
+        form.setFieldValue('time', recipe?.preparationTime);
+        form.setFieldValue('people', recipe?.nbPerson ?? 4);
         if (recipe?.instructions) {
             setSteps(recipe.instructions);
             setIngredients(recipe.ingredients);
         }
         return () => {};
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [recipe]);
 
     const handleSelector = (data) => {
@@ -146,49 +147,41 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
         } catch (error) {
             setIsLoading(false);
             console.log(error);
+            setNotification(true, error);
         }
     };
 
     return (
         <>
-            <Accordion defaultValue="metadata" variant="separated">
-                <Accordion.Item value="metadata">
-                    <Accordion.Control>
-                        <Text fw={700} fz="lg">
-                            Metadata
+            <Grid columns={24} mb="lg">
+                <Grid.Col span={10}>
+                    <TextInput
+                        label="Title of the Recipe"
+                        placeholder="Enter Title"
+                        withAsterisk
+                        {...form.getInputProps('title')}
+                    />
+                </Grid.Col>
+                <Grid.Col span={9}>
+                    <NumberInput
+                        label="Time to Prepare"
+                        placeholder="Time in minutes"
+                        withAsterisk
+                        {...form.getInputProps('time')}
+                    />
+                </Grid.Col>
+                <Grid.Col span={5}>
+                    <Text fz="sm" fw={500}>
+                        People
+                        <Text span fw={700} fz="sm" color="red">
+                            {' '}
+                            *
                         </Text>
-                    </Accordion.Control>
-                    <Accordion.Panel>
-                        <Grid columns={24}>
-                            <Grid.Col span={10}>
-                                <TextInput
-                                    label="Title of the Recipe"
-                                    placeholder="Enter Title"
-                                    withAsterisk
-                                    {...form.getInputProps('title')}
-                                />
-                            </Grid.Col>
-                            <Grid.Col span={9}>
-                                <NumberInput
-                                    label="Time to Prepare"
-                                    placeholder="Time in minutes"
-                                    withAsterisk
-                                    {...form.getInputProps('time')}
-                                />
-                            </Grid.Col>
-                            <Grid.Col span={5}>
-                                <Text fz="sm" fw={500}>
-                                    People
-                                    <Text span fw={700} fz="sm" color="red">
-                                        {' '}
-                                        *
-                                    </Text>
-                                </Text>
-                                <QuantityInput initialValue={4} {...form.getInputProps('people')} />
-                            </Grid.Col>
-                        </Grid>
-                    </Accordion.Panel>
-                </Accordion.Item>
+                    </Text>
+                    <QuantityInput initialValue={4} {...form.getInputProps('people')} />
+                </Grid.Col>
+            </Grid>
+            <Accordion variant="separated">
                 <Accordion.Item value="ingredients">
                     <Accordion.Control>
                         <Group position="apart">
