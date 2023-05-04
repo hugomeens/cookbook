@@ -10,6 +10,7 @@ const ModalValidateIngredients = ({ opened, handler }) => {
     useEffect(() => {
         API.listIngredients()
             .then((res) => {
+                console.log(res);
                 if (res.status === 200) {
                     res.data = res.data.filter((ingredient) => ingredient.valid === false);
                     setIngredients(res.data);
@@ -47,17 +48,21 @@ const ModalValidateIngredients = ({ opened, handler }) => {
                 <Modal.Body>
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
-                            {ingredients.map((ingredient) => (
-                                <Grid.Col span={6} key={ingredient._id}>
-                                    <IngredientView
-                                        item={ingredient}
-                                        button={{
-                                            clickHandler,
-                                            text: 'Validate',
-                                        }}
-                                    />
-                                </Grid.Col>
-                            ))}
+                            {ingredients.length === 0 ? (
+                                <>All ingredients are validated !</>
+                            ) : (
+                                ingredients.map((ingredient) => (
+                                    <Grid.Col span={6} key={ingredient._id}>
+                                        <IngredientView
+                                            item={ingredient}
+                                            button={{
+                                                clickHandler,
+                                                text: 'Validate',
+                                            }}
+                                        />
+                                    </Grid.Col>
+                                ))
+                            )}
                         </Grid>
                     </ScrollArea>
                     <Center mt="md">
