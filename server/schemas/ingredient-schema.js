@@ -23,8 +23,11 @@ const validateIngredientSchema = {
 
 const listIngredientSchema = {
     type: 'object',
-    properties: {},
-    required: [],
+    properties: {
+        offset: { type: 'string', default: '0' },
+        limit: { type: 'string', default: '20' },
+    },
+    required: ['offset', 'limit'],
     additionalProperties: false,
 };
 

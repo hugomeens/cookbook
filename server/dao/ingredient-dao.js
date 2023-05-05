@@ -15,8 +15,8 @@ class IngredientDao {
         this.collection.insertOne(ingredient);
     }
 
-    list() {
-        return this.collection.find({}).toArray();
+    list(offset, limit) {
+        return this.collection.find({}).skip(offset).limit(limit).toArray();
     }
 
     async delete(id) {

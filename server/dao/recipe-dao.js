@@ -16,8 +16,8 @@ class RecipeDao {
         return ingredient;
     }
 
-    async list() {
-        return await this.collection.find({}).toArray();
+    async list(offset, limit) {
+        return await this.collection.find({}).skip(offset).limit(limit).toArray();
     }
 
     async delete(id) {

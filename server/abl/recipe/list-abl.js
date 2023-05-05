@@ -5,7 +5,7 @@ const Ajv = require('ajv').default;
 const { statusCodes } = require('../../utils/statusCodes');
 
 async function ListAbl(body, res) {
-    const ajv = new Ajv();
+    const ajv = new Ajv({useDefaults: true});
     const valid = ajv.validate(listRecipeSchema, body);
 
     if (!valid) {
@@ -14,7 +14,7 @@ async function ListAbl(body, res) {
 
     let recipes;
     try {
-        recipes = await recipeDao.list();
+        recipes = await recipeDao.list(parseInt(body.offset), parseInt(body.limit));
         res.status(statusCodes.OK).json(recipes);
     } catch (e) {
         res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });

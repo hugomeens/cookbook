@@ -16,7 +16,7 @@ router.post('/validate', async (req, res) => {
 });
 
 router.get('/list', async (req, res) => {
-    await ListAbl(req.params, res);
+    await ListAbl(req.query, res);
 });
 
 router.get('/search', async (req, res) => {
