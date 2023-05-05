@@ -36,7 +36,8 @@ const ModalMergeIngredients = ({ opened, handler }) => {
             await API.updateIngredient(ingredientMerge);
             await API.deleteIngredient(ingredient2._id);
             setIsMergeLoading(false);
-            navigate('/ingredients');
+            // todo returns updates to show in main
+            handler();
         } catch (error) {
             setNotification(true, 'Failed to merge ingredients');
             setIsMergeLoading(false);
