@@ -33,7 +33,9 @@ const ModalMergeIngredients = ({ opened, handler }) => {
     const mergeHanlder = async () => {
         try {
             setIsMergeLoading(true);
-            await API.updateIngredient(ingredientMerge);
+            let data = ingredientMerge;
+            data.alternativeNames = (data?.alternativeNames?.length ?? 0) > 0 ? data.alternativeNames.split(';') : [];
+            await API.updateIngredient(data);
             await API.deleteIngredient(ingredient2._id);
             setIsMergeLoading(false);
             // todo returns updates to show in main
@@ -94,7 +96,7 @@ const ModalMergeIngredients = ({ opened, handler }) => {
                                 label="Alternate names"
                                 placeholder="Alternate names"
                                 description="Semicolon separated"
-                                defaultValue={ingredientMerge.alternateNames}
+                                defaultValue={ingredientMerge?.alternativeNames?.join(';') ?? ''}
                                 mb="sm"
                             />
                             <Select label="Unit" placeholder="Select unit" data={cnf.units} />
