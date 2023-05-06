@@ -33,14 +33,11 @@ class IngredientDao {
 
     async view(id) {
         let ingredients = [];
-        await id.forEach(element => {
-            this.collection.findOne({ _id: ObjectID(element) })
-                .then((res) => {
-                    // console.log(res);
-                    ingredients = [...ingredients, res];
-                });
-        });
-        console.log('ingredients', ingredients);
+        for (let i = 0; i < id.length; i++) {
+            await this.collection.findOne({ _id: ObjectID(id[i]) }).then(async (res) => {
+                ingredients.push(res);
+            });
+        }
         return ingredients;
     }
 }
