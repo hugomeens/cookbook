@@ -1,6 +1,7 @@
 import { Button, TextInput, Select, FileInput, Image, Group } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 import { useState } from 'react';
+import cnf from '../../config';
 
 const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
     const handleClose = (ingredient) => {
@@ -60,10 +61,7 @@ const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
                 withAsterisk
                 dropdownPosition="bottom"
                 {...form.getInputProps('unit')}
-                data={[
-                    { label: 'Grams', value: 'g' },
-                    { label: 'Centiliters', value: 'cl' },
-                ]}
+                data={cnf.units}
                 my="md"
             />
             <FileInput label="Image" placeholder="Select image" {...form.getInputProps('image')} mb="md" />
