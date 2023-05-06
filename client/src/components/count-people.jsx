@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createStyles, NumberInput, ActionIcon, rem } from '@mantine/core';
 import { IconPlus, IconMinus } from '@tabler/icons-react';
 
@@ -42,6 +42,11 @@ const QuantityInput = ({ min = 1, initialValue, ...props }) => {
     const { classes } = useStyles();
     const handlers = useRef(null);
     const [value, setValue] = useState(initialValue);
+
+    useEffect(() => {
+        setValue(initialValue);
+        return () => {};
+    }, [initialValue]);
 
     return (
         <div className={classes.wrapper}>
