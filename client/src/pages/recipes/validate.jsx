@@ -1,4 +1,3 @@
-import Recipe from '../recipe/index';
 import API from '../../services/api';
 import { useEffect, useState } from 'react';
 import { Modal, Text, Grid, ScrollArea, Button, Center } from '@mantine/core';
@@ -47,7 +46,7 @@ const ModalValidateRecipes = ({ open, handler }) => {
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
                             {recipes.map((recipe) => (
-                                <Grid.Col span={6} key={recipes._id}>
+                                <Grid.Col span={6} key={recipe._id}>
                                     <ItemGridViewRecipe
                                         item={recipe}
                                         button={{
