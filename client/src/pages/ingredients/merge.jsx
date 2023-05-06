@@ -4,18 +4,15 @@ import ModalIngredientsSelector from '../../components/ingredients-selector';
 import IngredientView from './ingredient-view';
 import cnf from '../../config';
 import API from '../../services/api';
-import { useNavigate } from 'react-router-dom';
 import setNotification from '../errors/error-notification';
 
-const ModalMergeIngredients = ({ opened, handler }) => {
+const ModalMergeIngredients = ({ opened, handler, updater }) => {
     const [showSelector, setShowSelector] = useState(false);
     const [ingredient1, setIngredient1] = useState(null);
     const [ingredient2, setIngredient2] = useState(null);
     const [ingredientMerge, setIngredientMerge] = useState({});
 
     const [isMergeLoading, setIsMergeLoading] = useState(false);
-
-    const navigate = useNavigate();
 
     const [isLoadOne, setIsLoadOne] = useState({});
     const updateLoad = (ingredient) => {
@@ -38,7 +35,8 @@ const ModalMergeIngredients = ({ opened, handler }) => {
             await API.updateIngredient(data);
             await API.deleteIngredient(ingredient2._id);
             setIsMergeLoading(false);
-            // todo returns updates to show in main
+            // todo ingredientMerge not updating
+            updater(ingredient2._id, ingredientMerge);
             handler();
         } catch (error) {
             setNotification(true, 'Failed to merge ingredients');
@@ -91,7 +89,11 @@ const ModalMergeIngredients = ({ opened, handler }) => {
                                     withPlaceholder
                                 />
                             </Card.Section>
-                            <TextInput my="xs" label="Name" defaultValue={ingredientMerge.name} />
+                            <TextInput
+                                my="xs"
+                                label="Name"
+                                defaultValue={ingredientMerge.name}
+                            />
                             <TextInput
                                 label="Alternate names"
                                 placeholder="Alternate names"
