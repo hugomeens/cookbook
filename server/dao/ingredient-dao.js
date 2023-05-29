@@ -33,8 +33,14 @@ class IngredientDao {
     }
 
     async search(search) {
-        console.log(search);
-        return await this.collection.find({ $text: { $search: search } }).toArray();
+        return await this.collection
+            .find({
+                $or: [
+                    { name: { $regex: search, $options: 'i' } },
+                    { alternativeNames: { $regex: search, $options: 'i' } },
+                ],
+            })
+            .toArray();
     }
 
     async view(ingredients) {

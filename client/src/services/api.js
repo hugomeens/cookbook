@@ -19,6 +19,9 @@ const API = {
     deleteIngredient(id) {
         return caller().delete(`/ingredient/delete/${id}`);
     },
+    searchIngredient(search) {
+        return caller().get(`/ingredient/search?search=${search}`);
+    },
     validateIngredient(data) {
         return caller().post('/ingredient/validate', data);
     },

@@ -23,7 +23,6 @@ const Ingredients = () => {
     const toggleModalValidate = () => setShowValidate(!showValidate);
 
     const [ingredients, setIngredients] = useState([]);
-    const [ingredientsShown, setIngredientsShown] = useState([]);
 
     useEffect(() => {
         API.listIngredients(limit, page)
@@ -47,16 +46,6 @@ const Ingredients = () => {
         setPage((prev) => prev + limit);
     };
 
-    function getMinIndex(a, s) {
-        let aCount = a.name.toLowerCase().indexOf(s);
-        for (const name of a.alternativeNames) {
-            let nCount = name.toLowerCase().indexOf(s);
-            // eslint-disable-next-line eqeqeq
-            if (nCount != -1 && (nCount < aCount || aCount == -1)) aCount = nCount;
-        }
-        return aCount;
-    }
-
     const handleMerge = (idDeletedIngredient, updatedIngredients) => {
         // delete
         console.log(idDeletedIngredient);
@@ -76,18 +65,22 @@ const Ingredients = () => {
         upIngredient(updatedIngredients);
     };
 
+    const setNewIngredients = async (s) => {
+        if (s.length >= 2) {
+            let res = await API.searchIngredient(s);
+            setIngredients(res.data);
+        } else if (s.length === 0) {
+            let res = await API.listIngredients(limit, page);
+            setIngredients(res.data);
+        }
+    };
+
     useEffect(() => {
         let s = search.toLowerCase();
-        setIngredientsShown(ingredients.filter((ingredient) => getMinIndex(ingredient, s) >= 0));
-        ingredientsShown.sort((a, b) => {
-            let aCount = getMinIndex(a, s);
-            let bCount = getMinIndex(b, s);
-            return bCount - aCount;
-        });
-
+        setNewIngredients(s);
         return () => {};
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search, ingredients]);
+    }, [search]);
 
     const navbar = {
         title: 'Ingredients',
@@ -115,7 +108,7 @@ const Ingredients = () => {
         <>
             <NavbarCookBook data={navbar} />
             <GridViewIngredients
-                data={ingredientsShown}
+                data={ingredients}
                 updateItem={setItem}
                 updateHandler={toggleModalUpdate}
                 loadMore={loadMore}
