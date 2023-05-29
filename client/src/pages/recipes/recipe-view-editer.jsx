@@ -130,6 +130,7 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
 
     const handleValidate = async () => {
         if (form.validate().hasErrors) return;
+        console.log(ingredients);
         try {
             setIsLoading(true);
             let recipe = {
@@ -138,7 +139,9 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
                 img: '',
                 nbPerson: form.values.people,
                 preparationTime: form.values.time,
-                ingredients: ingredients.map((item) => item._id),
+                ingredients: ingredients.map((item) => {
+                    return { _id: item._id, quantity: item.quantity };
+                }),
                 instructions: steps,
             };
             await APICall(recipe);

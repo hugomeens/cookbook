@@ -4,7 +4,6 @@ import RecipeViewEditer from './recipe-view-editer';
 
 const ModalCreate = ({ open, handler }) => {
     const createRecipe = (recipe) => {
-        console.log('hanlder', recipe);
         handler(recipe);
     };
 

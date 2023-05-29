@@ -11,7 +11,7 @@ const IngredientsCard = ({ item }) => {
             </Title>
             <Divider my="sm" />
             <Text>
-                {item.amount} {item.unit}
+                {item.quantity} {item.unit}
             </Text>
         </Card>
     );
