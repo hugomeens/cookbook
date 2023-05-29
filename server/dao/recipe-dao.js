@@ -16,8 +16,15 @@ class RecipeDao {
         return ingredient;
     }
 
-    async list(offset, limit) {
-        return await this.collection.find({}).skip(offset).limit(limit).toArray();
+    async list(offset, limit, search) {
+        if (search && search.length > 0) offset = 0;
+        else search = '';
+
+        return await this.collection
+            .find({ name: { $regex: search, $options: 'i' } })
+            .skip(offset)
+            .limit(limit)
+            .toArray();
     }
 
     async delete(id) {

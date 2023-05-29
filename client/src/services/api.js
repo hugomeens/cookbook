@@ -28,8 +28,8 @@ const API = {
     createRecipe(data) {
         return caller().post('/recipe/create', data);
     },
-    listRecipes(limit, offset) {
-        return caller().get(`/recipe/list?limit=${limit}&offset=${offset}`);
+    listRecipes(limit, offset, search) {
+        return caller().get(`/recipe/list?limit=${limit}&offset=${offset}&search=${search ?? ''}`);
     },
     validateRecipe(data) {
         return caller().post('/recipe/validate', data);
@@ -42,6 +42,9 @@ const API = {
     },
     updateRecipe(body) {
         return caller().put('/recipe/update', body);
+    },
+    searchRecipe(search) {
+        return caller().get(`/recipe/search?search=${search}`);
     },
 };
 

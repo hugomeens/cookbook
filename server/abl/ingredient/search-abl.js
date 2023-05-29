@@ -4,13 +4,11 @@ const Ajv = require('ajv').default;
 const { statusCodes } = require('../../utils/statusCodes');
 
 async function SearchAbl(body, res) {
-    console.log(body)
     const ajv = new Ajv({useDefaults: true});
     const valid = ajv.validate(searchIngredientSchema, body);
     if (!valid) {
         return res.status(statusCodes.BAD_REQUEST).json({ error: ajv.errors });
     }
-    console.log("valid")
     let ingredients;
     try {
         ingredients = await ingredientDao.search(body.search);

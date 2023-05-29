@@ -27,6 +27,7 @@ const listRecipeSchema = {
     properties: {
         offset: { type: 'string', default: '0' },
         limit: { type: 'string', default: '20' },
+        search: { type: 'string' },
     },
     required: ['offset', 'limit'],
 };

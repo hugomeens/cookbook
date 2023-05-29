@@ -20,6 +20,7 @@ const Recipes = () => {
     const [recipes, setRecipes] = useState([]);
     const [idUpdate, setIdUpdate] = useState('');
     const [page, setPage] = useState(0);
+    const [search, setSearch] = useState('');
     const limit = 3;
 
     const openUpdate = (id) => {
@@ -40,6 +41,7 @@ const Recipes = () => {
 
     const navbar = {
         title: 'Recipes',
+        handlerChange: (e) => setSearch(e.target.value),
         buttonValidate: {
             text: 'Validate Recipes',
             handler: toggleModalValidate,
@@ -49,6 +51,23 @@ const Recipes = () => {
             handler: toggleModalCreate,
         },
     };
+
+    const setNewRecipes = async (s) => {
+        if (s.length >= 2) {
+            let res = await API.listRecipes(limit, page, s);
+            setRecipes(res.data);
+        } else if (s.length === 0) {
+            let res = await API.listRecipes(limit, page);
+            setRecipes(res.data);
+        }
+    };
+
+    useEffect(() => {
+        let s = search.toLowerCase();
+        setNewRecipes(s);
+        return () => {};
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [search]);
 
     useEffect(() => {
         API.listRecipes(limit, page)
