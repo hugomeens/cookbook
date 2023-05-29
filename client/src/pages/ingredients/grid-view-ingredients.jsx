@@ -4,7 +4,7 @@ import IngredientView from './ingredient-view';
 const GridViewIngredients = (props) => {
     return (
         <Paper shadow="sm" p="md" withBorder mb="md">
-            <ScrollArea h={700} offsetScrollbars>
+            <ScrollArea.Autosize mah={700} offsetScrollbars>
                 <Grid columns={12}>
                     {props.data.map((ingredient) => (
                         <Grid.Col xl={2} lg={3} md={3} sm={4} xs={4} key={ingredient._id}>
@@ -23,7 +23,7 @@ const GridViewIngredients = (props) => {
                         </Grid.Col>
                     ))}
                 </Grid>
-            </ScrollArea>
+            </ScrollArea.Autosize>
             <Center>
                 <Button onClick={props.loadMore} mt="md">
                     Load More
