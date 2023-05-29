@@ -31,17 +31,18 @@ class IngredientDao {
         return this.collection.updateOne({ _id: ObjectID(id) }, { $set: up });
     }
 
-    async view(id) {
-        let ingredients = [];
-        for (let i = 0; i < id.length; i++) {
-            await this.collection.findOne({ _id: ObjectID(id[i]) }).then(async (res) => {
+    async view(ingredients) {
+        let ingredientsRes = [];
+        for (let i = 0; i < ingredients.length; i++) {
+            await this.collection.findOne({ _id: ObjectID(ingredients[i]._id) }).then(async (res) => {
                 while(res.fusion != "") {
                     res = await this.collection.findOne({ _id: ObjectID(res.fusion) });
                 }
-                ingredients.push(res);
+                res.quantity = ingredients[i].quantity;
+                ingredientsRes.push(res);
             });
         }
-        return ingredients;
+        return ingredientsRes;
     }
 }
 

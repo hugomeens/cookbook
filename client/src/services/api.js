@@ -37,6 +37,9 @@ const API = {
     deleteRecipe(id) {
         return caller().delete(`/recipe/delete/${id}`);
     },
+    updateRecipe(body) {
+        return caller().put('/recipe/update', body);
+    },
 };
 
 export default API;

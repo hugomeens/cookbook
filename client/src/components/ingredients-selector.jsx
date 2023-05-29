@@ -35,6 +35,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
         API.listIngredients()
             .then((res) => {
                 if (res.status === 200) {
+                    console.log(res.data)
                     setIngredients(res.data);
                 }
             })

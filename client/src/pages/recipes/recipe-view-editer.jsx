@@ -19,7 +19,6 @@ import { IconTrash } from '@tabler/icons-react';
 import setNotification from '../errors/error-notification';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
-    console.log(ingredient);
     return (
         <Paper p="xs" radius="sm" shadow="sm" withBorder my="md">
             <Grid columns={12}>
@@ -29,10 +28,10 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
                 <Grid.Col span={4}>
                     <NumberInput
                         placeholder="Enter quantity"
-                        // value={ingredient.va} todo
+                        value={ingredient.quantity}
                         onChange={(e) =>
                             removeHandler((prev) =>
-                                prev.map((i) => (i.id === ingredient.id ? { ...i, quantity: e } : i))
+                                prev.map((i) => (i._id === ingredient._id ? { ...i, quantity: e } : i))
                             )
                         }
                     />
@@ -45,7 +44,7 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
                         color="red"
                         variant="light"
                         size="lg"
-                        onClick={() => removeHandler((prev) => prev.filter((i) => i.id !== ingredient.id))}
+                        onClick={() => removeHandler((prev) => prev.filter((i) => i._id !== ingredient._id))}
                     >
                         <IconTrash size="1rem" />
                     </ActionIcon>
@@ -56,7 +55,6 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
 };
 
 const LineStep = ({ id, step, handler }) => {
-    console.log(step);
     return (
         <Paper p="xs" radius="sm" withBorder my="md">
             <Group position="apart">
@@ -132,18 +130,21 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
         if (form.validate().hasErrors) return;
         try {
             setIsLoading(true);
-            let recipe = {
+            let recipePush = {
                 name: form.values.title,
                 description: '',
                 img: '',
                 nbPerson: form.values.people,
                 preparationTime: form.values.time,
-                ingredients: ingredients.map((item) => item._id),
+                ingredients: ingredients.map((item) => {
+                    return { _id: item._id, quantity: item.quantity };
+                }),
                 instructions: steps,
             };
-            await APICall(recipe);
+            if (recipe) recipePush._id = recipe._id;
+            await APICall(recipePush);
             setIsLoading(false);
-            handler(recipe);
+            handler(recipePush);
         } catch (error) {
             setIsLoading(false);
             console.log(error);
