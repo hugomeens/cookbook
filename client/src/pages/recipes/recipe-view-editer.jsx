@@ -235,6 +235,7 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
                 handleClose={() => setShowSelector(false)}
                 opened={showSelector}
                 handleSubmit={handleSelector}
+                already={ingredients.map((item) => item._id)}
                 multi
             />
             <Center>
