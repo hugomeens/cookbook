@@ -30,7 +30,7 @@ const Home = () => (
             Share and discover recipes from France!
         </Text>
         <Center my={50}>
-            <InputWithButton style={{ width: '50%' }} />
+            <InputWithButton style={{ width: '50%' }} action={() => console.log("k")} />
         </Center>
     </>
 );

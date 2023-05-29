@@ -9,7 +9,7 @@ import setNotification from '../errors/error-notification';
 import ModalUpdate from './update';
 import ModalValidateRecipes from './validate';
 
-const Recipes = () => {
+const Recipes = (defaultSearch) => {
     const [showCreate, setShowCreate] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
     const [showValidate, setShowValidate] = useState(false);
@@ -20,7 +20,7 @@ const Recipes = () => {
     const [recipes, setRecipes] = useState([]);
     const [idUpdate, setIdUpdate] = useState('');
     const [page, setPage] = useState(0);
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(defaultSearch ?? '');
     const limit = 3;
 
     const openUpdate = (id) => {
