@@ -58,6 +58,7 @@ const updateIngredientSchema = {
         imageId: { type: 'string' },
         unit: { type: 'string' },
         valid: { type: 'boolean' },
+        fusion: { type: 'string' },
     },
     required: ['_id'],
     additionalProperties: false,

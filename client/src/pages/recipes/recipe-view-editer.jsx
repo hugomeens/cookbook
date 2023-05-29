@@ -137,7 +137,7 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
                 nbPerson: form.values.people,
                 preparationTime: form.values.time,
                 ingredients: ingredients.map((item) => {
-                    return { _id: item._id, quantity: item.quantity };
+                    return { _id: item._id, quantity: item.quantity ?? 0 };
                 }),
                 instructions: steps,
             };

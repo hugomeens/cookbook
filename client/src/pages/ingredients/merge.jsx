@@ -31,9 +31,10 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
         try {
             setIsMergeLoading(true);
             let data = ingredientMerge;
+            ingredient2.fusion = ingredient1._id;
             data.alternativeNames = (data?.alternativeNames?.length ?? 0) > 0 ? data.alternativeNames.split(';') : [];
             await API.updateIngredient(data);
-            await API.deleteIngredient(ingredient2._id);
+            await API.updateIngredient(ingredient2);
             setIsMergeLoading(false);
             // todo ingredientMerge not updating
             updater(ingredient2._id, ingredientMerge);

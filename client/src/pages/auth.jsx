@@ -1,15 +1,4 @@
-import {
-    TextInput,
-    PasswordInput,
-    Checkbox,
-    Anchor,
-    Paper,
-    Title,
-    Container,
-    Group,
-    Button,
-    Popover,
-} from '@mantine/core';
+import { TextInput, PasswordInput, Checkbox, Anchor, Paper, Title, Container, Group, Button } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { useAuth } from '../tools/auth-provider';
 import { useNavigate } from 'react-router-dom';
@@ -54,22 +43,18 @@ const Authentication = () => {
                 <form onSubmit={handleLogin}>
                     <TextInput label="Name" placeholder="Your name" {...form.getInputProps('name')} withAsterisk />
                     <PasswordInput
-                        label="Password"
-                        placeholder="Your password"
+                        label="Password 1"
+                        placeholder="Your first password"
                         mt="md"
                         {...form.getInputProps('password')}
                         withAsterisk
                     />
+                    <PasswordInput label="Password 2" placeholder="Your second password" mt="md" withAsterisk />
                     <Group position="apart" mt="lg">
                         <Checkbox label="Remember me" />
-                        <Popover width={200} position="bottom" withArrow shadow="md">
-                            <Popover.Target>
-                                <Anchor component="button" size="sm">
-                                    Forgot password?
-                                </Anchor>
-                            </Popover.Target>
-                            <Popover.Dropdown>RIP, you will never be able to login again</Popover.Dropdown>
-                        </Popover>
+                        <Anchor size="sm" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUJcmljayByb2xs">
+                            Forgot password(s)?
+                        </Anchor>
                     </Group>
                     <Button fullWidth mt="xl" type="submit">
                         Sign in
