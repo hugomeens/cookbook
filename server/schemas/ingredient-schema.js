@@ -72,6 +72,14 @@ const mergeIngredientSchema = {
     additionalProperties: false,
 };
 
+const searchIngredientSchema = {
+    type: 'object',
+    properties: {
+        search: { type: 'string' },
+    },
+    required: ['search']
+};
+
 module.exports = {
     createIngredientSchema,
     validateIngredientSchema,
@@ -80,4 +88,5 @@ module.exports = {
     viewIngredientSchema,
     updateIngredientSchema,
     mergeIngredientSchema,
+    searchIngredientSchema,
 };

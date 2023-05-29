@@ -9,6 +9,7 @@ class IngredientDao {
 
     async _init(collectionName) {
         this.collection = await db.collection(collectionName);
+        this.collection.createIndex({ alternativeNames: 'text', name: 'text' });
     }
 
     create(ingredient) {
@@ -29,6 +30,11 @@ class IngredientDao {
 
     update(id, up) {
         return this.collection.updateOne({ _id: ObjectID(id) }, { $set: up });
+    }
+
+    async search(search) {
+        console.log(search);
+        return await this.collection.find({ $text: { $search: search } }).toArray();
     }
 
     async view(ingredients) {

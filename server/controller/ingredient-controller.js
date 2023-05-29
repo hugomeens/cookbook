@@ -2,6 +2,7 @@ const express = require('express');
 const CreateAbl = require('../abl/ingredient/create-abl');
 const DeleteAbl = require('../abl/ingredient/delete-abl');
 const ListAbl = require('../abl/ingredient/list-abl');
+const SearchAbl = require('../abl/ingredient/search-abl');
 const UpdateAbl = require('../abl/ingredient/update-abl');
 const ValidateAbl = require('../abl/ingredient/validate-abl');
 const router = express.Router();
@@ -24,6 +25,10 @@ router.post('/update', async (req, res) => {
 
 router.delete(`/delete/:_id`, async (req, res) => {
     await DeleteAbl(req.params, res);
+});
+
+router.get(`/search`, async (req, res) => {
+    await SearchAbl(req.query, res);
 });
 
 router.post('/merge', async (req, res) => {});
