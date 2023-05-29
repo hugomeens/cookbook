@@ -29,7 +29,7 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
                 <Grid.Col span={4}>
                     <NumberInput
                         placeholder="Enter quantity"
-                        // value={ingredient.va} todo
+                        value={ingredient.quantity}
                         onChange={(e) =>
                             removeHandler((prev) =>
                                 prev.map((i) => (i.id === ingredient.id ? { ...i, quantity: e } : i))
@@ -56,7 +56,6 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
 };
 
 const LineStep = ({ id, step, handler }) => {
-    console.log(step);
     return (
         <Paper p="xs" radius="sm" withBorder my="md">
             <Group position="apart">
@@ -133,7 +132,7 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
         console.log(ingredients);
         try {
             setIsLoading(true);
-            let recipe = {
+            let recipePush = {
                 name: form.values.title,
                 description: '',
                 img: '',
@@ -144,9 +143,10 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
                 }),
                 instructions: steps,
             };
-            await APICall(recipe);
+            if (recipe) recipePush._id = recipe._id;
+            await APICall(recipePush);
             setIsLoading(false);
-            handler(recipe);
+            handler(recipePush);
         } catch (error) {
             setIsLoading(false);
             console.log(error);
