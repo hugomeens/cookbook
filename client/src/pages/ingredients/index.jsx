@@ -14,7 +14,8 @@ const Ingredients = () => {
     const [showMerge, setShowMerge] = useState(false);
     const [showValidate, setShowValidate] = useState(false);
     const [item, setItem] = useState({});
-    // const [view, setView] = useState('grid');
+    const [page, setPage] = useState(0);
+    const limit = 4;
 
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
@@ -25,10 +26,11 @@ const Ingredients = () => {
     const [ingredientsShown, setIngredientsShown] = useState([]);
 
     useEffect(() => {
-        API.listIngredients()
+        API.listIngredients(limit, page)
             .then((res) => {
                 if (res.status === 200) {
-                    setIngredients(res.data);
+                    if (ingredients.length === 0) setIngredients(res.data);
+                    else setIngredients((prev) => [...prev, ...res.data]);
                 }
             })
             .catch((err) => {
@@ -36,9 +38,14 @@ const Ingredients = () => {
             });
 
         return () => {};
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
 
     const [search, setSearch] = useState('');
+
+    const loadMore = () => {
+        setPage((prev) => prev + limit);
+    };
 
     function getMinIndex(a, s) {
         let aCount = a.name.toLowerCase().indexOf(s);
@@ -56,10 +63,12 @@ const Ingredients = () => {
         console.log(updatedIngredients);
         // todo ingredients not updating
         setIngredients(
+            // eslint-disable-next-line array-callback-return
             ingredients.map((item) => {
                 if (item._id === updatedIngredients._id) {
                     return updatedIngredients;
                 } else if (item._id === idDeletedIngredient) {
+                    // eslint-disable-next-line array-callback-return
                     return;
                 }
             })
@@ -96,10 +105,6 @@ const Ingredients = () => {
             text: 'New Ingredients',
             handler: toggleModalCreate,
         },
-        // view: {
-        //     handler: () => setView(view === 'grid' ? 'list' : 'grid'),
-        //     value: view,
-        // },
     };
 
     function upIngredient(ingredient) {
@@ -109,12 +114,12 @@ const Ingredients = () => {
     return (
         <>
             <NavbarCookBook data={navbar} />
-            {/* {view === 'grid' ? ( */}
-            <GridViewIngredients data={ingredientsShown} updateItem={setItem} updateHandler={toggleModalUpdate} />
-            {/* ) : (
-                <div>List View</div>
-            )} */}
-
+            <GridViewIngredients
+                data={ingredientsShown}
+                updateItem={setItem}
+                updateHandler={toggleModalUpdate}
+                loadMore={loadMore}
+            />
             <ModalCreateIngredient
                 opened={showCreate}
                 addIngredient={(ingredient) => setIngredients((prev) => [...prev, ingredient])}

@@ -1,10 +1,10 @@
-import { Grid, Paper, ScrollArea } from '@mantine/core';
+import { Button, Center, Grid, Paper, ScrollArea } from '@mantine/core';
 import IngredientView from './ingredient-view';
 
 const GridViewIngredients = (props) => {
     return (
         <Paper shadow="sm" p="md" withBorder mb="md">
-            <ScrollArea h={750} offsetScrollbars>
+            <ScrollArea h={700} offsetScrollbars>
                 <Grid columns={12}>
                     {props.data.map((ingredient) => (
                         <Grid.Col xl={2} lg={3} md={3} sm={4} xs={4} key={ingredient._id}>
@@ -24,6 +24,11 @@ const GridViewIngredients = (props) => {
                     ))}
                 </Grid>
             </ScrollArea>
+            <Center>
+                <Button onClick={props.loadMore} mt="md">
+                    Load More
+                </Button>
+            </Center>
         </Paper>
     );
 };

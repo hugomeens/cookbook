@@ -13,8 +13,8 @@ const API = {
     updateIngredient(data) {
         return caller().post('/ingredient/update', data);
     },
-    listIngredients() {
-        return caller().get('/ingredient/list');
+    listIngredients(limit, offset) {
+        return caller().get(`/ingredient/list?limit=${limit}&offset=${offset}`);
     },
     deleteIngredient(id) {
         return caller().delete(`/ingredient/delete/${id}`);
@@ -25,8 +25,8 @@ const API = {
     createRecipe(data) {
         return caller().post('/recipe/create', data);
     },
-    listRecipes() {
-        return caller().get('/recipe/list');
+    listRecipes(limit, offset) {
+        return caller().get(`/recipe/list?limit=${limit}&offset=${offset}`);
     },
     validateRecipe(data) {
         return caller().post('/recipe/validate', data);
