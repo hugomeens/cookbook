@@ -50,6 +50,23 @@ const Ingredients = () => {
         return aCount;
     }
 
+    const handleMerge = (idDeletedIngredient, updatedIngredients) => {
+        // delete
+        console.log(idDeletedIngredient);
+        console.log(updatedIngredients);
+        // todo ingredients not updating
+        setIngredients(
+            ingredients.map((item) => {
+                if (item._id === updatedIngredients._id) {
+                    return updatedIngredients;
+                } else if (item._id === idDeletedIngredient) {
+                    return;
+                }
+            })
+        );
+        upIngredient(updatedIngredients);
+    };
+
     useEffect(() => {
         let s = search.toLowerCase();
         setIngredientsShown(ingredients.filter((ingredient) => getMinIndex(ingredient, s) >= 0));
@@ -86,7 +103,7 @@ const Ingredients = () => {
     };
 
     function upIngredient(ingredient) {
-            setIngredients(ingredients.map((item) => (item._id === ingredient._id ? ingredient : item)));
+        setIngredients(ingredients.map((item) => (item._id === ingredient._id ? ingredient : item)));
     }
 
     return (
@@ -111,7 +128,15 @@ const Ingredients = () => {
                     item={item}
                 />
             )}
-            {showMerge && <ModalMergeIngredients opened={showMerge} handler={toggleModalMerge} />}
+            {showMerge && (
+                <ModalMergeIngredients
+                    opened={showMerge}
+                    handler={toggleModalMerge}
+                    updater={(idDeletedIngredient, updatedIngredients) =>
+                        handleMerge(idDeletedIngredient, updatedIngredients)
+                    }
+                />
+            )}
             {showValidate && <ModalValidateIngredients opened={showValidate} handler={toggleModalValidate} />}
         </>
     );

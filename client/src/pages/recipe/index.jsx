@@ -10,7 +10,7 @@ const Recipe = (item) => {
     const id = window.location.href.split('/').slice(-1)[0];
     const [recipe, setRecipe] = useState(null);
     useEffect(() => {
-        if (item) {
+        if (JSON.stringify(item) !== "{}") {
             setRecipe(item);
         } else {
             API.getRecipe(id)
@@ -42,11 +42,11 @@ const Recipe = (item) => {
                     <Title order={3}>Ingredients</Title>
                     <Group position="right">
                         <Text>Number of people: </Text>
-                        <QuantityInput initialValue={recipe?.nbPerson} />
+                        <QuantityInput initialValue={recipe?.nbPerson ?? 0} />
                     </Group>
                 </Group>
                 <Grid columns={12}>
-                    {recipe?.ingredients.length !== 0 ? (
+                    {recipe?.ingredients?.length ?? 0 !== 0 ? (
                         recipe?.ingredients?.map((ingredient) => (
                             <Grid.Col xl={2} lg={3} md={3} sm={4} xs={4} key={ingredient?._id}>
                                 <IngredientsCard item={ingredient} />
