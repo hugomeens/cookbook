@@ -80,7 +80,7 @@ const LineStep = ({ id, step, handler }) => {
     );
 };
 
-const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
+const RecipeViewEditor = ({ handler, buttonText, APICall, recipe }) => {
     const [showSelector, setShowSelector] = useState(false);
     const [ingredients, setIngredients] = useState([]);
     const [steps, setSteps] = useState([{ id: 0, text: '' }]);
@@ -247,4 +247,4 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
     );
 };
 
-export default RecipeViewEditer;
+export default RecipeViewEditor;

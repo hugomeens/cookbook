@@ -1,7 +1,7 @@
 import { Modal, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import API from '../../services/api';
-import RecipeViewEditer from './recipe-view-editer';
+import RecipeViewEditor from './recipe-view-editor';
 
 const ModalUpdate = ({ open, handler, id }) => {
     const updateRecipe = (recipe) => {
@@ -38,7 +38,7 @@ const ModalUpdate = ({ open, handler, id }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <RecipeViewEditer
+                    <RecipeViewEditor
                         buttonText={'Update recipe'}
                         handler={updateRecipe}
                         APICall={API.updateRecipe}

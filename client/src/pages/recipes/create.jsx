@@ -1,6 +1,6 @@
 import { Modal, Text } from '@mantine/core';
 import API from '../../services/api';
-import RecipeViewEditer from './recipe-view-editer';
+import RecipeViewEditor from './recipe-view-editor';
 
 const ModalCreate = ({ open, handler }) => {
     const createRecipe = (recipe) => {
@@ -20,7 +20,7 @@ const ModalCreate = ({ open, handler }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <RecipeViewEditer
+                    <RecipeViewEditor
                         buttonText={'Create recipe'}
                         handler={(recipe) => createRecipe(recipe)}
                         APICall={API.createRecipe}
