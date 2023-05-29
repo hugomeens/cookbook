@@ -16,7 +16,7 @@ class IngredientDao {
     }
 
     list() {
-        return this.collection.find({}).toArray();
+        return this.collection.find({"fusion" : { $eq : "" }}).toArray();
     }
 
     async delete(id) {
@@ -35,6 +35,9 @@ class IngredientDao {
         let ingredients = [];
         for (let i = 0; i < id.length; i++) {
             await this.collection.findOne({ _id: ObjectID(id[i]) }).then(async (res) => {
+                while(res.fusion != "") {
+                    res = await this.collection.findOne({ _id: ObjectID(res.fusion) });
+                }
                 ingredients.push(res);
             });
         }

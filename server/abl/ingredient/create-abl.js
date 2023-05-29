@@ -17,6 +17,7 @@ async function CreateAbl(body, res) {
         imageId: body.imageId,
         unit: body.unit,
         valid: false,
+        fusion: "",
     };
 
     try {
