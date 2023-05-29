@@ -15,8 +15,8 @@ class IngredientDao {
         this.collection.insertOne(ingredient);
     }
 
-    list() {
-        return this.collection.find({"fusion" : { $eq : "" }}).toArray();
+    list(offset, limit) {
+        return this.collection.find({"fusion" : { $eq : "" }}).skip(offset).limit(limit).toArray();
     }
 
     async delete(id) {

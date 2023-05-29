@@ -23,7 +23,12 @@ const validateRecipeSchema = {
 };
 
 const listRecipeSchema = {
-    type: 'object'
+    type: 'object',
+    properties: {
+        offset: { type: 'string', default: '0' },
+        limit: { type: 'string', default: '20' },
+    },
+    required: ['offset', 'limit'],
 };
 
 const searchRecipeSchema = {
