@@ -6,7 +6,7 @@ import API from '../services/api';
 import setNotification from '../pages/errors/error-notification';
 import ModalCreateIngredient from '../pages/ingredients/create';
 
-const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props }) => {
+const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, already, ...props }) => {
     const [ingredients, setIngredients] = useState([]);
     const [showCreate, setShowCreate] = useState(false);
     let resIngredients = [];
@@ -15,7 +15,6 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
         if (props.multi) {
             // eslint-disable-next-line eqeqeq
             const indexIngredient = resIngredients.findIndex((item) => item._id == ingredient._id);
-            console.log(indexIngredient, ingredient.name);
             if (indexIngredient === -1) {
                 resIngredients.push(ingredient);
             } else {
@@ -35,7 +34,6 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
         API.listIngredients()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data)
                     setIngredients(res.data);
                 }
             })
@@ -44,6 +42,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
             });
 
         return () => {};
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -67,13 +66,15 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, ...props 
                     />
                     <ScrollArea h={430} offsetScrollbars>
                         <Grid columns={3}>
-                            {ingredients.map((ingredient) => (
-                                <SelectorItem
-                                    ingredient={ingredient}
-                                    clickHandler={clickHandler}
-                                    key={ingredient._id}
-                                />
-                            ))}
+                            {ingredients
+                                .filter((ingredient) => !already.includes(ingredient._id))
+                                .map((ingredient) => (
+                                    <SelectorItem
+                                        ingredient={ingredient}
+                                        clickHandler={clickHandler}
+                                        key={ingredient._id}
+                                    />
+                                ))}
                         </Grid>
                     </ScrollArea>
                     <Group position="right" mt="md">

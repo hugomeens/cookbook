@@ -1,6 +1,6 @@
 import { Card, Image, Divider, Text, Title } from '@mantine/core';
 
-const IngredientsCard = ({ item }) => {
+const IngredientsCard = ({ item, nbPerson, defaultValue }) => {
     return (
         <Card shadow="sm" p="md" withBorder>
             <Card.Section>
@@ -11,7 +11,7 @@ const IngredientsCard = ({ item }) => {
             </Title>
             <Divider my="sm" />
             <Text>
-                {item.quantity} {item.unit}
+                {(item.quantity * nbPerson) / defaultValue} {item.unit}
             </Text>
         </Card>
     );
