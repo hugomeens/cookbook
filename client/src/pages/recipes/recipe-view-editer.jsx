@@ -19,7 +19,6 @@ import { IconTrash } from '@tabler/icons-react';
 import setNotification from '../errors/error-notification';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
-    console.log(ingredient);
     return (
         <Paper p="xs" radius="sm" shadow="sm" withBorder my="md">
             <Grid columns={12}>
@@ -32,7 +31,7 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
                         value={ingredient.quantity}
                         onChange={(e) =>
                             removeHandler((prev) =>
-                                prev.map((i) => (i.id === ingredient.id ? { ...i, quantity: e } : i))
+                                prev.map((i) => (i._id === ingredient._id ? { ...i, quantity: e } : i))
                             )
                         }
                     />
@@ -45,7 +44,7 @@ const LineIngredient = ({ ingredient, removeHandler }) => {
                         color="red"
                         variant="light"
                         size="lg"
-                        onClick={() => removeHandler((prev) => prev.filter((i) => i.id !== ingredient.id))}
+                        onClick={() => removeHandler((prev) => prev.filter((i) => i._id !== ingredient._id))}
                     >
                         <IconTrash size="1rem" />
                     </ActionIcon>
@@ -129,7 +128,6 @@ const RecipeViewEditer = ({ handler, buttonText, APICall, recipe }) => {
 
     const handleValidate = async () => {
         if (form.validate().hasErrors) return;
-        console.log(ingredients);
         try {
             setIsLoading(true);
             let recipePush = {
