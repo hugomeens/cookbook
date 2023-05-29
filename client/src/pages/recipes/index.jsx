@@ -13,13 +13,14 @@ const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
     const [showValidate, setShowValidate] = useState(false);
-    const [view, setView] = useState('grid');
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
     const toggleModalValidate = () => setShowValidate(!showValidate);
     // const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
     const [idUpdate, setIdUpdate] = useState('');
+    const [page, setPage] = useState(0);
+    const limit = 3;
 
     const openUpdate = (id) => {
         setIdUpdate(id);
@@ -33,6 +34,10 @@ const Recipes = () => {
         toggleModalCreate();
     };
 
+    const loadMore = () => {
+        setPage((prev) => prev + limit);
+    };
+
     const navbar = {
         title: 'Recipes',
         buttonValidate: {
@@ -43,17 +48,14 @@ const Recipes = () => {
             text: 'New Recipe',
             handler: toggleModalCreate,
         },
-        view: {
-            handler: () => setView(view === 'grid' ? 'list' : 'grid'),
-            value: view,
-        },
     };
 
     useEffect(() => {
-        API.listRecipes()
+        API.listRecipes(limit, page)
             .then((res) => {
                 if (res.status === 200) {
-                    setRecipes(res.data);
+                    if (recipes.length === 0) setRecipes(res.data);
+                    else setRecipes((prev) => [...prev, ...res.data]);
                 }
             })
             .catch((err) => {
@@ -61,7 +63,8 @@ const Recipes = () => {
             });
 
         return () => {};
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
 
     return (
         <>
@@ -71,6 +74,7 @@ const Recipes = () => {
                 item={ItemGridViewRecipe}
                 openUpdate={(id) => openUpdate(id)}
                 onDelete={(id) => setRecipes(recipes.filter((recipe) => recipe._id !== id))}
+                loadMore={loadMore}
             />
             <ModalCreate open={showCreate} handler={(recipe) => createRecipe(recipe)} />
             <ModalUpdate open={showUpdate} handler={toggleModalUpdate} id={idUpdate} />
