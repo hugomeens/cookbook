@@ -4,7 +4,6 @@ import IngredientViewEditer from './ingredient-view-editer';
 
 const ModalUpdateIngredient = ({ item, opened, handler, updateIngredient }) => {
     const validated = (ingredient) => {
-        console.log(ingredient);
         updateIngredient(ingredient);
         handler();
     };

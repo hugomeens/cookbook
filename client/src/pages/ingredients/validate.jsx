@@ -10,7 +10,6 @@ const ModalValidateIngredients = ({ opened, handler, updater }) => {
     useEffect(() => {
         API.listIngredients()
             .then((res) => {
-                console.log(res);
                 if (res.status === 200) {
                     res.data = res.data.filter((ingredient) => ingredient.valid === false);
                     setIngredients(res.data);
