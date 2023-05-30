@@ -35,6 +35,22 @@ const Recipes = (defaultSearch) => {
         toggleModalCreate();
     };
 
+    const updateRecipe = (recipe) => {
+        console.log(recipe);
+        if (recipe) {
+            setRecipes(
+                recipes.map((item) => {
+                    if (item._id === recipe._id) {
+                        return recipe;
+                    } else {
+                        return item;
+                    }
+                })
+            );
+        }
+        toggleModalUpdate();
+    };
+
     const loadMore = () => {
         setPage((prev) => prev + limit);
     };
@@ -95,7 +111,7 @@ const Recipes = (defaultSearch) => {
                 loadMore={loadMore}
             />
             <ModalCreate open={showCreate} handler={(recipe) => createRecipe(recipe)} />
-            <ModalUpdate open={showUpdate} handler={toggleModalUpdate} id={idUpdate} />
+            <ModalUpdate open={showUpdate} handler={(recipe) => updateRecipe(recipe)} id={idUpdate} />
             <ModalValidateRecipes open={showValidate} handler={toggleModalValidate} />
         </>
     );

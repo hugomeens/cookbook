@@ -5,7 +5,7 @@ import RecipeViewEditor from './recipe-view-editor';
 
 const ModalUpdate = ({ open, handler, id }) => {
     const updateRecipe = (recipe) => {
-        handler();
+        handler(recipe);
     };
 
     const [recipe, setRecipe] = useState({});
@@ -15,7 +15,6 @@ const ModalUpdate = ({ open, handler, id }) => {
         API.getRecipe(id)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data);
                     setRecipe(res.data);
                 }
             })

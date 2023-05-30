@@ -21,8 +21,6 @@ const ItemGridViewRecipe = ({ item, openUpdate, onDelete }) => {
         }
     };
 
-    console.log(item);
-
     return (
         <Card shadow="sm" padding="md" withBorder style={{ borderColor: item.valid ? '#373A40' : 'orange' }}>
             <Card.Section>

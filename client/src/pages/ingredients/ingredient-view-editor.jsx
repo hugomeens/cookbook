@@ -1,9 +1,9 @@
-import { Button, TextInput, Select, FileInput, Image, Group } from '@mantine/core';
+import { Button, TextInput, Select, Image, Group } from '@mantine/core';
 import { useForm, isNotEmpty } from '@mantine/form';
 import { useState } from 'react';
 import cnf from '../../config';
 
-const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
+const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
     const handleClose = (ingredient) => {
         form.reset();
         handler(ingredient);
@@ -21,6 +21,8 @@ const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
         validate: {
             name: isNotEmpty('Name is required'),
             unit: isNotEmpty('Unit is required'),
+            image: (value) =>
+                /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(value) ? null : 'Image must be a valid URL',
         },
     });
 
@@ -64,7 +66,12 @@ const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
                 data={cnf.units}
                 my="md"
             />
-            <FileInput label="Image" placeholder="Select image" {...form.getInputProps('image')} mb="md" />
+            <TextInput
+                label="Image URL"
+                placeholder="Paste the URL of the image"
+                {...form.getInputProps('image')}
+                mb="md"
+            />
             <Image src={form.values.image} alt={form.values.name} withPlaceholder height={160} radius="sm" />
             <Group position="right" mt="md">
                 <Button variant="light" color="red" onClick={handleClose}>
@@ -78,4 +85,4 @@ const IngredientViewUpdate = ({ item, handler, buttonText, APICall }) => {
     );
 };
 
-export default IngredientViewUpdate;
+export default IngredientViewEditor;

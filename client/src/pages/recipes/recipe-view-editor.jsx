@@ -92,11 +92,14 @@ const RecipeViewEditor = ({ handler, buttonText, APICall, recipe }) => {
             title: '',
             time: '',
             people: 4,
+            image: '',
         },
 
         validate: {
             title: isNotEmpty('Title is required'),
             time: isNotEmpty('Time is required'),
+            image: (value) =>
+                /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(value) ? null : 'Image must be a valid URL',
         },
     });
 
@@ -155,7 +158,7 @@ const RecipeViewEditor = ({ handler, buttonText, APICall, recipe }) => {
     return (
         <>
             <Grid columns={24} mb="lg">
-                <Grid.Col span={10}>
+                <Grid.Col span={8}>
                     <TextInput
                         label="Title of the Recipe"
                         placeholder="Enter Title"
@@ -163,12 +166,20 @@ const RecipeViewEditor = ({ handler, buttonText, APICall, recipe }) => {
                         {...form.getInputProps('title')}
                     />
                 </Grid.Col>
-                <Grid.Col span={9}>
+                <Grid.Col span={5}>
                     <NumberInput
                         label="Time to Prepare"
                         placeholder="Time in minutes"
                         withAsterisk
                         {...form.getInputProps('time')}
+                    />
+                </Grid.Col>
+                <Grid.Col span={6}>
+                    <TextInput
+                        label="Image URL"
+                        placeholder="Enter URL"
+                        withAsterisk
+                        {...form.getInputProps('image')}
                     />
                 </Grid.Col>
                 <Grid.Col span={5}>
