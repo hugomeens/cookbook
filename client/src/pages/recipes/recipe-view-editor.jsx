@@ -20,7 +20,7 @@ import setNotification from '../errors/error-notification';
 
 const LineIngredient = ({ ingredient, removeHandler }) => {
     return (
-        <Paper p="xs" radius="sm" shadow="sm" withBorder my="md">
+        <Paper p="xs" radius="sm" shadow="sm" withBorder my="md" style={{ borderColor: ingredient?.valid ?? true ? '#373A40' : 'orange' }}>
             <Grid columns={12}>
                 <Grid.Col span={4}>
                     <Text>{ingredient.name}</Text>

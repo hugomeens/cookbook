@@ -18,17 +18,13 @@ async function ValidateAbl(body, res) {
         if (mongoRes.matchedCount == 0) {
             res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
         } else {
-
-            console.log(mongoRes.ingredients);
             const ingredientsInfo = await ingredientDao.view(mongoRes.ingredients);
-            console.log(ingredientsInfo);
             let cpt = 0;
             for (let i = 0; i < ingredientsInfo.length; i++) {
                 if (ingredientsInfo[i].valid === false) {
                     cpt++;
                 }
             }
-            console.log(cpt);
             if (cpt === 0) {
                 mongoRes = await recipeDao.validate(body._id);
                 if (mongoRes.matchedCount == 0) {
@@ -41,7 +37,6 @@ async function ValidateAbl(body, res) {
             else {
                 res.status(statusCodes.PRECONDITION_FAILED).json({ error: 'All ingredients are not valid.' })
             }
-
         }
     } catch (e) {
         res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
