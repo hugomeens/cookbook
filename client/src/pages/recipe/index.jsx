@@ -1,15 +1,19 @@
-import { Paper, Grid, Text, Title, Group, List, Image } from '@mantine/core';
+import { Button, Paper, Grid, Text, Title, Group, List, Image } from '@mantine/core';
 import IngredientsCard from './ingredient';
 import QuantityInput from '../../components/count-people';
 import { useEffect, useState } from 'react';
 import API from '../../services/api';
 import { parseTime } from '../../tools/timeUtil';
 import setNotification from '../errors/error-notification';
+import GrantAccess from '../../tools/grant-access';
+import ModalUpdate from '../recipes/update';
 
 const Recipe = (item) => {
     const id = window.location.href.split('/').slice(-1)[0];
     const [recipe, setRecipe] = useState(null);
     const [nbPerson, setNbPerson] = useState(0);
+    const [update, setUpdate] = useState(false);
+    const toggleUpdate = () => setUpdate(!update);
 
     useEffect(() => {
         if (JSON.stringify(item) !== '{}') {
@@ -32,9 +36,16 @@ const Recipe = (item) => {
     return (
         <>
             <Image src={recipe?.img} alt={recipe?.name} radius="md" withPlaceholder height={200} />
-            <Title m="md" order={2}>
-                {recipe?.name}
-            </Title>
+            <Group position="apart" mt="md">
+                <Title m="md" order={2}>
+                    {recipe?.name}
+                </Title>
+                <GrantAccess roles={['admin']}>
+                    <Button variant="light" mt="sm" onClick={toggleUpdate}>
+                        Edit
+                    </Button>
+                </GrantAccess>
+            </Group>
             <Text>
                 Time to prepare:{' '}
                 <Text span fw={700}>
@@ -73,6 +84,7 @@ const Recipe = (item) => {
                     ))}
                 </List>
             </Paper>
+            <ModalUpdate open={update} handler={toggleUpdate} id={recipe._id} />
         </>
     );
 };
