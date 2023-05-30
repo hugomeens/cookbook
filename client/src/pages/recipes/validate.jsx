@@ -5,7 +5,7 @@ import setNotification from '../errors/error-notification';
 import ItemGridViewRecipe from './item-grid-view';
 import { IconCheck } from '@tabler/icons-react';
 
-const ModalValidateRecipes = ({ open, handler }) => {
+const ModalValidateRecipes = ({ open, handler, updater }) => {
     const [recipes, setRecipes] = useState([]);
     useEffect(() => {
         API.listRecipes()
@@ -26,6 +26,7 @@ const ModalValidateRecipes = ({ open, handler }) => {
         try {
             await API.validateRecipe({ _id: item._id });
             item.valid = true;
+            updater(item._id);
         } catch (error) {
             setNotification(true, error);
         }
