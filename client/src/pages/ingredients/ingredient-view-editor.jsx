@@ -21,8 +21,7 @@ const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
         validate: {
             name: isNotEmpty('Name is required'),
             unit: isNotEmpty('Unit is required'),
-            img: (value) =>
-                /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(value) ? null : 'Image must be a valid URL',
+            img: (value) => (/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(value) ? null : 'Image must be a valid URL'),
         },
     });
 
@@ -33,8 +32,6 @@ const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
             setIsLoading(true);
             form.values.alternativeNames =
                 (form.values?.alternativeNames?.length ?? 0) > 0 ? form.values.alternativeNames.split(';') : [];
-            form.values.img = form.values.img;
-            form.values.valid = false;
             delete form.values.image;
             if (item) {
                 form.values._id = item?._id;
