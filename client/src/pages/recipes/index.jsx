@@ -16,11 +16,11 @@ const Recipes = () => {
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
     const toggleModalValidate = () => setShowValidate(!showValidate);
-    // const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
     const [idUpdate, setIdUpdate] = useState('');
     const [page, setPage] = useState(0);
-    const defaultSearch = window.location.href.split('/').slice(-1)[0];
+    let split = window.location.href.split('/');
+    const defaultSearch = split.length > 4 ? window.location.href.split('/').slice(-1)[0] : undefined;
     const [search, setSearch] = useState(defaultSearch ?? '');
     const limit = 3;
 
