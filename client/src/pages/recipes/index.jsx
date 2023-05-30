@@ -42,13 +42,23 @@ const Recipes = () => {
                 recipes.map((item) => {
                     if (item._id === recipe._id) {
                         return recipe;
-                    } else {
-                        return item;
                     }
+                    return item;
                 })
             );
         }
         toggleModalUpdate();
+    };
+
+    const validateRecipe = (id) => {
+        setRecipes(
+            recipes.map((item) => {
+                if (item._id === id) {
+                    item.valid = true;
+                }
+                return item;
+            })
+        );
     };
 
     const loadMore = () => {
@@ -117,7 +127,11 @@ const Recipes = () => {
             />
             <ModalCreate open={showCreate} handler={(recipe) => createRecipe(recipe)} />
             <ModalUpdate open={showUpdate} handler={(recipe) => updateRecipe(recipe)} id={idUpdate} />
-            <ModalValidateRecipes open={showValidate} handler={toggleModalValidate} />
+            <ModalValidateRecipes
+                open={showValidate}
+                handler={toggleModalValidate}
+                updater={(id) => validateRecipe(id)}
+            />
         </>
     );
 };
