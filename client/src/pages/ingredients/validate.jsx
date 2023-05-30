@@ -49,7 +49,6 @@ const ModalValidateIngredients = ({ opened, handler, updater }) => {
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
                             {ingredients.length === 0 ? (
-                                // <Text m="xl">All ingredients are validated !</Text>
                                 <Grid.Col span={12}>
                                     <Center>
                                         <Alert icon={<IconCheck />} color="green" m="xl">

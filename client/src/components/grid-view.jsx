@@ -13,6 +13,7 @@ const GridView = (props) => {
                                 updateHandler={props.updateHandler}
                                 openUpdate={(id) => props?.openUpdate(id)}
                                 onDelete={(id) => props?.onDelete(id)}
+                                context="recipes"
                             />
                         </Grid.Col>
                     ))}

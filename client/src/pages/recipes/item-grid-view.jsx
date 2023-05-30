@@ -5,7 +5,7 @@ import { parseTime } from '../../tools/timeUtil';
 import { useState } from 'react';
 import API from '../../services/api';
 
-const ItemGridViewRecipe = ({ item, openUpdate, onDelete }) => {
+const ItemGridViewRecipe = ({ item, openUpdate, onDelete, context, validate }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
@@ -32,17 +32,38 @@ const ItemGridViewRecipe = ({ item, openUpdate, onDelete }) => {
             <Divider my="sm" />
             <Text>{parseTime(item.preparationTime)}</Text>
             <Divider my="sm" />
-            <Button variant="light" color="green" fullWidth my="sm" onClick={() => navigate(`/recipe/${item._id}`)}>
-                Open
-            </Button>
-            <GrantAccess roles={['admin']}>
-                <Button variant="light" color="blue" fullWidth onClick={() => openUpdate(item._id)}>
-                    Update
+            {context === 'recipes' ? (
+                <>
+                    <Button
+                        variant="light"
+                        color="green"
+                        fullWidth
+                        my="sm"
+                        onClick={() => navigate(`/recipe/${item._id}`)}
+                    >
+                        Open
+                    </Button>
+                    <GrantAccess roles={['admin']}>
+                        <Button variant="light" color="blue" fullWidth onClick={() => openUpdate(item._id)}>
+                            Update
+                        </Button>
+                        <Button
+                            my="sm"
+                            variant="light"
+                            color="red"
+                            fullWidth
+                            onClick={() => deleteHandler()}
+                            loading={loading}
+                        >
+                            Delete
+                        </Button>
+                    </GrantAccess>
+                </>
+            ) : (
+                <Button fullWidth variant="light" onClick={() => validate(item._id)}>
+                    <Text>Validate</Text>
                 </Button>
-                <Button my="sm" variant="light" color="red" fullWidth onClick={() => deleteHandler()} loading={loading}>
-                    Delete
-                </Button>
-            </GrantAccess>
+            )}
         </Card>
     );
 };

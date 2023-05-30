@@ -1,5 +1,5 @@
-import { MantineLogo } from '@mantine/ds';
-import { Center, Text, TextInput, ActionIcon, useMantineTheme, Title } from '@mantine/core';
+import  Logo from '../../assets/logo_cookbook.png';
+import { Avatar, Center, Text, TextInput, ActionIcon, useMantineTheme, Title } from '@mantine/core';
 import { IconSearch, IconArrowRight } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -35,12 +35,8 @@ const InputWithButton = (props) => {
 };
 
 const Home = () => (
-    <>
-        <Center mt={150} mb="xl">
-            <MantineLogo size={100} type="mark" color="red" />
-            <Title order={1} ml="md" fw={700} size={80}>
-                uuCookBook
-            </Title>
+    <>  <Center mt="xl" mb="md">
+            <Avatar src={Logo} size={300} />
         </Center>
         <Text align="center" fw={500} fz="xl">
             Share and discover recipes!
