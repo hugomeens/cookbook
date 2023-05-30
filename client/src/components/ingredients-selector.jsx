@@ -9,6 +9,7 @@ import ModalCreateIngredient from '../pages/ingredients/create';
 const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, already, ...props }) => {
     const [ingredients, setIngredients] = useState([]);
     const [showCreate, setShowCreate] = useState(false);
+    const [search, setSearch] = useState('');
     let resIngredients = [];
 
     const clickHandler = (ingredient) => {
@@ -45,6 +46,30 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, already, 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        if (search.length >= 2) {
+            API.searchIngredient(search)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setIngredients(res.data);
+                    }
+                })
+                .catch((err) => {
+                    setNotification(true, err);
+                });
+        } else if (search.length === 0) {
+            API.listIngredients()
+                .then((res) => {
+                    if (res.status === 200) {
+                        setIngredients(res.data);
+                    }
+                })
+                .catch((err) => {
+                    setNotification(true, err);
+                });
+        }
+    }, [search]);
+
     return (
         <Modal.Root opened={opened} onClose={handleClose} size="lg">
             <Modal.Overlay />
@@ -62,6 +87,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, already, 
                         placeholder="Type to Search"
                         mb="sm"
                         radius="md"
+                        onChange={(e) => setSearch(e.target.value)}
                         icon={<IconSearch size="1rem" stroke={1.5} />}
                     />
                     <ScrollArea h={430} offsetScrollbars>
