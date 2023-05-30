@@ -25,7 +25,7 @@ const ModalValidateRecipes = ({ open, handler, updater }) => {
     const clickHandler = async (item) => {
         try {
             await API.validateRecipe({ _id: item._id });
-            item.valid = true;
+            setRecipes(recipes.filter((r) => r._id !== item._id));
             updater(item._id);
         } catch (error) {
             setNotification(true, error);
