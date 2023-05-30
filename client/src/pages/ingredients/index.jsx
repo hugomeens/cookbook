@@ -47,22 +47,18 @@ const Ingredients = () => {
     };
 
     const handleMerge = (idDeletedIngredient, updatedIngredients) => {
-        // delete
-        console.log(idDeletedIngredient);
-        console.log(updatedIngredients);
-        // todo ingredients not updating
-        setIngredients(
-            // eslint-disable-next-line array-callback-return
-            ingredients.map((item) => {
-                if (item._id === updatedIngredients._id) {
-                    return updatedIngredients;
-                } else if (item._id === idDeletedIngredient) {
-                    // eslint-disable-next-line array-callback-return
-                    return;
-                }
-            })
-        );
-        upIngredient(updatedIngredients);
+        let ing = [];
+        for (let i = 0; i < ingredients.length; i++) {
+            const item = ingredients[i];
+            if (item._id === updatedIngredients._id) {
+                ing.push(updatedIngredients)
+            } else if (item._id === idDeletedIngredient) {
+                continue; 
+            } else {
+                ing.push(item)
+            }
+        }
+        setIngredients(ing);
     };
 
     const setNewIngredients = async (s) => {
@@ -130,8 +126,8 @@ const Ingredients = () => {
                 <ModalMergeIngredients
                     opened={showMerge}
                     handler={toggleModalMerge}
-                    updater={(idDeletedIngredient, updatedIngredients) =>
-                        handleMerge(idDeletedIngredient, updatedIngredients)
+                    updater={(idDeletedIngredient, updatedIngredient) =>
+                        handleMerge(idDeletedIngredient, updatedIngredient)
                     }
                 />
             )}

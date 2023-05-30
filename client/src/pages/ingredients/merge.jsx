@@ -11,7 +11,6 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
     const [showSelector, setShowSelector] = useState(false);
     const [ingredient1, setIngredient1] = useState(null);
     const [ingredient2, setIngredient2] = useState(null);
-    const [ingredientMerge, setIngredientMerge] = useState({});
 
     const [isMergeLoading, setIsMergeLoading] = useState(false);
 
@@ -57,10 +56,10 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
                     (form.values.alternativeNames?.length ?? 0) > 0 ? form.values.alternativeNames.split(';') : [],
             };
             ingredient2.fusion = ingredient1._id;
-            // await API.updateIngredient(data);
-            // await API.updateIngredient(ingredient2);
+            await API.updateIngredient(data);
+            await API.updateIngredient(ingredient2);
             setIsMergeLoading(false);
-            // updater(ingredient2._id, ingredientMerge);
+            updater(ingredient2._id, data);
             handler();
         } catch (error) {
             console.log(error);
