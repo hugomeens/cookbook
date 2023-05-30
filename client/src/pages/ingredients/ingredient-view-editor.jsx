@@ -14,7 +14,7 @@ const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
     const form = useForm({
         initialValues: {
             name: item?.name ?? '',
-            unit: item?.type ?? '',
+            unit: item?.unit ?? '',
             img: item?.img ?? '',
             alternativeNames: item?.alternativeNames?.join(';') ?? '',
         },
