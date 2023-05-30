@@ -47,13 +47,7 @@ const ModalValidateRecipes = ({ open, handler }) => {
                         <Grid columns={12}>
                             {recipes.map((recipe) => (
                                 <Grid.Col span={6} key={recipe._id}>
-                                    <ItemGridViewRecipe
-                                        item={recipe}
-                                        button={{
-                                            clickHandler,
-                                            text: 'Validate',
-                                        }}
-                                    />
+                                    <ItemGridViewRecipe item={recipe} validate={() => clickHandler(recipe)} />
                                 </Grid.Col>
                             ))}
                         </Grid>
