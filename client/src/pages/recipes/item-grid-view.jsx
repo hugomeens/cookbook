@@ -60,9 +60,11 @@ const ItemGridViewRecipe = ({ item, openUpdate, onDelete, context, validate }) =
                     </GrantAccess>
                 </>
             ) : (
-                <Button fullWidth variant="light" onClick={() => validate(item._id)}>
-                    <Text>Validate</Text>
-                </Button>
+                <>
+                    <Button fullWidth variant="light" mt="sm" onClick={() => validate(item._id)}>
+                        <Text>Validate</Text>
+                    </Button>
+                </>
             )}
         </Card>
     );
