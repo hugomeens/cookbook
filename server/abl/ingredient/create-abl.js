@@ -14,7 +14,7 @@ async function CreateAbl(body, res) {
     const ingredient = {
         name: body.name,
         alternativeNames: body.alternativeNames,
-        imageId: body.imageId,
+        img: body.img,
         unit: body.unit,
         valid: false,
         fusion: "",
