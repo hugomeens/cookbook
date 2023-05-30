@@ -3,10 +3,10 @@ import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { useState } from 'react';
 import { AuthProvider } from './tools/auth-provider';
 import { Notifications } from '@mantine/notifications';
+import { useColorSchemeToggle } from './tools/color-scheme-toggle'
 
 const App = () => {
-    const [colorScheme, setColorScheme] = useState('dark');
-    const toggleColorScheme = (value) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+    const [ colorScheme, toggleColorScheme ] = useColorSchemeToggle();
     return (
         <>
             <AuthProvider>
