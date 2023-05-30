@@ -9,17 +9,18 @@ import setNotification from '../errors/error-notification';
 import ModalUpdate from './update';
 import ModalValidateRecipes from './validate';
 
-const Recipes = (defaultSearch) => {
+const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
     const [showValidate, setShowValidate] = useState(false);
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
     const toggleModalValidate = () => setShowValidate(!showValidate);
-    // const [search, setSearch] = useState('');
     const [recipes, setRecipes] = useState([]);
     const [idUpdate, setIdUpdate] = useState('');
     const [page, setPage] = useState(0);
+    let split = window.location.href.split('/');
+    const defaultSearch = split.length > 4 ? window.location.href.split('/').slice(-1)[0] : undefined;
     const [search, setSearch] = useState(defaultSearch ?? '');
     const limit = 3;
 
@@ -35,6 +36,21 @@ const Recipes = (defaultSearch) => {
         toggleModalCreate();
     };
 
+    const updateRecipe = (recipe) => {
+        if (recipe) {
+            setRecipes(
+                recipes.map((item) => {
+                    if (item._id === recipe._id) {
+                        return recipe;
+                    } else {
+                        return item;
+                    }
+                })
+            );
+        }
+        toggleModalUpdate();
+    };
+
     const loadMore = () => {
         setPage((prev) => prev + limit);
     };
@@ -42,6 +58,7 @@ const Recipes = (defaultSearch) => {
     const navbar = {
         title: 'Recipes',
         handlerChange: (e) => setSearch(e.target.value),
+        search: search,
         buttonValidate: {
             text: 'Validate Recipes',
             handler: toggleModalValidate,
@@ -69,16 +86,20 @@ const Recipes = (defaultSearch) => {
     }, [search]);
 
     useEffect(() => {
-        API.listRecipes(limit, page)
-            .then((res) => {
-                if (res.status === 200) {
-                    if (recipes.length === 0) setRecipes(res.data);
-                    else setRecipes((prev) => [...prev, ...res.data]);
-                }
-            })
-            .catch((err) => {
-                setNotification(true, err);
-            });
+        if (search.length >= 2) {
+            setNewRecipes(search);
+        } else {
+            API.listRecipes(limit, page)
+                .then((res) => {
+                    if (res.status === 200) {
+                        if (recipes.length === 0) setRecipes(res.data);
+                        else setRecipes((prev) => [...prev, ...res.data]);
+                    }
+                })
+                .catch((err) => {
+                    setNotification(true, err);
+                });
+        }
 
         return () => {};
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,7 +116,7 @@ const Recipes = (defaultSearch) => {
                 loadMore={loadMore}
             />
             <ModalCreate open={showCreate} handler={(recipe) => createRecipe(recipe)} />
-            <ModalUpdate open={showUpdate} handler={toggleModalUpdate} id={idUpdate} />
+            <ModalUpdate open={showUpdate} handler={(recipe) => updateRecipe(recipe)} id={idUpdate} />
             <ModalValidateRecipes open={showValidate} handler={toggleModalValidate} />
         </>
     );

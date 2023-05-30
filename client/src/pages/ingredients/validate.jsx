@@ -11,7 +11,6 @@ const ModalValidateIngredients = ({ opened, handler, updater }) => {
     useEffect(() => {
         API.listIngredients()
             .then((res) => {
-                console.log(res);
                 if (res.status === 200) {
                     res.data = res.data.filter((ingredient) => ingredient.valid === false);
                     setIngredients(res.data);
@@ -50,7 +49,6 @@ const ModalValidateIngredients = ({ opened, handler, updater }) => {
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
                             {ingredients.length === 0 ? (
-                                // <Text m="xl">All ingredients are validated !</Text>
                                 <Grid.Col span={12}>
                                     <Center>
                                         <Alert icon={<IconCheck />} color="green" m="xl">

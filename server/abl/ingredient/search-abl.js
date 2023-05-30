@@ -12,7 +12,6 @@ async function SearchAbl(body, res) {
     let ingredients;
     try {
         ingredients = await ingredientDao.search(body.search);
-        console.log(ingredients)
         res.status(statusCodes.OK).json(ingredients);
     } catch (e) {
         res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: e });
