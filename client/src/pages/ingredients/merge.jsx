@@ -93,6 +93,7 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
                                 },
                                 text: 'Load',
                             }}
+                            context="merge"
                         />
                         <IngredientView
                             item={ingredient2}
@@ -103,6 +104,7 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
                                 },
                                 text: 'Load',
                             }}
+                            context="merge"
                         />
                         <Card shadow="sm" withBorder>
                             <Card.Section>

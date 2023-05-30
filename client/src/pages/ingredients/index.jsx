@@ -117,6 +117,7 @@ const Ingredients = () => {
             <GridViewIngredients
                 data={ingredients}
                 updateItem={setItem}
+                onDelete={(id) => setIngredients(ingredients.filter((item) => item._id != id))}
                 updateHandler={toggleModalUpdate}
                 loadMore={loadMore}
             />

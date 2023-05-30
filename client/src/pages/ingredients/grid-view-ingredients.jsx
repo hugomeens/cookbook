@@ -10,6 +10,7 @@ const GridViewIngredients = (props) => {
                         <Grid.Col xl={2} lg={3} md={3} sm={4} xs={4} key={ingredient._id}>
                             <IngredientView
                                 item={ingredient}
+                                onDelete={(id) => props.onDelete(id)}
                                 button={{
                                     clickHandler:
                                         props?.button?.clickHandler ??
