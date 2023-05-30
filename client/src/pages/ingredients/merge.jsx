@@ -18,7 +18,7 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
     const updateLoad = (ingredient) => {
         if (isLoadOne) {
             form.setFieldValue('name', ingredient?.name);
-            form.setFieldValue('image', ingredient?.image);
+            form.setFieldValue('img', ingredient?.img);
             form.setFieldValue('alternativeNames', ingredient?.alternativeNames.join(';'));
             setIngredient1(ingredient);
         } else {
@@ -35,13 +35,14 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
     const form = useForm({
         initialValues: {
             name: '',
-            image: '',
+            img: '',
             alternativeNames: '',
             unit: '',
         },
         validate: {
             name: isNotEmpty('Name is required'),
             unit: isNotEmpty('Unit is required'),
+            img: isNotEmpty('Image is required'),
         },
     });
 
@@ -51,6 +52,8 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
             let data = {
                 _id: ingredient1._id,
                 name: form.values.name,
+                unit: form.values.unit,
+                img: form.values.img,
                 alternativeNames:
                     (form.values.alternativeNames?.length ?? 0) > 0 ? form.values.alternativeNames.split(';') : [],
             };
@@ -104,8 +107,8 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
                         <Card shadow="sm" withBorder>
                             <Card.Section>
                                 <Image
-                                    src={form.getInputProps('image')}
-                                    alt={form.getInputProps('name')}
+                                    src={form.values.img}
+                                    alt={form.values.name}
                                     height={160}
                                     fit="cover"
                                     radius="md"
@@ -121,6 +124,12 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
                                 mb="sm"
                             />
                             <Select label="Unit" placeholder="Select unit" data={cnf.units} />
+                            <TextInput
+                                label="Image URL"
+                                placeholder="Paste the URL of the image"
+                                {...form.getInputProps('img')}
+                                mb="sm"
+                            />
                             <Button
                                 mt="sm"
                                 color="blue"

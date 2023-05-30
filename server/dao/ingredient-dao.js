@@ -17,7 +17,7 @@ class IngredientDao {
     }
 
     list(offset, limit) {
-        return this.collection.find({"fusion" : { $eq : "" }}).skip(offset).limit(limit).toArray();
+        return this.collection.find({ "fusion": { $eq: "" } }).skip(offset).limit(limit).toArray();
     }
 
     async delete(id) {
@@ -35,10 +35,12 @@ class IngredientDao {
     async search(search) {
         return await this.collection
             .find({
-                $or: [
-                    { name: { $regex: search, $options: 'i' } },
-                    { alternativeNames: { $regex: search, $options: 'i' } },
-                ],
+                $and: [
+                    {fusion: ''},
+                    {$or: [
+                        { name: { $regex: search, $options: 'i' } },
+                        { alternativeNames: { $regex: search, $options: 'i' } },
+                    ]}],
             })
             .toArray();
     }
@@ -47,10 +49,11 @@ class IngredientDao {
         let ingredientsRes = [];
         for (let i = 0; i < ingredients.length; i++) {
             await this.collection.findOne({ _id: ObjectID(ingredients[i]._id) }).then(async (res) => {
-                while(res.fusion != "") {
+                while (res.fusion != "") {
                     res = await this.collection.findOne({ _id: ObjectID(res.fusion) });
                 }
                 res.quantity = ingredients[i].quantity;
+                res.valid = ingredients[i].valid;
                 ingredientsRes.push(res);
             });
         }

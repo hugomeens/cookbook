@@ -13,7 +13,7 @@ const SelectorItem = ({ ingredient, clickHandler }) => {
             <Card shadow="sm">
                 <Card.Section>
                     <Image
-                        src={ingredient.image}
+                        src={ingredient.img}
                         alt={ingredient.name}
                         height={100}
                         fit="cover"

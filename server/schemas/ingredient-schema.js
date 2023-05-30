@@ -60,7 +60,7 @@ const updateIngredientSchema = {
         valid: { type: 'boolean' },
         fusion: { type: 'string' },
     },
-    required: ['_id'],
+    required: ['_id', 'unit', 'name', 'img'],
     additionalProperties: false,
 };
 
