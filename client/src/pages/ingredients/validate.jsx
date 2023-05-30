@@ -1,8 +1,9 @@
 import IngredientView from './ingredient-view';
 import API from '../../services/api';
 import { useEffect, useState } from 'react';
-import { Modal, Text, Grid, ScrollArea, Button, Center } from '@mantine/core';
+import { Modal, Text, Grid, ScrollArea, Button, Center, Alert } from '@mantine/core';
 import setNotification from '../errors/error-notification';
+import { IconCheck } from '@tabler/icons-react';
 
 const ModalValidateIngredients = ({ opened, handler, updater }) => {
     const [ingredients, setIngredients] = useState([]);
@@ -48,7 +49,14 @@ const ModalValidateIngredients = ({ opened, handler, updater }) => {
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
                             {ingredients.length === 0 ? (
-                                <>All ingredients are validated !</>
+                                // <Text m="xl">All ingredients are validated !</Text>
+                                <Grid.Col span={12}>
+                                    <Center>
+                                        <Alert icon={<IconCheck />} color="green" m="xl">
+                                            All ingredients are validated !
+                                        </Alert>
+                                    </Center>
+                                </Grid.Col>
                             ) : (
                                 ingredients.map((ingredient) => (
                                     <Grid.Col span={6} key={ingredient._id}>

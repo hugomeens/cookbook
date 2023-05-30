@@ -1,6 +1,6 @@
 import { Modal, Text } from '@mantine/core';
 import API from '../../services/api';
-import IngredientViewEditer from './ingredient-view-editer';
+import IngredientViewEditor from './ingredient-view-editor';
 
 const ModalUpdateIngredient = ({ item, opened, handler, updateIngredient }) => {
     const validated = (ingredient) => {
@@ -21,7 +21,7 @@ const ModalUpdateIngredient = ({ item, opened, handler, updateIngredient }) => {
                     <Modal.CloseButton />
                 </Modal.Header>
                 <Modal.Body>
-                    <IngredientViewEditer
+                    <IngredientViewEditor
                         item={item}
                         buttonText="Update"
                         APICall={API.updateIngredient}
