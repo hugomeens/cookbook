@@ -34,6 +34,7 @@ const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
             form.values.alternativeNames =
                 (form.values?.alternativeNames?.length ?? 0) > 0 ? form.values.alternativeNames.split(';') : [];
             form.values.img = form.values.img;
+            form.values.valid = false;
             delete form.values.image;
             if (item) {
                 form.values._id = item?._id;

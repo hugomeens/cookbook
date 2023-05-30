@@ -144,6 +144,7 @@ const RecipeViewEditor = ({ handler, buttonText, APICall, recipe }) => {
                     return { _id: item._id, quantity: item.quantity ?? 0 };
                 }),
                 instructions: steps,
+                valid: false,
             };
             if (recipe) recipePush._id = recipe._id;
             await APICall(recipePush);
