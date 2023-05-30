@@ -9,7 +9,7 @@ import setNotification from '../errors/error-notification';
 import ModalUpdate from './update';
 import ModalValidateRecipes from './validate';
 
-const Recipes = (defaultSearch) => {
+const Recipes = () => {
     const [showCreate, setShowCreate] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
     const [showValidate, setShowValidate] = useState(false);
@@ -20,6 +20,7 @@ const Recipes = (defaultSearch) => {
     const [recipes, setRecipes] = useState([]);
     const [idUpdate, setIdUpdate] = useState('');
     const [page, setPage] = useState(0);
+    const defaultSearch = window.location.href.split('/').slice(-1)[0];
     const [search, setSearch] = useState(defaultSearch ?? '');
     const limit = 3;
 
@@ -36,7 +37,6 @@ const Recipes = (defaultSearch) => {
     };
 
     const updateRecipe = (recipe) => {
-        console.log(recipe);
         if (recipe) {
             setRecipes(
                 recipes.map((item) => {
@@ -58,6 +58,7 @@ const Recipes = (defaultSearch) => {
     const navbar = {
         title: 'Recipes',
         handlerChange: (e) => setSearch(e.target.value),
+        search: search,
         buttonValidate: {
             text: 'Validate Recipes',
             handler: toggleModalValidate,
@@ -85,16 +86,20 @@ const Recipes = (defaultSearch) => {
     }, [search]);
 
     useEffect(() => {
-        API.listRecipes(limit, page)
-            .then((res) => {
-                if (res.status === 200) {
-                    if (recipes.length === 0) setRecipes(res.data);
-                    else setRecipes((prev) => [...prev, ...res.data]);
-                }
-            })
-            .catch((err) => {
-                setNotification(true, err);
-            });
+        if (search.length >= 2) {
+            setNewRecipes(search);
+        } else {
+            API.listRecipes(limit, page)
+                .then((res) => {
+                    if (res.status === 200) {
+                        if (recipes.length === 0) setRecipes(res.data);
+                        else setRecipes((prev) => [...prev, ...res.data]);
+                    }
+                })
+                .catch((err) => {
+                    setNotification(true, err);
+                });
+        }
 
         return () => {};
         // eslint-disable-next-line react-hooks/exhaustive-deps
