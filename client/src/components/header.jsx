@@ -1,4 +1,5 @@
-import { createStyles, Header, Group, rem, UnstyledButton, Title, ActionIcon, Tooltip } from '@mantine/core';
+import  Logo from '../assets/logo_cookbook.png';
+import { Avatar, createStyles, Header, Group, rem, UnstyledButton, Title, ActionIcon, Tooltip } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
 import SwitchToggle from './toggle-colorscheme';
 import { IconUserCheck, IconUserEdit, IconUserOff } from '@tabler/icons-react';
@@ -67,9 +68,9 @@ const HeaderSearch = () => {
         <Header height={56} className={classes.header}>
             <div className={classes.inner}>
                 <Group>
-                    <MantineLogo size={30} type="mark" color="red" />
+                    <Avatar src={Logo} size={30} />
                     <UnstyledButton onClick={() => navigate('/')} className={classes.link}>
-                        <Title order={1}>uuCookBook</Title>
+                        <Title order={1}>Cookbook</Title>
                     </UnstyledButton>
                 </Group>
 
