@@ -63,8 +63,7 @@ const Recipes = (defaultSearch) => {
     };
 
     useEffect(() => {
-        let s = search.toLowerCase();
-        setNewRecipes(s);
+        setNewRecipes(search);
         return () => {};
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);

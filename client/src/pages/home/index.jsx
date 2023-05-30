@@ -27,7 +27,7 @@ const Home = () => (
             </Title>
         </Center>
         <Text align="center" fw={500} fz="xl">
-            Share and discover recipes from France!
+            Share and discover recipes!
         </Text>
         <Center my={50}>
             <InputWithButton style={{ width: '50%' }} action={() => console.log("k")} />
