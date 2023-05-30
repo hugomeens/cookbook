@@ -37,7 +37,7 @@ const ModalValidateRecipes = ({ open, handler }) => {
                 <Modal.Header>
                     <Modal.Title>
                         <Text fz="lg" fw={700}>
-                            Validate recipes
+                            Validate Recipes
                         </Text>
                     </Modal.Title>
                     <Modal.CloseButton />
