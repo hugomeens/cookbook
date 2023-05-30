@@ -1,8 +1,9 @@
 import API from '../../services/api';
 import { useEffect, useState } from 'react';
-import { Modal, Text, Grid, ScrollArea, Button, Center } from '@mantine/core';
+import { Alert, Modal, Text, Grid, ScrollArea, Button, Center } from '@mantine/core';
 import setNotification from '../errors/error-notification';
 import ItemGridViewRecipe from './item-grid-view';
+import { IconCheck } from '@tabler/icons-react';
 
 const ModalValidateRecipes = ({ open, handler }) => {
     const [recipes, setRecipes] = useState([]);
@@ -45,11 +46,21 @@ const ModalValidateRecipes = ({ open, handler }) => {
                 <Modal.Body>
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
-                            {recipes.map((recipe) => (
-                                <Grid.Col span={6} key={recipe._id}>
-                                    <ItemGridViewRecipe item={recipe} validate={() => clickHandler(recipe)} />
+                            {recipes.length === 0 ? (
+                                <Grid.Col span={12}>
+                                    <Center>
+                                        <Alert icon={<IconCheck />} color="green" m="xl">
+                                            All recipes are validated !
+                                        </Alert>
+                                    </Center>
                                 </Grid.Col>
-                            ))}
+                            ) : (
+                                recipes.map((recipe) => (
+                                    <Grid.Col span={6} key={recipe._id}>
+                                        <ItemGridViewRecipe item={recipe} validate={() => clickHandler(recipe)} />
+                                    </Grid.Col>
+                                ))
+                            )}
                         </Grid>
                     </ScrollArea>
                     <Center mt="md">
