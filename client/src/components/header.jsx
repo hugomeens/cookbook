@@ -1,6 +1,5 @@
-import  Logo from '../assets/logo_cookbook.png';
+import Logo from '../assets/logo_cookbook.png';
 import { Avatar, createStyles, Header, Group, rem, UnstyledButton, Title, ActionIcon, Tooltip } from '@mantine/core';
-import { MantineLogo } from '@mantine/ds';
 import SwitchToggle from './toggle-colorscheme';
 import { IconUserCheck, IconUserEdit, IconUserOff } from '@tabler/icons-react';
 import { logout, useAuth } from '../tools/auth-provider';

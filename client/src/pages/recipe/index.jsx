@@ -84,7 +84,7 @@ const Recipe = (item) => {
                     ))}
                 </List>
             </Paper>
-            <ModalUpdate open={update} handler={toggleUpdate} id={recipe._id} />
+            <ModalUpdate open={update} handler={toggleUpdate} id={recipe?._id} />
         </>
     );
 };
