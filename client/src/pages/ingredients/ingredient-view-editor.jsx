@@ -67,7 +67,7 @@ const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
                 my="md"
             />
             <TextInput
-                label="Image"
+                label="Image URL"
                 placeholder="Paste the URL of the image"
                 {...form.getInputProps('image')}
                 mb="md"
