@@ -16,20 +16,23 @@ const ModalValidateRecipes = ({ open, handler, updater }) => {
                 }
             })
             .catch((err) => {
-                setNotification(true, err);
+                setNotification(true, err.response.data.error);
             });
 
         return () => {};
     }, []);
 
-    const clickHandler = async (item) => {
-        try {
-            await API.validateRecipe({ _id: item._id });
-            setRecipes(recipes.filter((r) => r._id !== item._id));
-            updater(item._id);
-        } catch (error) {
-            setNotification(true, error);
-        }
+    const clickHandler = (item) => {
+        API.validateRecipe({ _id: item._id })
+            .then((res) => {
+                if (res.status === 200) {
+                    setRecipes(recipes.filter((r) => r._id !== item._id));
+                    updater(item._id);
+                }
+            })
+            .catch((error) => {
+                setNotification(true, error.response.data.error);
+            });
     };
 
     return (

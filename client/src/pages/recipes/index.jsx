@@ -107,7 +107,7 @@ const Recipes = () => {
                     }
                 })
                 .catch((err) => {
-                    setNotification(true, err);
+                    setNotification(true, err.response.data.error);
                 });
         }
 

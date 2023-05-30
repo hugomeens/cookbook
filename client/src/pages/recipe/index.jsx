@@ -27,7 +27,7 @@ const Recipe = (item) => {
                     }
                 })
                 .catch((err) => {
-                    setNotification(true, err);
+                    setNotification(true, err.response.data.error);
                 });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

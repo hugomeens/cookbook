@@ -39,7 +39,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, already, 
                 }
             })
             .catch((err) => {
-                setNotification(true, err);
+                setNotification(true, err.response.data.error);
             });
 
         return () => {};
@@ -55,7 +55,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, already, 
                     }
                 })
                 .catch((err) => {
-                    setNotification(true, err);
+                    setNotification(true, err.response.data.error);
                 });
         } else if (search.length === 0) {
             API.listIngredients()
@@ -65,7 +65,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, already, 
                     }
                 })
                 .catch((err) => {
-                    setNotification(true, err);
+                    setNotification(true, err.response.data.error);
                 });
         }
     }, [search]);

@@ -17,7 +17,7 @@ const ModalValidateIngredients = ({ opened, handler, updater }) => {
                 }
             })
             .catch((err) => {
-                setNotification(true, err);
+                setNotification(true, err.response.data.error);
             });
 
         return () => {};
@@ -29,7 +29,7 @@ const ModalValidateIngredients = ({ opened, handler, updater }) => {
             setIngredients(ingredients.filter((ing) => ing._id !== item._id));
             updater(item._id);
         } catch (error) {
-            setNotification(true, error);
+            setNotification(true, error.response.data.error);
         }
     };
 

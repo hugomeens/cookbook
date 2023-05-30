@@ -152,7 +152,7 @@ const RecipeViewEditor = ({ handler, buttonText, APICall, recipe }) => {
         } catch (error) {
             setIsLoading(false);
             console.log(error);
-            setNotification(true, error);
+            setNotification(true, error.response.data.error);
         }
     };
 
