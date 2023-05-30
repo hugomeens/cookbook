@@ -26,7 +26,7 @@ const ItemGridViewRecipe = ({ item, openUpdate, onDelete }) => {
     return (
         <Card shadow="sm" padding="md" withBorder style={{ borderColor: item.valid ? '#373A40' : 'orange' }}>
             <Card.Section>
-                <Image src={item.image} alt={item.name} withPlaceholder height={160} />
+                <Image src={item.img} alt={item.name} withPlaceholder height={160} />
             </Card.Section>
             <Title mt="sm" order={3}>
                 {item.name}

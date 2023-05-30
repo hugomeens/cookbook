@@ -5,10 +5,10 @@ const createIngredientSchema = {
     properties: {
         name: { type: 'string' },
         alternativeNames: { type: 'array' },
-        imageId: { type: 'string' },
+        img: { type: 'string' },
         unit: { type: 'string' },
     },
-    required: ['name', 'alternativeNames', 'imageId', 'unit'],
+    required: ['name', 'alternativeNames', 'img', 'unit'],
     additionalProperties: false,
 };
 
@@ -55,7 +55,7 @@ const updateIngredientSchema = {
         _id: { type: 'string' },
         name: { type: 'string' },
         alternativeNames: { type: 'array' },
-        imageId: { type: 'string' },
+        img: { type: 'string' },
         unit: { type: 'string' },
         valid: { type: 'boolean' },
         fusion: { type: 'string' },

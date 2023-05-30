@@ -15,13 +15,13 @@ const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
         initialValues: {
             name: item?.name ?? '',
             unit: item?.type ?? '',
-            image: item?.image ?? '',
+            img: item?.img ?? '',
             alternativeNames: item?.alternativeNames?.join(';') ?? '',
         },
         validate: {
             name: isNotEmpty('Name is required'),
             unit: isNotEmpty('Unit is required'),
-            image: (value) =>
+            img: (value) =>
                 /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(value) ? null : 'Image must be a valid URL',
         },
     });
@@ -33,8 +33,8 @@ const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
             setIsLoading(true);
             form.values.alternativeNames =
                 (form.values?.alternativeNames?.length ?? 0) > 0 ? form.values.alternativeNames.split(';') : [];
+            form.values.img = form.values.img;
             delete form.values.image;
-            form.values.imageId = '';
             if (item) {
                 form.values._id = item?._id;
             }
@@ -69,10 +69,11 @@ const IngredientViewEditor = ({ item, handler, buttonText, APICall }) => {
             <TextInput
                 label="Image URL"
                 placeholder="Paste the URL of the image"
-                {...form.getInputProps('image')}
+                withAsterisk
+                {...form.getInputProps('img')}
                 mb="md"
             />
-            <Image src={form.values.image} alt={form.values.name} withPlaceholder height={160} radius="sm" />
+            <Image src={form.values.img} alt={form.values.name} withPlaceholder height={160} radius="sm" />
             <Group position="right" mt="md">
                 <Button variant="light" color="red" onClick={handleClose}>
                     Cancel
