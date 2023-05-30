@@ -1,4 +1,3 @@
-import { ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import { useLocalStorage, useColorScheme } from '@mantine/hooks';
 
 const useColorSchemeToggle = function(){
