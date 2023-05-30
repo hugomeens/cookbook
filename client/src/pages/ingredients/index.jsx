@@ -51,11 +51,11 @@ const Ingredients = () => {
         for (let i = 0; i < ingredients.length; i++) {
             const item = ingredients[i];
             if (item._id === updatedIngredients._id) {
-                ing.push(updatedIngredients)
+                ing.push(updatedIngredients);
             } else if (item._id === idDeletedIngredient) {
-                continue; 
+                continue;
             } else {
-                ing.push(item)
+                ing.push(item);
             }
         }
         setIngredients(ing);
@@ -100,6 +100,17 @@ const Ingredients = () => {
         setIngredients(ingredients.map((item) => (item._id === ingredient._id ? ingredient : item)));
     }
 
+    const validateIngredient = (id) => {
+        setIngredients(
+            ingredients.map((item) => {
+                if (item._id === id) {
+                    item.valid = true;
+                }
+                return item;
+            })
+        );
+    };
+
     return (
         <>
             <NavbarCookBook data={navbar} />
@@ -131,7 +142,13 @@ const Ingredients = () => {
                     }
                 />
             )}
-            {showValidate && <ModalValidateIngredients opened={showValidate} handler={toggleModalValidate} />}
+            {showValidate && (
+                <ModalValidateIngredients
+                    opened={showValidate}
+                    handler={toggleModalValidate}
+                    updater={(id) => validateIngredient(id)}
+                />
+            )}
         </>
     );
 };
