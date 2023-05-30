@@ -1,5 +1,5 @@
-import  Logo from '../../assets/logo_cookbook.png';
-import { Avatar, Center, Text, TextInput, ActionIcon, useMantineTheme, Title } from '@mantine/core';
+import Logo from '../../assets/logo_cookbook.png';
+import { Avatar, Center, Text, TextInput, ActionIcon, useMantineTheme } from '@mantine/core';
 import { IconSearch, IconArrowRight } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -35,7 +35,8 @@ const InputWithButton = (props) => {
 };
 
 const Home = () => (
-    <>  <Center mt="xl" mb="md">
+    <>
+        <Center mt="xl" mb="md">
             <Avatar src={Logo} size={300} />
         </Center>
         <Text align="center" fw={500} fz="xl">
