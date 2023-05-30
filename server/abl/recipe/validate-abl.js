@@ -26,8 +26,8 @@ async function ValidateAbl(body, res) {
                 }
             }
             if (cpt === 0) {
-                mongoRes = await recipeDao.validate(body._id);
-                if (mongoRes.matchedCount == 0) {
+                const valid = await recipeDao.validate(body._id);
+                if (valid.matchedCount == 0) {
                     res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
                 }
                 else {
