@@ -48,7 +48,6 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
     const mergeHanlder = async () => {
         try {
             setIsMergeLoading(true);
-            console.log(form.values);
             let data = {
                 _id: ingredient1._id,
                 name: form.values.name,

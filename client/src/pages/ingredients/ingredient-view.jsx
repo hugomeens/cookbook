@@ -3,7 +3,7 @@ import GrantAccess from '../../tools/grant-access';
 
 const IngredientView = ({ item, button }) => {
     return (
-        <Card shadow="sm" padding="md" withBorder style={{ borderColor: item.valid ? '#373A40' : 'orange' }}>
+        <Card shadow="sm" padding="md" withBorder style={{ borderColor: item?.valid ?? true ? '#373A40' : 'orange' }}>
             <Card.Section>
                 <Image src={item?.image ?? ''} alt={item?.title ?? ''} withPlaceholder height={160} />
             </Card.Section>
