@@ -67,7 +67,7 @@ const ModalIngredientsSelector = ({ opened, handleClose, handleSubmit, already, 
                     <ScrollArea h={430} offsetScrollbars>
                         <Grid columns={3}>
                             {ingredients
-                                .filter((ingredient) => !already.includes(ingredient._id))
+                                .filter((ingredient) => !already?.includes(ingredient._id) ?? true)
                                 .map((ingredient) => (
                                     <SelectorItem
                                         ingredient={ingredient}

@@ -5,41 +5,64 @@ import IngredientView from './ingredient-view';
 import cnf from '../../config';
 import API from '../../services/api';
 import setNotification from '../errors/error-notification';
+import { isNotEmpty, useForm } from '@mantine/form';
 
 const ModalMergeIngredients = ({ opened, handler, updater }) => {
     const [showSelector, setShowSelector] = useState(false);
     const [ingredient1, setIngredient1] = useState(null);
     const [ingredient2, setIngredient2] = useState(null);
-    const [ingredientMerge, setIngredientMerge] = useState({});
 
     const [isMergeLoading, setIsMergeLoading] = useState(false);
 
-    const [isLoadOne, setIsLoadOne] = useState({});
+    const [isLoadOne, setIsLoadOne] = useState(true);
     const updateLoad = (ingredient) => {
         if (isLoadOne) {
-            // eslint-disable-next-line eqeqeq
-            if (JSON.stringify(ingredientMerge) === JSON.stringify({})) {
-                setIngredientMerge(ingredient);
-            }
+            form.setFieldValue('name', ingredient?.name);
+            form.setFieldValue('image', ingredient?.image);
+            form.setFieldValue('alternativeNames', ingredient?.alternativeNames.join(';'));
             setIngredient1(ingredient);
         } else {
+            let altNames = form.values.alternativeNames?.split(';') ?? [];
+            for (let i = 0; i < ingredient.alternativeNames.length; i++) {
+                const element = ingredient.alternativeNames[i];
+                altNames.push(element);
+            }
+            form.setFieldValue('alternativeNames', altNames.join(';'));
             setIngredient2(ingredient);
         }
     };
 
+    const form = useForm({
+        initialValues: {
+            name: '',
+            image: '',
+            alternativeNames: '',
+            unit: '',
+        },
+        validate: {
+            name: isNotEmpty('Name is required'),
+            unit: isNotEmpty('Unit is required'),
+        },
+    });
+
     const mergeHanlder = async () => {
         try {
             setIsMergeLoading(true);
-            let data = ingredientMerge;
+            console.log(form.values);
+            let data = {
+                _id: ingredient1._id,
+                name: form.values.name,
+                alternativeNames:
+                    (form.values.alternativeNames?.length ?? 0) > 0 ? form.values.alternativeNames.split(';') : [],
+            };
             ingredient2.fusion = ingredient1._id;
-            data.alternativeNames = (data?.alternativeNames?.length ?? 0) > 0 ? data.alternativeNames.split(';') : [];
             await API.updateIngredient(data);
             await API.updateIngredient(ingredient2);
             setIsMergeLoading(false);
-            // todo ingredientMerge not updating
-            updater(ingredient2._id, ingredientMerge);
+            updater(ingredient2._id, data);
             handler();
         } catch (error) {
+            console.log(error);
             setNotification(true, 'Failed to merge ingredients');
             setIsMergeLoading(false);
         }
@@ -82,24 +105,20 @@ const ModalMergeIngredients = ({ opened, handler, updater }) => {
                         <Card shadow="sm" withBorder>
                             <Card.Section>
                                 <Image
-                                    src={ingredientMerge.image}
-                                    alt={ingredientMerge.name}
+                                    src={form.getInputProps('image')}
+                                    alt={form.getInputProps('name')}
                                     height={160}
                                     fit="cover"
                                     radius="md"
                                     withPlaceholder
                                 />
                             </Card.Section>
-                            <TextInput
-                                my="xs"
-                                label="Name"
-                                defaultValue={ingredientMerge.name}
-                            />
+                            <TextInput my="xs" label="Name" {...form.getInputProps('name')} />
                             <TextInput
                                 label="Alternate names"
                                 placeholder="Alternate names"
                                 description="Semicolon separated"
-                                defaultValue={ingredientMerge?.alternativeNames?.join(';') ?? ''}
+                                {...form.getInputProps('alternativeNames')}
                                 mb="sm"
                             />
                             <Select label="Unit" placeholder="Select unit" data={cnf.units} />

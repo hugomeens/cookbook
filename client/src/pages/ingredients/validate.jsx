@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Modal, Text, Grid, ScrollArea, Button, Center } from '@mantine/core';
 import setNotification from '../errors/error-notification';
 
-const ModalValidateIngredients = ({ opened, handler }) => {
+const ModalValidateIngredients = ({ opened, handler, updater }) => {
     const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
@@ -26,8 +26,8 @@ const ModalValidateIngredients = ({ opened, handler }) => {
     const clickHandler = async (item) => {
         try {
             await API.validateIngredient({ _id: item._id });
-            item.valid = true;
-            console.log(1);
+            setIngredients(ingredients.filter((ing) => ing._id !== item._id));
+            updater(item._id);
         } catch (error) {
             setNotification(true, error);
         }
