@@ -43,13 +43,12 @@ const Authentication = () => {
                 <form onSubmit={handleLogin}>
                     <TextInput label="Name" placeholder="Your name" {...form.getInputProps('name')} withAsterisk />
                     <PasswordInput
-                        label="Password 1"
-                        placeholder="Your first password"
+                        label="Password"
+                        placeholder="Your password"
                         mt="md"
                         {...form.getInputProps('password')}
                         withAsterisk
                     />
-                    <PasswordInput label="Password 2" placeholder="Your second password" mt="md" withAsterisk />
                     <Group position="apart" mt="lg">
                         <Checkbox label="Remember me" />
                         <Anchor size="sm" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUJcmljayByb2xs">
