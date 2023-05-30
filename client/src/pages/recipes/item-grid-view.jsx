@@ -17,12 +17,14 @@ const ItemGridViewRecipe = ({ item, openUpdate, onDelete }) => {
             onDelete(item._id);
         } catch (error) {
             setLoading(false);
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
+
+    console.log(item);
 
     return (
-        <Card shadow="sm" padding="md" withBorder>
+        <Card shadow="sm" padding="md" withBorder style={{ borderColor: item.valid ? '#373A40' : 'orange' }}>
             <Card.Section>
                 <Image src={item.image} alt={item.name} withPlaceholder height={160} />
             </Card.Section>
