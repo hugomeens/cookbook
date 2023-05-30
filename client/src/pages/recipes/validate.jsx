@@ -37,7 +37,7 @@ const ModalValidateRecipes = ({ open, handler }) => {
                 <Modal.Header>
                     <Modal.Title>
                         <Text fz="lg" fw={700}>
-                            Validate recipes
+                            Validate Recipes
                         </Text>
                     </Modal.Title>
                     <Modal.CloseButton />
@@ -45,17 +45,21 @@ const ModalValidateRecipes = ({ open, handler }) => {
                 <Modal.Body>
                     <ScrollArea h={500} offsetScrollbars>
                         <Grid columns={12}>
-                            {recipes.map((recipe) => (
-                                <Grid.Col span={6} key={recipe._id}>
-                                    <ItemGridViewRecipe
-                                        item={recipe}
-                                        button={{
-                                            clickHandler,
-                                            text: 'Validate',
-                                        }}
-                                    />
-                                </Grid.Col>
-                            ))}
+                        {recipes.length === 0 ? (
+                                <>All recipes are validated !</>
+                            ) : (
+                                recipes.map((recipe) => (
+                                    <Grid.Col span={6} key={recipe._id}>
+                                        <ItemGridViewRecipe
+                                            item={recipe}
+                                            button={{
+                                                clickHandler,
+                                                text: 'Validate',
+                                            }}
+                                        />
+                                    </Grid.Col>
+                                ))
+                            )}
                         </Grid>
                     </ScrollArea>
                     <Center mt="md">
