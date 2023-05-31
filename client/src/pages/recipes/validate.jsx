@@ -16,6 +16,7 @@ const ModalValidateRecipes = ({ open, handler, updater }) => {
                 }
             })
             .catch((err) => {
+                console.log(err.response);
                 setNotification(true, err.response.data.error);
             });
 
@@ -30,8 +31,9 @@ const ModalValidateRecipes = ({ open, handler, updater }) => {
                     updater(item._id);
                 }
             })
-            .catch((error) => {
-                setNotification(true, error.response.data.error);
+            .catch((err) => {
+                console.log(err.response);
+                setNotification(true, err?.response?.data?.error ?? "Error");
             });
     };
 

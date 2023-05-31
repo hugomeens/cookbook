@@ -4,6 +4,7 @@ const { ingredientDao } = require('../../dao/ingredient-dao');
 const { validateRecipeSchema } = require('../../schemas/recipe-schema');
 const Ajv = require('ajv').default;
 const { statusCodes } = require('../../utils/statusCodes');
+const { cp } = require('fs');
 
 async function ValidateAbl(body, res) {
     const ajv = new Ajv();
@@ -19,23 +20,16 @@ async function ValidateAbl(body, res) {
             res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
         } else {
             const ingredientsInfo = await ingredientDao.view(mongoRes.ingredients);
-            let cpt = 0;
-            for (let i = 0; i < ingredientsInfo.length; i++) {
-                if (ingredientsInfo[i].valid === false) {
-                    cpt++;
-                }
-            }
+            let cpt = ingredientsInfo.filter((item) => !item.valid).length;
             if (cpt === 0) {
                 const valid = await recipeDao.validate(body._id);
                 if (valid.matchedCount == 0) {
                     res.status(statusCodes.NOT_FOUND).json({ error: 'Recipe not found.' });
-                }
-                else {
+                } else {
                     res.status(statusCodes.OK).json({ _id: body._id });
                 }
-            }
-            else {
-                res.status(statusCodes.PRECONDITION_FAILED).json({ error: 'All ingredients are not valid.' })
+            } else {
+                res.status(statusCodes.PRECONDITION_FAILED).json({ error: 'All ingredients are not valid.' });
             }
         }
     } catch (e) {
