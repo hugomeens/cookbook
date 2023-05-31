@@ -20,6 +20,6 @@ class Database {
     }
 }
 
-const db = new Database('***REMOVED***');
+const db = new Database('**removed**');
 
 module.exports = { db };
