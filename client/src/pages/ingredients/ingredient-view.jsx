@@ -1,20 +1,13 @@
 import { Card, Divider, Text, Title, Image, Badge, Button } from '@mantine/core';
 import GrantAccess from '../../tools/grant-access';
 import API from '../../services/api';
-import { useState } from 'react';
-
 
 const IngredientView = ({ item, button, onDelete, context }) => {
-
-    const [loading, setLoading] = useState(false);
     const deleteHandler = async () => {
         try {
-            setLoading(true);
             await API.deleteIngredient(item._id);
-            setLoading(false);
             onDelete(item._id);
         } catch (error) {
-            setLoading(false);
             console.log(error);
         }
     };
@@ -31,8 +24,8 @@ const IngredientView = ({ item, button, onDelete, context }) => {
             <Text size="md" color="dimmed" mb="sm">
                 {(item?.alternativeNames?.length ?? 0) > 0
                     ? item.alternativeNames.map(
-                        (name, index) => `${name}${index === item?.alternativeNames.length - 1 ? '' : ', '}`
-                    )
+                          (name, index) => `${name}${index === item?.alternativeNames.length - 1 ? '' : ', '}`
+                      )
                     : 'No alternative names'}
             </Text>
             <Badge color="blue">{item?.unit ?? 'unit'}</Badge>
@@ -46,7 +39,7 @@ const IngredientView = ({ item, button, onDelete, context }) => {
                 >
                     {button.text}
                 </Button>
-                {context !== "merge" ? (
+                {context !== 'merge' ? (
                     <Button
                         variant="light"
                         fullWidth
@@ -56,7 +49,8 @@ const IngredientView = ({ item, button, onDelete, context }) => {
                         disabled={button.disabled}
                     >
                         Delete
-                    </Button>) : null}
+                    </Button>
+                ) : null}
             </GrantAccess>
         </Card>
     );
