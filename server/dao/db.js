@@ -1,4 +1,6 @@
+require('dotenv').config();
 const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGO_URI;
 
 class Database {
     constructor(_url) {
@@ -20,6 +22,6 @@ class Database {
     }
 }
 
-const db = new Database('**removed**');
+const db = new Database(uri);
 
 module.exports = { db };
