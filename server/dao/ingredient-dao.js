@@ -46,6 +46,7 @@ class IngredientDao {
     }
 
     async view(ingredients) {
+        console.log(ingredients)
         let ingredientsRes = [];
         for (let i = 0; i < ingredients.length; i++) {
             await this.collection.findOne({ _id: ObjectID(ingredients[i]._id) }).then(async (res) => {
@@ -53,7 +54,6 @@ class IngredientDao {
                     res = await this.collection.findOne({ _id: ObjectID(res.fusion) });
                 }
                 res.quantity = ingredients[i].quantity;
-                res.valid = ingredients[i].valid;
                 ingredientsRes.push(res);
             });
         }
