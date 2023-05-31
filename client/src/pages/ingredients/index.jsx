@@ -15,7 +15,7 @@ const Ingredients = () => {
     const [showValidate, setShowValidate] = useState(false);
     const [item, setItem] = useState({});
     const [page, setPage] = useState(0);
-    const limit = 4;
+    const limit = 6;
 
     const toggleModalCreate = () => setShowCreate(!showCreate);
     const toggleModalUpdate = () => setShowUpdate(!showUpdate);
